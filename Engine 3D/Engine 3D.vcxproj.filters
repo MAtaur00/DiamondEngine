@@ -16,8 +16,8 @@
     <Filter Include="Sources\Helpers">
       <UniqueIdentifier>{121f8e6b-df36-4ab0-be0d-601ddfc9e503}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sources\Containers\IMGui">
-      <UniqueIdentifier>{ac847e95-9e0b-4f7d-8cb4-bb1be3774193}</UniqueIdentifier>
+    <Filter Include="Sources\Containers\ImGui">
+      <UniqueIdentifier>{744c3135-e1ce-41e8-8666-b87fec40761c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -54,38 +54,35 @@
     <ClInclude Include="Timer.h">
       <Filter>Sources\Tools</Filter>
     </ClInclude>
-    <ClInclude Include="imgui-1.72b\imconfig.h">
-      <Filter>Sources\Containers\IMGui</Filter>
-    </ClInclude>
-    <ClInclude Include="imgui-1.72b\imgui.h">
-      <Filter>Sources\Containers\IMGui</Filter>
-    </ClInclude>
-    <ClInclude Include="imgui-1.72b\imgui_internal.h">
-      <Filter>Sources\Containers\IMGui</Filter>
-    </ClInclude>
-    <ClInclude Include="imgui-1.72b\imstb_rectpack.h">
-      <Filter>Sources\Containers\IMGui</Filter>
-    </ClInclude>
-    <ClInclude Include="imgui-1.72b\imstb_textedit.h">
-      <Filter>Sources\Containers\IMGui</Filter>
-    </ClInclude>
-    <ClInclude Include="imgui-1.72b\imstb_truetype.h">
-      <Filter>Sources\Containers\IMGui</Filter>
-    </ClInclude>
-    <ClInclude Include="imgui-1.72b\misc\freetype\imgui_freetype.h">
-      <Filter>Sources\Containers\IMGui</Filter>
-    </ClInclude>
     <ClInclude Include="ModuleIMGui.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
     <ClInclude Include="glmath.h">
       <Filter>Sources\Containers</Filter>
     </ClInclude>
-    <ClInclude Include="imgui-1.72b\imgui_impl_opengl2.h">
-      <Filter>Sources\Containers\IMGui</Filter>
+    <ClInclude Include="imconfig.h">
+      <Filter>Sources\Containers\ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="imgui-1.72b\imgui_impl_sdl.h">
-      <Filter>Sources\Containers\IMGui</Filter>
+    <ClInclude Include="imgui.h">
+      <Filter>Sources\Containers\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_impl_opengl2.h">
+      <Filter>Sources\Containers\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_impl_sdl.h">
+      <Filter>Sources\Containers\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_internal.h">
+      <Filter>Sources\Containers\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="imstb_rectpack.h">
+      <Filter>Sources\Containers\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="imstb_textedit.h">
+      <Filter>Sources\Containers\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="imstb_truetype.h">
+      <Filter>Sources\Containers\ImGui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -122,35 +119,29 @@
     <ClCompile Include="Light.cpp">
       <Filter>Sources\Helpers</Filter>
     </ClCompile>
-    <ClCompile Include="imgui-1.72b\imgui.cpp">
-      <Filter>Sources\Containers\IMGui</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui-1.72b\imgui_demo.cpp">
-      <Filter>Sources\Containers\IMGui</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui-1.72b\imgui_draw.cpp">
-      <Filter>Sources\Containers\IMGui</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui-1.72b\imgui_widgets.cpp">
-      <Filter>Sources\Containers\IMGui</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui-1.72b\misc\fonts\binary_to_compressed_c.cpp">
-      <Filter>Sources\Containers\IMGui</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui-1.72b\misc\freetype\imgui_freetype.cpp">
-      <Filter>Sources\Containers\IMGui</Filter>
-    </ClCompile>
     <ClCompile Include="ModuleIMGui.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
     <ClCompile Include="glmath.cpp">
       <Filter>Sources\Containers</Filter>
     </ClCompile>
-    <ClCompile Include="imgui-1.72b\imgui_impl_opengl2.cpp">
-      <Filter>Sources\Containers\IMGui</Filter>
+    <ClCompile Include="imgui.cpp">
+      <Filter>Sources\Containers\ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="imgui-1.72b\imgui_impl_sdl.cpp">
-      <Filter>Sources\Containers\IMGui</Filter>
+    <ClCompile Include="imgui_demo.cpp">
+      <Filter>Sources\Containers\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_draw.cpp">
+      <Filter>Sources\Containers\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_impl_opengl2.cpp">
+      <Filter>Sources\Containers\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_impl_sdl.cpp">
+      <Filter>Sources\Containers\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_widgets.cpp">
+      <Filter>Sources\Containers\ImGui</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,9 +1,9 @@
 #include "ModuleIMGui.h"
 #include "ModuleWindow.h"
 #include "Application.h"
-#include "imgui-1.72b/imgui_impl_sdl.h"
-#include "imgui-1.72b/imgui_impl_opengl2.h"
-#include "imgui-1.72b/imgui_internal.h"
+#include "imgui_impl_sdl.h"
+#include "imgui_impl_opengl2.h"
+#include "imgui_internal.h"
 using namespace ImGui;
 
 
@@ -21,26 +21,39 @@ bool ModuleIMGui::Start()
 {
 	bool ret = true;
 
-	IMGUI_CHECKVERSION();
-	CreateContext();
-	ImGuiIO& io = GetIO();
-	(void)io;
-	ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer3D->context);
-	ImGui_ImplOpenGL2_Init();
-	StyleColorsDark();
+	
 
 	return ret;
 }
 
 update_status ModuleIMGui::PreUpdate(float dt)
 {
+	update_status ret = UPDATE_CONTINUE;
+
 	ImGui_ImplOpenGL2_NewFrame();
 	ImGui_ImplSDL2_NewFrame(App->window->window);
 	NewFrame();
-	bool showDemo = true;
-	ShowDemoWindow(&showDemo);
 
-	return update_status::UPDATE_CONTINUE;
+	if (BeginMainMenuBar())
+	{
+		if (BeginMenu("Menu"))
+		{
+			if (MenuItem("Show Demo Window"))
+			{
+				showDemo = !showDemo;
+			}
+			else if (MenuItem("Exit"))
+			{
+				ret = UPDATE_STOP;
+			}
+			ImGui::EndMenu();
+		}
+		EndMainMenuBar();
+	}
+	if (showDemo)
+		ShowDemoWindow(&showDemo);
+
+	return ret;
 }
 
 update_status ModuleIMGui::PostUpdate(float dt)

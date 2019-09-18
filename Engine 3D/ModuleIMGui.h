@@ -1,6 +1,6 @@
 #pragma once
 #include "Module.h"
-#include "imgui-1.72b/imgui.h"
+#include "imgui.h"
 
 class ModuleIMGui :
 	public Module
@@ -15,5 +15,10 @@ public:
 	bool CleanUp();
 
 	void Draw();
+
+
+public:
+
+	bool showDemo = false;
 };
 
