@@ -14,13 +14,13 @@
     <ProjectGuid>{746CC4C3-787F-4B0E-AA66-E388FE3FF4F6}</ProjectGuid>
     <RootNamespace>SDLGame</RootNamespace>
     <ProjectName>Engine3D</ProjectName>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -74,6 +74,66 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Algorithm\Random\LCG.h" />
+    <ClInclude Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Geometry\AABB.h" />
+    <ClInclude Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Geometry\AABB2D.h" />
+    <ClInclude Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Geometry\Capsule.h" />
+    <ClInclude Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Geometry\Circle.h" />
+    <ClInclude Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Geometry\Cone.h" />
+    <ClInclude Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Geometry\Cylinder.h" />
+    <ClInclude Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Geometry\Frustum.h" />
+    <ClInclude Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Geometry\GeometryAll.h" />
+    <ClInclude Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Geometry\GeomType.h" />
+    <ClInclude Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Geometry\HitInfo.h" />
+    <ClInclude Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Geometry\KDTree.h" />
+    <ClInclude Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Geometry\Line.h" />
+    <ClInclude Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Geometry\LineSegment.h" />
+    <ClInclude Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Geometry\OBB.h" />
+    <ClInclude Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Geometry\PBVolume.h" />
+    <ClInclude Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Geometry\Plane.h" />
+    <ClInclude Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Geometry\Polygon.h" />
+    <ClInclude Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Geometry\Polyhedron.h" />
+    <ClInclude Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Geometry\QuadTree.h" />
+    <ClInclude Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Geometry\Ray.h" />
+    <ClInclude Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Geometry\Sphere.h" />
+    <ClInclude Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Geometry\Triangle.h" />
+    <ClInclude Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Geometry\TriangleMesh.h" />
+    <ClInclude Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\MathBuildConfig.h" />
+    <ClInclude Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\MathGeoLib.h" />
+    <ClInclude Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\MathGeoLibFwd.h" />
+    <ClInclude Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Math\assume.h" />
+    <ClInclude Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Math\BitOps.h" />
+    <ClInclude Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Math\Complex.h" />
+    <ClInclude Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Math\CoordinateAxisConvention.h" />
+    <ClInclude Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Math\FixedPoint.h" />
+    <ClInclude Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Math\float2.h" />
+    <ClInclude Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Math\float3.h" />
+    <ClInclude Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Math\float3x3.h" />
+    <ClInclude Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Math\float3x4.h" />
+    <ClInclude Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Math\float4.h" />
+    <ClInclude Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Math\float4x4.h" />
+    <ClInclude Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Math\float4x4_neon.h" />
+    <ClInclude Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Math\float4x4_sse.h" />
+    <ClInclude Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Math\float4_neon.h" />
+    <ClInclude Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Math\float4_sse.h" />
+    <ClInclude Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Math\FloatCmp.h" />
+    <ClInclude Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Math\MathAll.h" />
+    <ClInclude Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Math\MathConstants.h" />
+    <ClInclude Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Math\MathFunc.h" />
+    <ClInclude Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Math\MathLog.h" />
+    <ClInclude Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Math\MathNamespace.h" />
+    <ClInclude Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Math\MathTypes.h" />
+    <ClInclude Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Math\MatrixProxy.h" />
+    <ClInclude Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Math\myassert.h" />
+    <ClInclude Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Math\Polynomial.h" />
+    <ClInclude Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Math\Quat.h" />
+    <ClInclude Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Math\quat_simd.h" />
+    <ClInclude Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Math\Rect.h" />
+    <ClInclude Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Math\Reinterpret.h" />
+    <ClInclude Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Math\SSEMath.h" />
+    <ClInclude Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Math\sse_mathfun.h" />
+    <ClInclude Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Math\TransformOps.h" />
+    <ClInclude Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Time\Clock.h" />
     <ClInclude Include="Application.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="glmath.h" />
@@ -97,6 +157,38 @@
     <ClInclude Include="Timer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Algorithm\Random\LCG.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Geometry\AABB.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Geometry\Capsule.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Geometry\Circle.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Geometry\Cone.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Geometry\Cylinder.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Geometry\Frustum.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Geometry\Line.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Geometry\LineSegment.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Geometry\OBB.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Geometry\Plane.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Geometry\Polygon.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Geometry\Polyhedron.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Geometry\Ray.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Geometry\Sphere.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Geometry\Triangle.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Geometry\TriangleMesh.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Math\BitOps.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Math\float2.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Math\float3.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Math\float3x3.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Math\float3x4.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Math\float4.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Math\float4x4.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Math\MathFunc.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Math\MathLog.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Math\MathOps.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Math\Polynomial.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Math\Quat.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Math\SSEMath.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Math\TransformOps.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Time\Clock.cpp" />
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="glmath.cpp" />
@@ -116,6 +208,14 @@
     <ClCompile Include="ModuleWindow.cpp" />
     <ClCompile Include="Primitive.cpp" />
     <ClCompile Include="Timer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Geometry\KDTree.inl" />
+    <None Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Geometry\QuadTree.inl" />
+    <None Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Geometry\TriangleMesh_IntersectRay_AVX.inl" />
+    <None Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Geometry\TriangleMesh_IntersectRay_CPP.inl" />
+    <None Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Geometry\TriangleMesh_IntersectRay_SSE.inl" />
+    <None Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Math\Matrix.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
