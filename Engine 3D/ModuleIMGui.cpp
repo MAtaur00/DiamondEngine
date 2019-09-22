@@ -81,382 +81,769 @@ update_status ModuleIMGui::PreUpdate(float dt)
 			switch (current_object1)
 			{
 			case Type_Sphere:
+			{
 				Sphere sph1({ posx1, 0.0f, 0.0f }, 1.f);
 				switch (current_object2)
 				{
 				case Type_Sphere:
+				{
 					Sphere sph2({ posx2, 0.0f, 0.0f }, 1.f);
 					colliding = sph1.Intersects(sph2);
 					break;
+				}
 				case Type_Cylinder:
+				{
 					Cylinder cyl2({ posx2, 0.0f, -1.0f }, { posx2, 0.0f, 1.0f }, 1.f);
-					break;
-				case Type_Capsule:
-					break;
-				case Type_AABB:
-					break;
-				case Type_OBB:
-					break;
-				case Type_Frustum:
-					break;
-				case Type_Plane:
-					break;
-				case Type_Segment:
-					break;
-				case Type_Ray:
-					break;
-				case Type_Convex_Hull:
-					break;
-				case Type_Mesh:
-					break;
-				case Type_Triangle:
-					break;
-				default:
+					//colliding = sph1.Intersects(cyl2);
 					break;
 				}
-				break;
-			case Type_Cylinder:
-				Cylinder cyl1({ posx1, 0.0f, -1.0f }, { posx1, 0.0f, 1.0f }, 1.f);
-				switch (current_object2)
+				case Type_Capsule:
 				{
-				case Type_Sphere:
+					Capsule cap2({ posx2, 0.0f, -1.0f }, { posx2, 0.0f, 1.0f }, 1.f);
+					colliding = sph1.Intersects(cap2);
 					break;
-				case Type_Cylinder:
-					break;
-				case Type_Capsule:
-					break;
+				}
 				case Type_AABB:
+				{
+					AABB aabb2({ posx2, -1.0f, -1.0f }, { posx2, 1.0f, 1.0f });
+					colliding = sph1.Intersects(aabb2);
 					break;
+				}
 				case Type_OBB:
+				{
+					AABB aabb3({ posx2, -1.0f, -1.0f }, { posx2, 1.0f, 1.0f });
+					OBB obb2(aabb3);
+					colliding = sph1.Intersects(obb2);
 					break;
+				}
 				case Type_Frustum:
+				{
+					Frustum frus2();
 					break;
+				}
 				case Type_Plane:
+				{
+					Plane plane2();
 					break;
+				}
 				case Type_Segment:
+				{
 					break;
+				}
 				case Type_Ray:
+				{
+					Ray ray2({ posx2, 0.0f, 0.0f }, { 1.0f, 0.0f, 0.0f });
+					colliding = sph1.Intersects(ray2);
 					break;
+				}
 				case Type_Convex_Hull:
+				{
+
 					break;
+				}
 				case Type_Mesh:
+				{
+					TriangleMesh mesh2();
 					break;
+				}
 				case Type_Triangle:
+				{
+					Triangle tri2({ posx2, 0.0f, 0.5f }, { posx2, 0.5f, -0.5f }, { posx2, -0.5f, -0.5f });
+					colliding = sph1.Intersects(tri2);
 					break;
+				}
 				default:
 					break;
 				}
 				break;
+			}
+				//case Type_Cylinder:
+				//	Cylinder cyl1({ posx1, 0.0f, -1.0f }, { posx1, 0.0f, 1.0f }, 1.f);
+				//	switch (current_object2)
+				//	{
+				//	case Type_Sphere:
+				//		Sphere sph2({ posx2, 0.0f, 0.0f }, 1.f);
+				//		//colliding = cyl1.Intersects(sph2);
+				//		break;
+				//	case Type_Cylinder:
+				//		Cylinder cyl2({ posx2, 0.0f, -1.0f }, { posx2, 0.0f, 1.0f }, 1.f);
+				//		//colliding = sph1.Intersects(cyl2);
+				//		break;
+				//	case Type_Capsule:
+				//		Capsule cap2({ posx2, 0.0f, -1.0f }, { posx2, 0.0f, 1.0f }, 1.f);
+				//		colliding = sph1.Intersects(cap2);
+				//		break;
+				//	case Type_AABB:
+				//		AABB aabb2({ posx2, -1.0f, -1.0f }, { posx2, 1.0f, 1.0f });
+				//		colliding = sph1.Intersects(aabb2);
+				//		break;
+				//	case Type_OBB:
+				//		AABB aabb3({ posx2, -1.0f, -1.0f }, { posx2, 1.0f, 1.0f });
+				//		OBB obb2(aabb2);
+				//		colliding = sph1.Intersects(obb2);
+				//		break;
+				//	case Type_Frustum:
+				//		Frustum frus2();
+				//		break;
+				//	case Type_Plane:
+				//		Plane plane2();
+				//		break;
+				//	case Type_Segment:
+				//		break;
+				//	case Type_Ray:
+				//		Ray ray2({ posx2, 0.0f, 0.0f }, { 1.0f, 0.0f, 0.0f });
+				//		colliding = sph1.Intersects(ray2);
+				//		break;
+				//	case Type_Convex_Hull:
+				//		
+				//		break;
+				//	case Type_Mesh:
+				//		TriangleMesh mesh2();
+				//		break;
+				//	case Type_Triangle:
+				//		Triangle tri2({ posx2, 0.0f, 0.5f }, { posx2, 0.5f, -0.5f }, { posx2, -0.5f, -0.5f });
+				//		colliding = sph1.Intersects(tri2);
+				//		break;
+				//	default:
+				//		break;
+				//	}
+				//	break;
 			case Type_Capsule:
+			{
+				Capsule cap1({ posx1, 0.0f, -1.0f }, { posx1, 0.0f, 1.0f }, 1.f);
 				switch (current_object2)
 				{
 				case Type_Sphere:
+				{
+					Sphere sph2({ posx2, 0.0f, 0.0f }, 1.f);
+					colliding = cap1.Intersects(sph2);
 					break;
+				}
 				case Type_Cylinder:
+				{
+					Cylinder cyl2({ posx2, 0.0f, -1.0f }, { posx2, 0.0f, 1.0f }, 1.f);
+					//colliding = sph1.Intersects(cyl2);
 					break;
+				}
 				case Type_Capsule:
+				{
+					Capsule cap2({ posx2, 0.0f, -1.0f }, { posx2, 0.0f, 1.0f }, 1.f);
+					colliding = cap1.Intersects(cap2);
 					break;
+				}
 				case Type_AABB:
+				{
+					AABB aabb2({ posx2, -1.0f, -1.0f }, { posx2, 1.0f, 1.0f });
+					colliding = cap1.Intersects(aabb2);
 					break;
+				}
 				case Type_OBB:
+				{
+					AABB aabb3({ posx2, -1.0f, -1.0f }, { posx2, 1.0f, 1.0f });
+					OBB obb2(aabb3);
+					colliding = cap1.Intersects(obb2);
 					break;
+				}
 				case Type_Frustum:
+				{
+					Frustum frus2();
 					break;
+				}
 				case Type_Plane:
+				{
+					Plane plane2();
 					break;
+				}
 				case Type_Segment:
+				{
 					break;
+				}
 				case Type_Ray:
+				{
+					Ray ray2({ posx2, 0.0f, 0.0f }, { 1.0f, 0.0f, 0.0f });
+					colliding = cap1.Intersects(ray2);
 					break;
+				}
 				case Type_Convex_Hull:
+				{
+
 					break;
+				}
 				case Type_Mesh:
+				{
+					TriangleMesh mesh2();
 					break;
+				}
 				case Type_Triangle:
+				{
+					Triangle tri2({ posx2, 0.0f, 0.5f }, { posx2, 0.5f, -0.5f }, { posx2, -0.5f, -0.5f });
+					colliding = cap1.Intersects(tri2);
 					break;
+				}
 				default:
 					break;
 				}
 				break;
+			}
 			case Type_AABB:
+			{
+				AABB aabb1({ posx1, -1.0f, -1.0f }, { posx1, 1.0f, 1.0f });
 				switch (current_object2)
 				{
 				case Type_Sphere:
+				{
+					Sphere sph2({ posx2, 0.0f, 0.0f }, 1.f);
+					colliding = aabb1.Intersects(sph2);
 					break;
+				}
 				case Type_Cylinder:
+				{
+					Cylinder cyl2({ posx2, 0.0f, -1.0f }, { posx2, 0.0f, 1.0f }, 1.f);
+					//colliding = sph1.Intersects(cyl2);
 					break;
+				}
 				case Type_Capsule:
+				{
+					Capsule cap2({ posx2, 0.0f, -1.0f }, { posx2, 0.0f, 1.0f }, 1.f);
+					colliding = aabb1.Intersects(cap2);
 					break;
+				}
 				case Type_AABB:
+				{
+					AABB aabb2({ posx2, -1.0f, -1.0f }, { posx2, 1.0f, 1.0f });
+					colliding = aabb1.Intersects(aabb2);
 					break;
+				}
 				case Type_OBB:
+				{
+					AABB aabb3({ posx2, -1.0f, -1.0f }, { posx2, 1.0f, 1.0f });
+					OBB obb2(aabb3);
+					colliding = aabb1.Intersects(obb2);
 					break;
+				}
 				case Type_Frustum:
+				{
+					Frustum frus2();
 					break;
+				}
 				case Type_Plane:
+				{
+					Plane plane2();
 					break;
+				}
 				case Type_Segment:
+				{
 					break;
+				}
 				case Type_Ray:
+				{
+					Ray ray2({ posx2, 0.0f, 0.0f }, { 1.0f, 0.0f, 0.0f });
+					colliding = aabb1.Intersects(ray2);
 					break;
+				}
 				case Type_Convex_Hull:
+				{
+
 					break;
+				}
 				case Type_Mesh:
+				{
+					TriangleMesh mesh2();
 					break;
+				}
 				case Type_Triangle:
+				{
+					Triangle tri2({ posx2, 0.0f, 0.5f }, { posx2, 0.5f, -0.5f }, { posx2, -0.5f, -0.5f });
+					colliding = aabb1.Intersects(tri2);
 					break;
+				}
 				default:
 					break;
 				}
 				break;
+			}
 			case Type_OBB:
+			{
+				AABB aabb4({ posx1, -1.0f, -1.0f }, { posx1, 1.0f, 1.0f });
+				OBB obb1(aabb4);
 				switch (current_object2)
 				{
 				case Type_Sphere:
+				{
+					Sphere sph2({ posx2, 0.0f, 0.0f }, 1.f);
+					colliding = obb1.Intersects(sph2);
 					break;
+				}
 				case Type_Cylinder:
+				{
+					Cylinder cyl2({ posx2, 0.0f, -1.0f }, { posx2, 0.0f, 1.0f }, 1.f);
+					//colliding = sph1.Intersects(cyl2);
 					break;
+				}
 				case Type_Capsule:
+				{
+					Capsule cap2({ posx2, 0.0f, -1.0f }, { posx2, 0.0f, 1.0f }, 1.f);
+					colliding = obb1.Intersects(cap2);
 					break;
+				}
 				case Type_AABB:
+				{
+					AABB aabb2({ posx2, -1.0f, -1.0f }, { posx2, 1.0f, 1.0f });
+					colliding = obb1.Intersects(aabb2);
 					break;
+				}
 				case Type_OBB:
+				{
+					AABB aabb3({ posx2, -1.0f, -1.0f }, { posx2, 1.0f, 1.0f });
+					OBB obb2(aabb3);
+					colliding = obb1.Intersects(obb2);
 					break;
+				}
 				case Type_Frustum:
+				{
+					Frustum frus2();
 					break;
+				}
 				case Type_Plane:
+				{
+					Plane plane2();
 					break;
+				}
 				case Type_Segment:
+				{
 					break;
+				}
 				case Type_Ray:
+				{
+					Ray ray2({ posx2, 0.0f, 0.0f }, { 1.0f, 0.0f, 0.0f });
+					colliding = obb1.Intersects(ray2);
 					break;
+				}
 				case Type_Convex_Hull:
+				{
+
 					break;
+				}
 				case Type_Mesh:
+				{
+					TriangleMesh mesh2();
 					break;
+				}
 				case Type_Triangle:
+				{
+					Triangle tri2({ posx2, 0.0f, 0.5f }, { posx2, 0.5f, -0.5f }, { posx2, -0.5f, -0.5f });
+					colliding = obb1.Intersects(tri2);
 					break;
+				}
 				default:
 					break;
 				}
 				break;
-			case Type_Frustum:
-				switch (current_object2)
-				{
-				case Type_Sphere:
-					break;
-				case Type_Cylinder:
-					break;
-				case Type_Capsule:
-					break;
-				case Type_AABB:
-					break;
-				case Type_OBB:
-					break;
-				case Type_Frustum:
-					break;
-				case Type_Plane:
-					break;
-				case Type_Segment:
-					break;
-				case Type_Ray:
-					break;
-				case Type_Convex_Hull:
-					break;
-				case Type_Mesh:
-					break;
-				case Type_Triangle:
-					break;
-				default:
-					break;
-				}
-				break;
-			case Type_Plane:
-				switch (current_object2)
-				{
-				case Type_Sphere:
-					break;
-				case Type_Cylinder:
-					break;
-				case Type_Capsule:
-					break;
-				case Type_AABB:
-					break;
-				case Type_OBB:
-					break;
-				case Type_Frustum:
-					break;
-				case Type_Plane:
-					break;
-				case Type_Segment:
-					break;
-				case Type_Ray:
-					break;
-				case Type_Convex_Hull:
-					break;
-				case Type_Mesh:
-					break;
-				case Type_Triangle:
-					break;
-				default:
-					break;
-				}
-				break;
-			case Type_Segment:
-				switch (current_object2)
-				{
-				case Type_Sphere:
-					break;
-				case Type_Cylinder:
-					break;
-				case Type_Capsule:
-					break;
-				case Type_AABB:
-					break;
-				case Type_OBB:
-					break;
-				case Type_Frustum:
-					break;
-				case Type_Plane:
-					break;
-				case Type_Segment:
-					break;
-				case Type_Ray:
-					break;
-				case Type_Convex_Hull:
-					break;
-				case Type_Mesh:
-					break;
-				case Type_Triangle:
-					break;
-				default:
-					break;
-				}
-				break;
+			}
+				//case Type_Frustum:
+				//	switch (current_object2)
+				//	{
+				//	case Type_Sphere:
+				//		Sphere sph2({ posx2, 0.0f, 0.0f }, 1.f);
+				//		colliding = sph1.Intersects(sph2);
+				//		break;
+				//	case Type_Cylinder:
+				//		Cylinder cyl2({ posx2, 0.0f, -1.0f }, { posx2, 0.0f, 1.0f }, 1.f);
+				//		//colliding = sph1.Intersects(cyl2);
+				//		break;
+				//	case Type_Capsule:
+				//		Capsule cap2({ posx2, 0.0f, -1.0f }, { posx2, 0.0f, 1.0f }, 1.f);
+				//		colliding = sph1.Intersects(cap2);
+				//		break;
+				//	case Type_AABB:
+				//		AABB aabb2({ posx2, -1.0f, -1.0f }, { posx2, 1.0f, 1.0f });
+				//		colliding = sph1.Intersects(aabb2);
+				//		break;
+				//	case Type_OBB:
+				//		AABB aabb3({ posx2, -1.0f, -1.0f }, { posx2, 1.0f, 1.0f });
+				//		OBB obb2(aabb2);
+				//		colliding = sph1.Intersects(obb2);
+				//		break;
+				//	case Type_Frustum:
+				//		Frustum frus2();
+				//		break;
+				//	case Type_Plane:
+				//		Plane plane2();
+				//		break;
+				//	case Type_Segment:
+				//		break;
+				//	case Type_Ray:
+				//		Ray ray2({ posx2, 0.0f, 0.0f }, { 1.0f, 0.0f, 0.0f });
+				//		colliding = sph1.Intersects(ray2);
+				//		break;
+				//	case Type_Convex_Hull:
+
+				//		break;
+				//	case Type_Mesh:
+				//		TriangleMesh mesh2();
+				//		break;
+				//	case Type_Triangle:
+				//		Triangle tri2({ posx2, 0.0f, 0.5f }, { posx2, 0.5f, -0.5f }, { posx2, -0.5f, -0.5f });
+				//		colliding = sph1.Intersects(tri2);
+				//		break;
+				//	default:
+				//		break;
+				//	}
+				//	break;
+				//case Type_Plane:
+				//	switch (current_object2)
+				//	{
+				//	case Type_Sphere:
+				//		Sphere sph2({ posx2, 0.0f, 0.0f }, 1.f);
+				//		colliding = sph1.Intersects(sph2);
+				//		break;
+				//	case Type_Cylinder:
+				//		Cylinder cyl2({ posx2, 0.0f, -1.0f }, { posx2, 0.0f, 1.0f }, 1.f);
+				//		//colliding = sph1.Intersects(cyl2);
+				//		break;
+				//	case Type_Capsule:
+				//		Capsule cap2({ posx2, 0.0f, -1.0f }, { posx2, 0.0f, 1.0f }, 1.f);
+				//		colliding = sph1.Intersects(cap2);
+				//		break;
+				//	case Type_AABB:
+				//		AABB aabb2({ posx2, -1.0f, -1.0f }, { posx2, 1.0f, 1.0f });
+				//		colliding = sph1.Intersects(aabb2);
+				//		break;
+				//	case Type_OBB:
+				//		AABB aabb3({ posx2, -1.0f, -1.0f }, { posx2, 1.0f, 1.0f });
+				//		OBB obb2(aabb2);
+				//		colliding = sph1.Intersects(obb2);
+				//		break;
+				//	case Type_Frustum:
+				//		Frustum frus2();
+				//		break;
+				//	case Type_Plane:
+				//		Plane plane2();
+				//		break;
+				//	case Type_Segment:
+				//		break;
+				//	case Type_Ray:
+				//		Ray ray2({ posx2, 0.0f, 0.0f }, { 1.0f, 0.0f, 0.0f });
+				//		colliding = sph1.Intersects(ray2);
+				//		break;
+				//	case Type_Convex_Hull:
+
+				//		break;
+				//	case Type_Mesh:
+				//		TriangleMesh mesh2();
+				//		break;
+				//	case Type_Triangle:
+				//		Triangle tri2({ posx2, 0.0f, 0.5f }, { posx2, 0.5f, -0.5f }, { posx2, -0.5f, -0.5f });
+				//		colliding = sph1.Intersects(tri2);
+				//		break;
+				//	default:
+				//		break;
+				//	}
+				//	break;
+				//case Type_Segment:
+				//	switch (current_object2)
+				//	{
+				//	case Type_Sphere:
+				//		Sphere sph2({ posx2, 0.0f, 0.0f }, 1.f);
+				//		colliding = sph1.Intersects(sph2);
+				//		break;
+				//	case Type_Cylinder:
+				//		Cylinder cyl2({ posx2, 0.0f, -1.0f }, { posx2, 0.0f, 1.0f }, 1.f);
+				//		//colliding = sph1.Intersects(cyl2);
+				//		break;
+				//	case Type_Capsule:
+				//		Capsule cap2({ posx2, 0.0f, -1.0f }, { posx2, 0.0f, 1.0f }, 1.f);
+				//		colliding = sph1.Intersects(cap2);
+				//		break;
+				//	case Type_AABB:
+				//		AABB aabb2({ posx2, -1.0f, -1.0f }, { posx2, 1.0f, 1.0f });
+				//		colliding = sph1.Intersects(aabb2);
+				//		break;
+				//	case Type_OBB:
+				//		AABB aabb3({ posx2, -1.0f, -1.0f }, { posx2, 1.0f, 1.0f });
+				//		OBB obb2(aabb2);
+				//		colliding = sph1.Intersects(obb2);
+				//		break;
+				//	case Type_Frustum:
+				//		Frustum frus2();
+				//		break;
+				//	case Type_Plane:
+				//		Plane plane2();
+				//		break;
+				//	case Type_Segment:
+				//		break;
+				//	case Type_Ray:
+				//		Ray ray2({ posx2, 0.0f, 0.0f }, { 1.0f, 0.0f, 0.0f });
+				//		colliding = sph1.Intersects(ray2);
+				//		break;
+				//	case Type_Convex_Hull:
+
+				//		break;
+				//	case Type_Mesh:
+				//		TriangleMesh mesh2();
+				//		break;
+				//	case Type_Triangle:
+				//		Triangle tri2({ posx2, 0.0f, 0.5f }, { posx2, 0.5f, -0.5f }, { posx2, -0.5f, -0.5f });
+				//		colliding = sph1.Intersects(tri2);
+				//		break;
+				//	default:
+				//		break;
+				//	}
+				//	break;
 			case Type_Ray:
+			{
+				Ray ray1({ posx1, 0.0f, 0.0f }, { 1.0f, 0.0f, 0.0f });
 				switch (current_object2)
 				{
 				case Type_Sphere:
+				{
+					Sphere sph2({ posx2, 0.0f, 0.0f }, 1.f);
+					colliding = ray1.Intersects(sph2);
 					break;
+				}
 				case Type_Cylinder:
+				{
+					Cylinder cyl2({ posx2, 0.0f, -1.0f }, { posx2, 0.0f, 1.0f }, 1.f);
+					//colliding = sph1.Intersects(cyl2);
 					break;
+				}
 				case Type_Capsule:
+				{
+					Capsule cap2({ posx2, 0.0f, -1.0f }, { posx2, 0.0f, 1.0f }, 1.f);
+					colliding = ray1.Intersects(cap2);
 					break;
+				}
 				case Type_AABB:
+				{
+					AABB aabb2({ posx2, -1.0f, -1.0f }, { posx2, 1.0f, 1.0f });
+					colliding = ray1.Intersects(aabb2);
 					break;
+				}
 				case Type_OBB:
+				{
+					AABB aabb3({ posx2, -1.0f, -1.0f }, { posx2, 1.0f, 1.0f });
+					OBB obb2(aabb3);
+					colliding = ray1.Intersects(obb2);
 					break;
+				}
 				case Type_Frustum:
+				{
+					Frustum frus2();
 					break;
+				}
 				case Type_Plane:
+				{
+					Plane plane2();
 					break;
+				}
 				case Type_Segment:
+				{
 					break;
-				case Type_Ray:
+				}
+				/*case Type_Ray:
+				{
+					Ray ray2({ posx2, 0.0f, 0.0f }, { 1.0f, 0.0f, 0.0f });
+					colliding = ray1.Intersects(ray2);
 					break;
+				}*/
 				case Type_Convex_Hull:
+				{
+
 					break;
+				}
 				case Type_Mesh:
+				{
+					TriangleMesh mesh2();
 					break;
+				}
 				case Type_Triangle:
+				{
+					Triangle tri2({ posx2, 0.0f, 0.5f }, { posx2, 0.5f, -0.5f }, { posx2, -0.5f, -0.5f });
+					colliding = ray1.Intersects(tri2);
 					break;
+				}
 				default:
 					break;
 				}
 				break;
-			case Type_Convex_Hull:
-				switch (current_object2)
-				{
-				case Type_Sphere:
-					break;
-				case Type_Cylinder:
-					break;
-				case Type_Capsule:
-					break;
-				case Type_AABB:
-					break;
-				case Type_OBB:
-					break;
-				case Type_Frustum:
-					break;
-				case Type_Plane:
-					break;
-				case Type_Segment:
-					break;
-				case Type_Ray:
-					break;
-				case Type_Convex_Hull:
-					break;
-				case Type_Mesh:
-					break;
-				case Type_Triangle:
-					break;
-				default:
-					break;
-				}
-				break;
-			case Type_Mesh:
-				switch (current_object2)
-				{
-				case Type_Sphere:
-					break;
-				case Type_Cylinder:
-					break;
-				case Type_Capsule:
-					break;
-				case Type_AABB:
-					break;
-				case Type_OBB:
-					break;
-				case Type_Frustum:
-					break;
-				case Type_Plane:
-					break;
-				case Type_Segment:
-					break;
-				case Type_Ray:
-					break;
-				case Type_Convex_Hull:
-					break;
-				case Type_Mesh:
-					break;
-				case Type_Triangle:
-					break;
-				default:
-					break;
-				}
-				break;
+			}
+				//case Type_Convex_Hull:
+				//	switch (current_object2)
+				//	{
+				//	case Type_Sphere:
+				//		Sphere sph2({ posx2, 0.0f, 0.0f }, 1.f);
+				//		colliding = sph1.Intersects(sph2);
+				//		break;
+				//	case Type_Cylinder:
+				//		Cylinder cyl2({ posx2, 0.0f, -1.0f }, { posx2, 0.0f, 1.0f }, 1.f);
+				//		//colliding = sph1.Intersects(cyl2);
+				//		break;
+				//	case Type_Capsule:
+				//		Capsule cap2({ posx2, 0.0f, -1.0f }, { posx2, 0.0f, 1.0f }, 1.f);
+				//		colliding = sph1.Intersects(cap2);
+				//		break;
+				//	case Type_AABB:
+				//		AABB aabb2({ posx2, -1.0f, -1.0f }, { posx2, 1.0f, 1.0f });
+				//		colliding = sph1.Intersects(aabb2);
+				//		break;
+				//	case Type_OBB:
+				//		AABB aabb3({ posx2, -1.0f, -1.0f }, { posx2, 1.0f, 1.0f });
+				//		OBB obb2(aabb2);
+				//		colliding = sph1.Intersects(obb2);
+				//		break;
+				//	case Type_Frustum:
+				//		Frustum frus2();
+				//		break;
+				//	case Type_Plane:
+				//		Plane plane2();
+				//		break;
+				//	case Type_Segment:
+				//		break;
+				//	case Type_Ray:
+				//		Ray ray2({ posx2, 0.0f, 0.0f }, { 1.0f, 0.0f, 0.0f });
+				//		colliding = sph1.Intersects(ray2);
+				//		break;
+				//	case Type_Convex_Hull:
+
+				//		break;
+				//	case Type_Mesh:
+				//		TriangleMesh mesh2();
+				//		break;
+				//	case Type_Triangle:
+				//		Triangle tri2({ posx2, 0.0f, 0.5f }, { posx2, 0.5f, -0.5f }, { posx2, -0.5f, -0.5f });
+				//		colliding = sph1.Intersects(tri2);
+				//		break;
+				//	default:
+				//		break;
+				//	}
+				//	break;
+				//case Type_Mesh:
+				//	switch (current_object2)
+				//	{
+				//	case Type_Sphere:
+				//		Sphere sph2({ posx2, 0.0f, 0.0f }, 1.f);
+				//		colliding = sph1.Intersects(sph2);
+				//		break;
+				//	case Type_Cylinder:
+				//		Cylinder cyl2({ posx2, 0.0f, -1.0f }, { posx2, 0.0f, 1.0f }, 1.f);
+				//		//colliding = sph1.Intersects(cyl2);
+				//		break;
+				//	case Type_Capsule:
+				//		Capsule cap2({ posx2, 0.0f, -1.0f }, { posx2, 0.0f, 1.0f }, 1.f);
+				//		colliding = sph1.Intersects(cap2);
+				//		break;
+				//	case Type_AABB:
+				//		AABB aabb2({ posx2, -1.0f, -1.0f }, { posx2, 1.0f, 1.0f });
+				//		colliding = sph1.Intersects(aabb2);
+				//		break;
+				//	case Type_OBB:
+				//		AABB aabb3({ posx2, -1.0f, -1.0f }, { posx2, 1.0f, 1.0f });
+				//		OBB obb2(aabb2);
+				//		colliding = sph1.Intersects(obb2);
+				//		break;
+				//	case Type_Frustum:
+				//		Frustum frus2();
+				//		break;
+				//	case Type_Plane:
+				//		Plane plane2();
+				//		break;
+				//	case Type_Segment:
+				//		break;
+				//	case Type_Ray:
+				//		Ray ray2({ posx2, 0.0f, 0.0f }, { 1.0f, 0.0f, 0.0f });
+				//		colliding = sph1.Intersects(ray2);
+				//		break;
+				//	case Type_Convex_Hull:
+
+				//		break;
+				//	case Type_Mesh:
+				//		TriangleMesh mesh2();
+				//		break;
+				//	case Type_Triangle:
+				//		Triangle tri2({ posx2, 0.0f, 0.5f }, { posx2, 0.5f, -0.5f }, { posx2, -0.5f, -0.5f });
+				//		colliding = sph1.Intersects(tri2);
+				//		break;
+				//	default:
+				//		break;
+				//	}
+				//	break;
 			case Type_Triangle:
+			{
+				Triangle tri1({ posx1, 0.0f, 0.5f }, { posx1, 0.5f, -0.5f }, { posx1, -0.5f, -0.5f });
 				switch (current_object2)
 				{
 				case Type_Sphere:
+				{
+					Sphere sph2({ posx2, 0.0f, 0.0f }, 1.f);
+					colliding = tri1.Intersects(sph2);
 					break;
+				}
 				case Type_Cylinder:
+				{
+					Cylinder cyl2({ posx2, 0.0f, -1.0f }, { posx2, 0.0f, 1.0f }, 1.f);
+					//colliding = sph1.Intersects(cyl2);
 					break;
+				}
 				case Type_Capsule:
+				{
+					Capsule cap2({ posx2, 0.0f, -1.0f }, { posx2, 0.0f, 1.0f }, 1.f);
+					colliding = tri1.Intersects(cap2);
 					break;
+				}
 				case Type_AABB:
+				{
+					AABB aabb2({ posx2, -1.0f, -1.0f }, { posx2, 1.0f, 1.0f });
+					colliding = tri1.Intersects(aabb2);
 					break;
+				}
 				case Type_OBB:
+				{
+					AABB aabb3({ posx2, -1.0f, -1.0f }, { posx2, 1.0f, 1.0f });
+					OBB obb2(aabb3);
+					colliding = tri1.Intersects(obb2);
 					break;
+				}
 				case Type_Frustum:
+				{
+					Frustum frus2();
 					break;
+				}
 				case Type_Plane:
+				{
+					Plane plane2();
 					break;
+				}
 				case Type_Segment:
+				{
 					break;
+				}
 				case Type_Ray:
+				{
+					Ray ray2({ posx2, 0.0f, 0.0f }, { 1.0f, 0.0f, 0.0f });
+					colliding = tri1.Intersects(ray2);
 					break;
+				}
 				case Type_Convex_Hull:
+				{
+
 					break;
+				}
 				case Type_Mesh:
+				{
+					TriangleMesh mesh2();
 					break;
+				}
 				case Type_Triangle:
+				{
+					Triangle tri2({ posx2, 0.0f, 0.5f }, { posx2, 0.5f, -0.5f }, { posx2, -0.5f, -0.5f });
+					colliding = tri1.Intersects(tri2);
 					break;
+				}
 				default:
 					break;
 				}
 				break;
+			}
 			default:
 				break;
 			}
