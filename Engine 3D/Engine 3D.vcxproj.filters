@@ -282,6 +282,9 @@
     <ClInclude Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\MathGeoLibFwd.h">
       <Filter>Sources\Containers\MathGeoLib</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleSceneIntro.h">
+      <Filter>Sources\Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -436,6 +439,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\Desktop\MathGeoLib\MathGeoLib\Time\Clock.cpp">
       <Filter>Sources\Containers\MathGeoLib\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleSceneIntro.cpp">
+      <Filter>Sources\Modules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

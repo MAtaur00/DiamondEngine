@@ -8,6 +8,7 @@
 #include "ModuleRenderer3D.h"
 #include "ModuleCamera3D.h"
 #include "ModuleIMGui.h"
+#include "ModuleSceneIntro.h"
 #include <list>
 
 
@@ -19,6 +20,7 @@ public:
 	ModuleRenderer3D* renderer3D;
 	ModuleCamera3D* camera;
 	ModuleIMGui* imgui;
+	ModuleSceneIntro* sceneIntro;
 
 private:
 
