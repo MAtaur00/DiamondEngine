@@ -37,6 +37,9 @@
     <Filter Include="Sources\Containers\MathGeoLib\Algorithm\Random">
       <UniqueIdentifier>{88f03eeb-2edd-464b-a5e9-6884b07b8754}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\Containers\PCG">
+      <UniqueIdentifier>{cff27d52-74f9-40a8-9176-526393cff1ba}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -285,6 +288,9 @@
     <ClInclude Include="imgui_impl_opengl3.h">
       <Filter>Sources\Containers\ImGui</Filter>
     </ClInclude>
+    <ClInclude Include="pcg\pcg_basic.h">
+      <Filter>Sources\Containers\PCG</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -442,6 +448,9 @@
     </ClCompile>
     <ClCompile Include="imgui_impl_opengl3.cpp">
       <Filter>Sources\Containers\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="pcg\pcg_basic.c">
+      <Filter>Sources\Containers\PCG</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

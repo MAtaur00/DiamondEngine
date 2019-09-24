@@ -6,6 +6,7 @@
 #include "imgui_impl_opengl3.h"
 #include "imgui_internal.h"
 #include "MathGeoLib/MathGeoLib.h"
+#include "pcg/pcg_basic.h"
 
 
 
@@ -52,6 +53,10 @@ update_status ModuleIMGui::PreUpdate(float dt)
 			{
 				showMath = !showMath;
 			}
+			else if (MenuItem("PCG"))
+			{
+				showRNG = !showRNG;
+			}
 			else if (MenuItem("Exit"))
 			{
 				ret = UPDATE_STOP;
@@ -66,7 +71,7 @@ update_status ModuleIMGui::PreUpdate(float dt)
 	{
 		if (ImGui::Begin("MathGeoLib", &showMath))
 		{
-			const char* listbox_items[] = { "Sphere", "Cylinder", "Capsule", "AABB", "OBB", "Frustum", "Plane", "Segment", "Ray", "Convex Hull", "Mesh", "Triangle" };
+			const char* listbox_items[] = { "Sphere", "Capsule", "AABB", "OBB", "Ray", "Triangle" };
 			ImGui::Text("Object 1");
 			ImGui::ListBox("##Object1", &current_object1, listbox_items, IM_ARRAYSIZE(listbox_items), 4);
 			ImGui::NewLine();
@@ -96,12 +101,6 @@ update_status ModuleIMGui::PreUpdate(float dt)
 					colliding = sph1.Intersects(sph2);
 					break;
 				}
-				case Type_Cylinder:
-				{
-					Cylinder cyl2({ posx2, 0.0f, -1.0f }, { posx2, 0.0f, 1.0f }, 1.f);
-					//colliding = sph1.Intersects(cyl2);
-					break;
-				}
 				case Type_Capsule:
 				{
 					Capsule cap2({ posx2, 0.0f, -1.0f }, { posx2, 0.0f, 1.0f }, 1.f);
@@ -121,34 +120,10 @@ update_status ModuleIMGui::PreUpdate(float dt)
 					colliding = sph1.Intersects(obb2);
 					break;
 				}
-				case Type_Frustum:
-				{
-					Frustum frus2();
-					break;
-				}
-				case Type_Plane:
-				{
-					Plane plane2();
-					break;
-				}
-				case Type_Segment:
-				{
-					break;
-				}
 				case Type_Ray:
 				{
 					Ray ray2({ posx2, 0.0f, 0.0f }, { 1.0f, 0.0f, 0.0f });
 					colliding = sph1.Intersects(ray2);
-					break;
-				}
-				case Type_Convex_Hull:
-				{
-
-					break;
-				}
-				case Type_Mesh:
-				{
-					TriangleMesh mesh2();
 					break;
 				}
 				case Type_Triangle:
@@ -224,12 +199,6 @@ update_status ModuleIMGui::PreUpdate(float dt)
 					colliding = cap1.Intersects(sph2);
 					break;
 				}
-				case Type_Cylinder:
-				{
-					Cylinder cyl2({ posx2, 0.0f, -1.0f }, { posx2, 0.0f, 1.0f }, 1.f);
-					//colliding = sph1.Intersects(cyl2);
-					break;
-				}
 				case Type_Capsule:
 				{
 					Capsule cap2({ posx2, 0.0f, -1.0f }, { posx2, 0.0f, 1.0f }, 1.f);
@@ -249,34 +218,10 @@ update_status ModuleIMGui::PreUpdate(float dt)
 					colliding = cap1.Intersects(obb2);
 					break;
 				}
-				case Type_Frustum:
-				{
-					Frustum frus2();
-					break;
-				}
-				case Type_Plane:
-				{
-					Plane plane2();
-					break;
-				}
-				case Type_Segment:
-				{
-					break;
-				}
 				case Type_Ray:
 				{
 					Ray ray2({ posx2, 0.0f, 0.0f }, { 1.0f, 0.0f, 0.0f });
 					colliding = cap1.Intersects(ray2);
-					break;
-				}
-				case Type_Convex_Hull:
-				{
-
-					break;
-				}
-				case Type_Mesh:
-				{
-					TriangleMesh mesh2();
 					break;
 				}
 				case Type_Triangle:
@@ -301,12 +246,7 @@ update_status ModuleIMGui::PreUpdate(float dt)
 					colliding = aabb1.Intersects(sph2);
 					break;
 				}
-				case Type_Cylinder:
-				{
-					Cylinder cyl2({ posx2, 0.0f, -1.0f }, { posx2, 0.0f, 1.0f }, 1.f);
-					//colliding = sph1.Intersects(cyl2);
-					break;
-				}
+
 				case Type_Capsule:
 				{
 					Capsule cap2({ posx2, 0.0f, -1.0f }, { posx2, 0.0f, 1.0f }, 1.f);
@@ -326,34 +266,10 @@ update_status ModuleIMGui::PreUpdate(float dt)
 					colliding = aabb1.Intersects(obb2);
 					break;
 				}
-				case Type_Frustum:
-				{
-					Frustum frus2();
-					break;
-				}
-				case Type_Plane:
-				{
-					Plane plane2();
-					break;
-				}
-				case Type_Segment:
-				{
-					break;
-				}
 				case Type_Ray:
 				{
 					Ray ray2({ posx2, 0.0f, 0.0f }, { 1.0f, 0.0f, 0.0f });
 					colliding = aabb1.Intersects(ray2);
-					break;
-				}
-				case Type_Convex_Hull:
-				{
-
-					break;
-				}
-				case Type_Mesh:
-				{
-					TriangleMesh mesh2();
 					break;
 				}
 				case Type_Triangle:
@@ -379,12 +295,6 @@ update_status ModuleIMGui::PreUpdate(float dt)
 					colliding = obb1.Intersects(sph2);
 					break;
 				}
-				case Type_Cylinder:
-				{
-					Cylinder cyl2({ posx2, 0.0f, -1.0f }, { posx2, 0.0f, 1.0f }, 1.f);
-					//colliding = sph1.Intersects(cyl2);
-					break;
-				}
 				case Type_Capsule:
 				{
 					Capsule cap2({ posx2, 0.0f, -1.0f }, { posx2, 0.0f, 1.0f }, 1.f);
@@ -404,34 +314,11 @@ update_status ModuleIMGui::PreUpdate(float dt)
 					colliding = obb1.Intersects(obb2);
 					break;
 				}
-				case Type_Frustum:
-				{
-					Frustum frus2();
-					break;
-				}
-				case Type_Plane:
-				{
-					Plane plane2();
-					break;
-				}
-				case Type_Segment:
-				{
-					break;
-				}
+
 				case Type_Ray:
 				{
 					Ray ray2({ posx2, 0.0f, 0.0f }, { 1.0f, 0.0f, 0.0f });
 					colliding = obb1.Intersects(ray2);
-					break;
-				}
-				case Type_Convex_Hull:
-				{
-
-					break;
-				}
-				case Type_Mesh:
-				{
-					TriangleMesh mesh2();
 					break;
 				}
 				case Type_Triangle:
@@ -606,12 +493,6 @@ update_status ModuleIMGui::PreUpdate(float dt)
 					colliding = ray1.Intersects(sph2);
 					break;
 				}
-				case Type_Cylinder:
-				{
-					Cylinder cyl2({ posx2, 0.0f, -1.0f }, { posx2, 0.0f, 1.0f }, 1.f);
-					//colliding = sph1.Intersects(cyl2);
-					break;
-				}
 				case Type_Capsule:
 				{
 					Capsule cap2({ posx2, 0.0f, -1.0f }, { posx2, 0.0f, 1.0f }, 1.f);
@@ -631,36 +512,12 @@ update_status ModuleIMGui::PreUpdate(float dt)
 					colliding = ray1.Intersects(obb2);
 					break;
 				}
-				case Type_Frustum:
-				{
-					Frustum frus2();
-					break;
-				}
-				case Type_Plane:
-				{
-					Plane plane2();
-					break;
-				}
-				case Type_Segment:
-				{
-					break;
-				}
 				/*case Type_Ray:
 				{
 					Ray ray2({ posx2, 0.0f, 0.0f }, { 1.0f, 0.0f, 0.0f });
 					colliding = ray1.Intersects(ray2);
 					break;
 				}*/
-				case Type_Convex_Hull:
-				{
-
-					break;
-				}
-				case Type_Mesh:
-				{
-					TriangleMesh mesh2();
-					break;
-				}
 				case Type_Triangle:
 				{
 					Triangle tri2({ posx2, 0.0f, 0.5f }, { posx2, 0.5f, -0.5f }, { posx2, -0.5f, -0.5f });
@@ -783,12 +640,6 @@ update_status ModuleIMGui::PreUpdate(float dt)
 					colliding = tri1.Intersects(sph2);
 					break;
 				}
-				case Type_Cylinder:
-				{
-					Cylinder cyl2({ posx2, 0.0f, -1.0f }, { posx2, 0.0f, 1.0f }, 1.f);
-					//colliding = sph1.Intersects(cyl2);
-					break;
-				}
 				case Type_Capsule:
 				{
 					Capsule cap2({ posx2, 0.0f, -1.0f }, { posx2, 0.0f, 1.0f }, 1.f);
@@ -808,34 +659,10 @@ update_status ModuleIMGui::PreUpdate(float dt)
 					colliding = tri1.Intersects(obb2);
 					break;
 				}
-				case Type_Frustum:
-				{
-					Frustum frus2();
-					break;
-				}
-				case Type_Plane:
-				{
-					Plane plane2();
-					break;
-				}
-				case Type_Segment:
-				{
-					break;
-				}
 				case Type_Ray:
 				{
 					Ray ray2({ posx2, 0.0f, 0.0f }, { 1.0f, 0.0f, 0.0f });
 					colliding = tri1.Intersects(ray2);
-					break;
-				}
-				case Type_Convex_Hull:
-				{
-
-					break;
-				}
-				case Type_Mesh:
-				{
-					TriangleMesh mesh2();
 					break;
 				}
 				case Type_Triangle:
@@ -859,13 +686,28 @@ update_status ModuleIMGui::PreUpdate(float dt)
 			}
 			else
 				ImGui::Text("The objects are not colliding");
-
-
 		}
 		ImGui::End();
 	}
 
-
+	if (showRNG)
+	{
+		if (ImGui::Begin("PCG", &showRNG))
+		{
+			if (ImGui::Button("Generate random float"))
+			{
+				randomFloat = (float)pcg32_random() / MAXUINT;
+			}
+			ImGui::Text("Generated float: %.2f", randomFloat);
+			ImGui::DragInt2("Min number", buttonMinMax, 1, -MAXINT, MAXINT);
+			if (ImGui::Button("Generate random int"))
+			{
+				randomInt = ((float)pcg32_random() / MAXUINT) * buttonMinMax[1] + buttonMinMax[0];
+			}
+			ImGui::Text("Generated int: %i", randomInt);
+		}
+		ImGui::End();
+	}
 
 
 	return ret;

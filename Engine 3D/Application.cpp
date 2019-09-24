@@ -1,4 +1,6 @@
 #include "Application.h"
+#include <time.h>
+#include "pcg/pcg_basic.h"
 
 using namespace std;
 
@@ -61,6 +63,9 @@ bool Application::Init()
 		item++;
 	}
 	
+	pcg32_random_t RNG1;
+	pcg32_srandom(time(NULL), (intptr_t)&RNG1);
+
 	ms_timer.Start();
 	return ret;
 }
