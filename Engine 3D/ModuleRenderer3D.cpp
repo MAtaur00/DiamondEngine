@@ -2,8 +2,8 @@
 #include "Application.h"
 #include "ModuleRenderer3D.h"
 #include "SDL\include\SDL_opengl.h"
-#include "imgui_impl_opengl2.h"
 #include "imgui_impl_sdl.h"
+#include "imgui_impl_opengl3.h"
 #include <gl/GL.h>
 #include <gl/GLU.h>
 
@@ -106,7 +106,7 @@ bool ModuleRenderer3D::Init()
 	ImGuiIO& io = ImGui::GetIO();
 	(void)io;
 	ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer3D->context);
-	ImGui_ImplOpenGL2_Init();
+	ImGui_ImplOpenGL3_Init();
 	ImGui::StyleColorsDark();
 
 	return ret;

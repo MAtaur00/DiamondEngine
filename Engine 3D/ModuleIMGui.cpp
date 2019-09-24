@@ -2,9 +2,12 @@
 #include "ModuleWindow.h"
 #include "Application.h"
 #include "imgui_impl_sdl.h"
-#include "imgui_impl_opengl2.h"
+#include "imgui_impl_opengl3.h"
 #include "imgui_internal.h"
 #include "MathGeoLib/MathGeoLib.h"
+#include "Glew/include/glew.h"
+
+
 using namespace ImGui;
 
 
@@ -31,7 +34,8 @@ update_status ModuleIMGui::PreUpdate(float dt)
 {
 	update_status ret = UPDATE_CONTINUE;
 
-	ImGui_ImplOpenGL2_NewFrame();
+	ImGui_ImplOpenGL3_NewFrame();
+
 	ImGui_ImplSDL2_NewFrame(App->window->window);
 	NewFrame();
 
@@ -869,7 +873,7 @@ update_status ModuleIMGui::PreUpdate(float dt)
 update_status ModuleIMGui::PostUpdate(float dt)
 {
 	Render();
-	ImGui_ImplOpenGL2_RenderDrawData(GetDrawData());
+	ImGui_ImplOpenGL3_RenderDrawData(GetDrawData());
 
 	return update_status::UPDATE_CONTINUE;
 }

@@ -84,9 +84,6 @@
     <ClInclude Include="imgui.h">
       <Filter>Sources\Containers\ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="imgui_impl_opengl2.h">
-      <Filter>Sources\Containers\ImGui</Filter>
-    </ClInclude>
     <ClInclude Include="imgui_impl_sdl.h">
       <Filter>Sources\Containers\ImGui</Filter>
     </ClInclude>
@@ -285,6 +282,9 @@
     <ClInclude Include="MathGeoLib\MathGeoLibFwd.h">
       <Filter>Sources\Containers\MathGeoLib</Filter>
     </ClInclude>
+    <ClInclude Include="imgui_impl_opengl3.h">
+      <Filter>Sources\Containers\ImGui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -333,9 +333,6 @@
       <Filter>Sources\Containers\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="imgui_draw.cpp">
-      <Filter>Sources\Containers\ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui_impl_opengl2.cpp">
       <Filter>Sources\Containers\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="imgui_impl_sdl.cpp">
@@ -442,6 +439,9 @@
     </ClCompile>
     <ClCompile Include="MathGeoLib\Time\Clock.cpp">
       <Filter>Sources\Containers\MathGeoLib\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_impl_opengl3.cpp">
+      <Filter>Sources\Containers\ImGui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
