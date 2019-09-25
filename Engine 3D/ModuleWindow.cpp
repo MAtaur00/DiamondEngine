@@ -92,3 +92,35 @@ void ModuleWindow::SetTitle(const char* title)
 {
 	SDL_SetWindowTitle(window, title);
 }
+
+void ModuleWindow::SetFullscreen(const bool fullscreen)
+{
+	if (fullscreen)
+		SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
+	else
+		SDL_SetWindowFullscreen(window, 0);
+}
+
+void ModuleWindow::SetResizable(const bool resizable)
+{
+	/*if (resizable)
+		SDL_SetWindowResizable(window, SDL_TRUE);
+	else
+		SDL_SetWindowResizable(window, SDL_FALSE);*/
+}
+
+void ModuleWindow::SetBorderless(const bool borderless)
+{
+	if (borderless)
+		SDL_SetWindowBordered(window, SDL_FALSE);
+	else
+		SDL_SetWindowBordered(window, SDL_TRUE);
+}
+
+void ModuleWindow::SetFullDesktop(const bool fullDesktop)
+{
+	if (fullDesktop)
+		SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
+	else
+		SDL_SetWindowFullscreen(window, 0);
+}

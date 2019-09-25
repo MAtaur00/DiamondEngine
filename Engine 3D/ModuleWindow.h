@@ -20,6 +20,14 @@ public:
 
 	void SetTitle(const char* title);
 
+	void SetFullscreen(const bool fullscreen);
+
+	void SetResizable(const bool resizable);
+
+	void SetBorderless(const bool borderless);
+
+	void SetFullDesktop(const bool fulldesktop);
+
 public:
 	//The window we'll be rendering to
 	SDL_Window* window;

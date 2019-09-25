@@ -75,11 +75,34 @@ void Application::PrepareUpdate()
 {
 	dt = (float)ms_timer.Read() / 1000.0f;
 	ms_timer.Start();
+
+	fps_log.push_back(1/dt);
+	if (fps_log.size() > 75)
+	{
+		fps_log.erase(fps_log.begin());
+	}
+
+	ms_log.push_back(dt * 1000);
+	if (ms_log.size() > 75)
+	{
+		ms_log.erase(ms_log.begin());
+	}
 }
 
 // ---------------------------------------------
 void Application::FinishUpdate()
 {
+	if (!renderer3D->vsync && toCap)
+	{
+		float dt = dt * 1000.0f;
+		float toVsync = dt;
+
+		if (capFrames > 0)
+			toVsync = 1000.0f / capFrames;
+
+		if (dt < toVsync)
+			SDL_Delay(toVsync - dt);
+	}
 }
 
 // Call PreUpdate, Update and PostUpdate on all modules

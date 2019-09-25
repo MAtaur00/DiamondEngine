@@ -10,6 +10,7 @@
 #include "ModuleIMGui.h"
 #include "ModuleSceneIntro.h"
 #include <list>
+#include <vector>
 
 
 class Application
@@ -36,6 +37,13 @@ public:
 	bool Init();
 	update_status Update();
 	bool CleanUp();
+
+	bool toCap = false;
+
+	int capFrames = 60;
+
+	std::vector<float> fps_log;
+	std::vector<float> ms_log;
 
 private:
 

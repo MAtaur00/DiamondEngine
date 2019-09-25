@@ -1,6 +1,7 @@
 #pragma once
 #include "Module.h"
 #include "imgui.h"
+#include <vector>
 
 
 enum ObjectType
@@ -35,8 +36,12 @@ public:
 	bool showMath = false;
 	bool showRNG = false;
 
+	bool showConfiguration = false;
+
 	float posx1 = 0.0f;
 	float posx2 = 5.0f;
+
+	int fps1 = 0;
 
 	int current_object1 = Type_Sphere;
 	int current_object2 = Type_Sphere;
@@ -46,5 +51,17 @@ public:
 	int randomInt = 0;
 
 	int buttonMinMax[2] = { 0, 10 };
+
+	std::vector<float> ram_log;
+
+	float brightnessPos = 1.0f;
+
+	int widthPos = 1280;
+	int heightPos = 950;
+
+	bool fullscreen = false;
+	bool borderless = false;
+	bool resizable = false;
+	bool fullDesktop = false;
 };
 
