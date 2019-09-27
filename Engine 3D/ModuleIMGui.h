@@ -37,6 +37,7 @@ public:
 	bool showRNG = false;
 
 	bool showConfiguration = false;
+	bool showConsole = false;
 
 	float posx1 = 0.0f;
 	float posx2 = 5.0f;

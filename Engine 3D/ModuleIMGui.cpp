@@ -47,6 +47,15 @@ update_status ModuleIMGui::PreUpdate(float dt)
 	{
 		if (BeginMenu("File"))
 		{
+			if (MenuItem("Save"))
+			{
+				
+			}
+			if (MenuItem("Load"))
+			{
+				
+			}
+			ImGui::Separator();
 			if (MenuItem("Quit"))
 			{
 				ret = UPDATE_STOP;
@@ -58,6 +67,10 @@ update_status ModuleIMGui::PreUpdate(float dt)
 			if (MenuItem("Configuration"))
 			{
 				showConfiguration = !showConfiguration;
+			}
+			if (MenuItem("Console"))
+			{
+				showConsole = !showConsole;
 			}
 			if (MenuItem("MathGeoLib"))
 			{
@@ -642,6 +655,14 @@ update_status ModuleIMGui::PreUpdate(float dt)
 				ImGui::SameLine();
 				ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "%.1f Mb", (vram_usage * 0.001));
 			}
+		}
+		ImGui::End();
+	}
+	if (showConsole)
+	{
+		if (ImGui::Begin("Console", &showConsole))
+		{
+
 		}
 		ImGui::End();
 	}

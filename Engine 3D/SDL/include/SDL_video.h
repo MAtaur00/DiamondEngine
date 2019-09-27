@@ -726,6 +726,7 @@ extern DECLSPEC int SDLCALL SDL_SetWindowFullscreen(SDL_Window * window,
  *  \sa SDL_UpdateWindowSurface()
  *  \sa SDL_UpdateWindowSurfaceRects()
  */
+
 extern DECLSPEC SDL_Surface * SDLCALL SDL_GetWindowSurface(SDL_Window * window);
 
 /**
