@@ -672,9 +672,6 @@ update_status ModuleIMGui::PreUpdate(float dt)
 
 update_status ModuleIMGui::PostUpdate(float dt)
 {
-	Render();
-	ImGui_ImplOpenGL3_RenderDrawData(GetDrawData());
-
 	PROCESS_MEMORY_COUNTERS counters;
 	GetProcessMemoryInfo(GetCurrentProcess(), &counters, sizeof(counters));
 
@@ -698,5 +695,6 @@ bool ModuleIMGui::CleanUp()
 
 void ModuleIMGui::Draw()
 {
-
+	Render();
+	ImGui_ImplOpenGL3_RenderDrawData(GetDrawData());
 }

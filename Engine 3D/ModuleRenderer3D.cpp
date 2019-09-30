@@ -34,8 +34,21 @@ bool ModuleRenderer3D::Init()
 		ret = false;
 	}
 
-	glewInit();
-	
+	GLenum err = glewInit();
+
+	if (err != GLEW_OK)
+	{
+		LOG("Glew Error: ", glewGetErrorString(err));
+	}
+	else
+	{
+		LOG("Using Glew %s", glewGetString(GLEW_VERSION));
+		LOG("Vendor: %s", glGetString(GL_VENDOR));
+		LOG("Renderer: %s", glGetString(GL_RENDERER));
+		LOG("OpenGL version supported %s", glGetString(GL_VERSION));
+		LOG("GLSL: %s\n", glGetString(GL_SHADING_LANGUAGE_VERSION));
+
+	}
 	if(ret == true)
 	{
 		//Use Vsync
@@ -100,6 +113,7 @@ bool ModuleRenderer3D::Init()
 		lights[0].Active(true);
 		glEnable(GL_LIGHTING);
 		glEnable(GL_COLOR_MATERIAL);
+		glEnable(GL_TEXTURE_2D);
 	}
 
 	// Projection matrix for
@@ -137,6 +151,19 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 // PostUpdate present buffer to screen
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
+	//Geometry
+
+
+	
+	//Debug Draw
+
+
+
+	//UI
+	App->imgui->Draw();
+
+
+
 	SDL_GL_SwapWindow(App->window->window);
 	return UPDATE_CONTINUE;
 }
