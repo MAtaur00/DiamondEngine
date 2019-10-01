@@ -35,6 +35,7 @@ public:
 	bool showDemo = false;
 	bool showMath = false;
 	bool showRNG = false;
+	bool showAbout = false;
 
 	bool showConfiguration = false;
 	bool showConsole = false;

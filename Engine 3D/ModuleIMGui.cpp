@@ -85,15 +85,15 @@ update_status ModuleIMGui::PreUpdate(float dt)
 		if (BeginMenu("Help"))
 		{
 			if (MenuItem("Show Demo Window"))
-			{
 				showDemo = !showDemo;
-			}
 			if (MenuItem("Documentation"))
 				ShellExecuteA(NULL, "Open", "https://github.com/MAtaur00/DiamondEngine/wiki", NULL, NULL, SW_SHOWNORMAL);
 			if (MenuItem("Download latest"))
 				ShellExecuteA(NULL, "Open", "https://github.com/MAtaur00/DiamondEngine/releases", NULL, NULL, SW_SHOWNORMAL);
 			if (MenuItem("Report bug"))
 				ShellExecuteA(NULL, "Open", "https://github.com/MAtaur00/DiamondEngine/issues", NULL, NULL, SW_SHOWNORMAL);
+			if (MenuItem("About"))
+				showAbout = !showAbout;
 
 			ImGui::EndMenu();
 		}
@@ -663,6 +663,29 @@ update_status ModuleIMGui::PreUpdate(float dt)
 		if (ImGui::Begin("Console", &showConsole))
 		{
 
+		}
+		ImGui::End();
+	}
+	if (showAbout)
+	{
+		if (ImGui::Begin("About"), &showAbout)
+		{
+			ImGui::Separator();
+			ImGui::TextWrapped("MIT License Copyright (c) 2019 Marc Tarrés and Aleix Castillo"
+
+				"Permission is hereby granted, free of charge, to any person obtaining a copy of this software"
+				"and associated documentation files (the 'Software'), to deal in the Software without restriction, including without limitation the rights to use, copy, modify,"
+				"merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:");
+
+			ImGui::NewLine();
+
+			ImGui::TextWrapped("The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.");
+
+			ImGui::NewLine();
+
+			ImGui::TextWrapped("THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A"
+				"PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,"
+				"WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.");
 		}
 		ImGui::End();
 	}
