@@ -1,5 +1,7 @@
+#pragma once
 #include "Module.h"
-
+#include "Primitive.h"
+#include "Globals.h"
 
 class ModuleGeometry : public Module
 {
@@ -9,6 +11,10 @@ public:
 
 	bool Start();
 	update_status Update(float dt);
+
+	bool ret = true;
 	void Draw();
+
+	uint my_id = 0;
 };
 
