@@ -18,5 +18,8 @@ public:
 	update_status Update(float dt);
 	bool CleanUp();
 
+	uint my_id = 0;
+
+
 	void OnCollision(PhysBody3D* body1, PhysBody3D* body2);
 };

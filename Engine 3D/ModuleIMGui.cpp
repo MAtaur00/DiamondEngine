@@ -33,7 +33,6 @@ bool ModuleIMGui::Start()
 	bool ret = true;
 
 	
-
 	return ret;
 }
 
@@ -46,6 +45,8 @@ update_status ModuleIMGui::PreUpdate(float dt)
 	ImGui_ImplSDL2_NewFrame(App->window->window);
 	NewFrame();
 
+	
+	
 	if (BeginMainMenuBar())
 	{
 		if (BeginMenu("File"))
