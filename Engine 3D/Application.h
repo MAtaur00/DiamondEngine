@@ -9,6 +9,7 @@
 #include "ModuleCamera3D.h"
 #include "ModuleIMGui.h"
 #include "ModuleSceneIntro.h"
+#include "ModuleGeometry.h"
 #include <list>
 #include <vector>
 
@@ -22,6 +23,7 @@ public:
 	ModuleCamera3D* camera;
 	ModuleIMGui* imgui;
 	ModuleSceneIntro* sceneIntro;
+	ModuleGeometry* geometry;
 
 private:
 

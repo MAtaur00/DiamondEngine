@@ -13,6 +13,7 @@ Application::Application()
 	camera = new ModuleCamera3D(this);
 	imgui = new ModuleIMGui(this);
 	sceneIntro = new ModuleSceneIntro(this);
+	geometry = new ModuleGeometry(this);
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -24,6 +25,7 @@ Application::Application()
 	AddModule(input);
 	AddModule(imgui);
 	AddModule(sceneIntro);
+	AddModule(geometry);
 
 	// Renderer last!
 	AddModule(renderer3D);
