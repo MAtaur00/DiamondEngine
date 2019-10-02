@@ -40,6 +40,9 @@
     <Filter Include="Sources\Containers\PCG">
       <UniqueIdentifier>{cff27d52-74f9-40a8-9176-526393cff1ba}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\Modules\UI">
+      <UniqueIdentifier>{1aa1e32d-cee7-42e9-be37-79d25001a44a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -74,9 +77,6 @@
     </ClInclude>
     <ClInclude Include="Timer.h">
       <Filter>Sources\Tools</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleIMGui.h">
-      <Filter>Sources\Modules</Filter>
     </ClInclude>
     <ClInclude Include="glmath.h">
       <Filter>Sources\Containers</Filter>
@@ -291,6 +291,18 @@
     <ClInclude Include="pcg\pcg_basic.h">
       <Filter>Sources\Containers\PCG</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleIMGui.h">
+      <Filter>Sources\Modules\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGuiConsole.h">
+      <Filter>Sources\Modules\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGuiConfig.h">
+      <Filter>Sources\Modules\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGuiAbout.h">
+      <Filter>Sources\Modules\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -325,9 +337,6 @@
     </ClCompile>
     <ClCompile Include="Light.cpp">
       <Filter>Sources\Helpers</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleIMGui.cpp">
-      <Filter>Sources\Modules</Filter>
     </ClCompile>
     <ClCompile Include="glmath.cpp">
       <Filter>Sources\Containers</Filter>
@@ -451,6 +460,18 @@
     </ClCompile>
     <ClCompile Include="pcg\pcg_basic.c">
       <Filter>Sources\Containers\PCG</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleIMGui.cpp">
+      <Filter>Sources\Modules\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGuiConsole.cpp">
+      <Filter>Sources\Modules\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGuiConfig.cpp">
+      <Filter>Sources\Modules\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGuiAbout.cpp">
+      <Filter>Sources\Modules\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

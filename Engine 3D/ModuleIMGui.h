@@ -14,6 +14,9 @@ enum ObjectType
 	Type_Triangle
 };
 
+class ImGuiConfig;
+class ImGuiAbout;
+class ImGuiConsole;
 
 class ModuleIMGui :
 	public Module
@@ -31,6 +34,10 @@ public:
 
 
 public:
+
+	ImGuiConfig* gui_config;
+	ImGuiAbout* gui_about;
+	ImGuiConsole* gui_console;
 
 	bool showDemo = false;
 	bool showMath = false;
