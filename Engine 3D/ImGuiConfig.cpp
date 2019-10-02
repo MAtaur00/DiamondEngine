@@ -106,9 +106,63 @@ void ImGuiConfig::Draw()
 				App->window->SetFullDesktop(App->imgui->fullDesktop);
 			}
 
+			
+
 			if (ImGui::IsItemHovered)
 			{
 				ImGui::SetTooltip("Restart to apply");
+			}
+
+			GLenum capability = 0;
+
+			capability = GL_DEPTH_TEST;
+			bool depthTest = glIsEnabled(capability);
+			if (ImGui::Checkbox("GL_DEPTH_TEST", &depthTest))
+				SetState(capability, depthTest);
+
+
+			capability = GL_CULL_FACE;
+			bool cullFace = glIsEnabled(capability);
+			if (ImGui::Checkbox("GL_CULL_FACE", &cullFace))
+				SetState(capability, cullFace);
+
+			capability = GL_LIGHTING;
+			bool lighting = glIsEnabled(capability);
+			if (ImGui::Checkbox("GL_LIGHTING", &lighting))
+				SetState(capability, lighting);
+
+			capability = GL_COLOR_MATERIAL;
+			bool colorMaterial = glIsEnabled(capability);
+			if (ImGui::Checkbox("GL_COLOR_MATERIAL", &colorMaterial))
+				SetState(capability, colorMaterial);
+
+			capability = GL_TEXTURE_2D;
+			bool texture2D = glIsEnabled(capability);
+			if (ImGui::Checkbox("GL_TEXTURE_2D", &texture2D))
+				SetState(capability, texture2D);
+
+			capability = GL_LINE_SMOOTH;
+			bool lineSmooth = glIsEnabled(capability);
+			if (ImGui::Checkbox("GL_LINE_SMOOTH", &lineSmooth))
+				SetState(capability, lineSmooth);
+
+			capability = GL_BLEND;
+			bool blend = glIsEnabled(capability);
+			if (ImGui::Checkbox("GL_BLEND", &blend))
+				SetState(capability, blend);
+
+			bool wireframeMode = false;
+			GLint polygonMode[2];
+			glGetIntegerv(GL_POLYGON_MODE, polygonMode);
+
+			if (polygonMode[0] == GL_LINE && polygonMode[1] == GL_LINE)
+				wireframeMode = true;
+			if (ImGui::Checkbox("Wireframe", &wireframeMode))
+			{
+				if (wireframeMode)
+					glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+				else
+					glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 			}
 
 		}
@@ -239,4 +293,18 @@ void ImGuiConfig::Draw()
 		}
 	}
 	ImGui::End();
+}
+
+void ImGuiConfig::SetState(GLenum capability, bool enable) const
+{
+	if (glIsEnabled(capability))
+	{
+		if (!enable)
+			glDisable(capability);
+	}
+	else
+	{
+		if (enable)
+			glEnable(capability);
+	}
 }

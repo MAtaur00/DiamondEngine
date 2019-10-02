@@ -152,7 +152,7 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
 	//Geometry
-
+	App->geometry->Draw();
 
 	
 	//Debug Draw

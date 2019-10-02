@@ -18,8 +18,7 @@ class ImGuiConfig;
 class ImGuiAbout;
 class ImGuiConsole;
 
-class ModuleIMGui :
-	public Module
+class ModuleIMGui : public Module
 {
 public:
 	ModuleIMGui(Application * app, bool start_enabled = true);
