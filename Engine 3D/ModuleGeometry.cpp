@@ -27,7 +27,13 @@ void ModuleGeometry::Draw(){
 	glBegin(GL_TRIANGLES);
 
 
+	glClearColor(1,1,0,0);
 
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    glBegin(GL_TRIANGLES);
+
+    glColor3f(2,0,0);
 	
 
 	//// Right face
@@ -97,9 +103,10 @@ void ModuleGeometry::Draw(){
 		5.0f, 0.0f, -1.0f,
 		5.0f, 0.0f, 0.0f,
 
+
 	};
 
-	// Front face
+	glColor3f(4, 0, 0);	// Front face
 	glTexCoord2f(0, 0); glVertex3f(-1, 1, 1); // v1
 	glTexCoord2f(0, 1); glVertex3f(-1, -1, 1); // v2
 	glTexCoord2f(1, 1); glVertex3f(1, -1, 1); // v3
