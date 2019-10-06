@@ -14,6 +14,7 @@ Application::Application()
 	imgui = new ModuleIMGui(this);
 	sceneIntro = new ModuleSceneIntro(this);
 	geometry = new ModuleGeometry(this);
+	importfbx = new ModuleImportFBX(this);
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -26,6 +27,7 @@ Application::Application()
 	AddModule(imgui);
 	AddModule(sceneIntro);
 	AddModule(geometry);
+	AddModule(importFBX)
 
 	// Renderer last!
 	AddModule(renderer3D);
