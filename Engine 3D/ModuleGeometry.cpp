@@ -156,8 +156,8 @@ void ModuleGeometry::Draw(){
 	
 }
 
-update_status ModuleGeometry::Update(float dt) {
-
+update_status ModuleGeometry::Update(float dt) 
+{
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glBindBuffer(GL_ARRAY_BUFFER, my_id);
 	glVertexPointer(3, GL_FLOAT, 0, NULL);

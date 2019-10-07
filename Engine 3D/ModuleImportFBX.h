@@ -12,9 +12,8 @@ public:
 	bool Start();
 	update_status Update(float dt);
 
-	bool ret = true;
-	void Draw();
+	Mesh* Import(const char* path);
 
-	
+	bool CleanUp();
 };
 

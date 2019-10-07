@@ -18,4 +18,3 @@ public:
 	uint my_id = 0;
 	uint my_indices = 0;
 };
-

@@ -191,3 +191,8 @@ void ModuleRenderer3D::OnResize(int width, int height)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 }
+
+void ModuleRenderer3D::DrawFBX(buffer<uint> index, buffer<float> vertex)
+{
+
+}
