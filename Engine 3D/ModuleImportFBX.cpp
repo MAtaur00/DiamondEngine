@@ -38,13 +38,6 @@ bool ModuleImportFBX::Start()
 
 Mesh* ModuleImportFBX::Import(const char* path)
 {
-	uint id_index = 0; // index in VRAM
-	uint num_index = 0;
-	uint* index = nullptr;
-	uint id_vertex = 0; // unique vertex in VRAM
-	uint num_vertex = 0;
-	float* vertex = nullptr;
-
 	//"Assets/Models/Warrior.fbx"
 
 	const aiScene* scene = aiImportFile(path, aiProcessPreset_TargetRealtime_MaxQuality);
@@ -83,6 +76,16 @@ Mesh* ModuleImportFBX::Import(const char* path)
 			}		
 		}
 	}
+
+	glGenBuffers(1, (GLuint*) &(m->id));
+	glBindBuffer(GL_ARRAY_BUFFER, m->id);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 3 * m->vertex.size, m->vertex.data, GL_STATIC_DRAW);
+
+	glGenBuffers(1, (GLuint*) &(m->id));
+	glBindBuffer(GL_ARRAY_BUFFER, m->id);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 3 * m->index.size, m->index.data, GL_STATIC_DRAW);
+
+	return m;
 }
 
 update_status ModuleImportFBX::Update(float dt) 

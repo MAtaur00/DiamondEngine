@@ -24,11 +24,6 @@ bool ModuleSceneIntro::Start()
 	App->camera->LookAt(vec3(0, 0, 0));
 
 	App->geometry->Draw();
-	
-
-	
-	
-
 
 	return ret;
 }

@@ -18,7 +18,7 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
-	void DrawFBX(buffer<uint> index, buffer<float> vertex);
+	void DrawFBX(Mesh* m);
 
 	void OnResize(int width, int height);
 
@@ -28,6 +28,8 @@ public:
 	SDL_GLContext context;
 	mat3x3 NormalMatrix;
 	mat4x4 ModelMatrix, ViewMatrix, ProjectionMatrix;
+
+	bool wireframe = false;
 
 	bool vsync = true;
 };

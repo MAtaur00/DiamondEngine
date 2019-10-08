@@ -165,8 +165,8 @@ update_status ModuleGeometry::Update(float dt)
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 	glDisableClientState(GL_VERTEX_ARRAY);
 	
-	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, my_indices);
-	//glDrawElements(GL_TRIANGLES, number_of_indices, GL_UNSIGNED_INT, NULL);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, my_indices);
+	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, NULL);
 
 	return UPDATE_CONTINUE;
 }

@@ -291,6 +291,10 @@ void ImGuiConfig::Draw()
 			ImGui::SameLine();
 			ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "%.1f Mb", (vram_usage * 0.001));
 		}
+		if (ImGui::CollapsingHeader("Style"))
+		{
+			ImGui::ShowStyleSelector("Style##Selector");
+		}
 	}
 	ImGui::End();
 }
