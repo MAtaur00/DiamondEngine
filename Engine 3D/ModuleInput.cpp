@@ -113,6 +113,7 @@ update_status ModuleInput::PreUpdate(float dt)
 				if(e.window.event == SDL_WINDOWEVENT_RESIZED)
 					App->renderer3D->OnResize(e.window.data1, e.window.data2);
 			}
+			break;
 
 			case SDL_DROPFILE:
 			{
@@ -120,9 +121,8 @@ update_status ModuleInput::PreUpdate(float dt)
 				char* dropped_filedir;
 				dropped_filedir = e.drop.file;
 				// Shows directory of dropped file
-				SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "File dropped on window", dropped_filedir, App->window->window);
 
-				App->importFBX->Import(dropped_filedir);
+				App->importFBX->Import("Assets\\Models\\warrior.FBX");
 
 				SDL_free(dropped_filedir);
 			}

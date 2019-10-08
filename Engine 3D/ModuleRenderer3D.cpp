@@ -196,7 +196,7 @@ void ModuleRenderer3D::DrawFBX(Mesh m)
 {
 	glEnableClientState(GL_VERTEX_ARRAY);
 
-	glBindBuffer(GL_ARRAY_BUFFER, m.id_index);
+	glBindBuffer(GL_ARRAY_BUFFER, m.id_vertex);
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
