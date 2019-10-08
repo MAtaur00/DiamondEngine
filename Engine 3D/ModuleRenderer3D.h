@@ -4,6 +4,7 @@
 #include "glmath.h"
 #include "Light.h"
 #include "Primitive.h"
+#include "ModuleImportFBX.h"
 
 #define MAX_LIGHTS 8
 
@@ -18,7 +19,7 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
-	void DrawFBX(Mesh* m);
+	void DrawFBX(Mesh m);
 
 	void OnResize(int width, int height);
 

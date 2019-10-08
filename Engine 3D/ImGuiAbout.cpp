@@ -30,9 +30,11 @@ void ImGuiAbout::Draw()
 	if (ImGui::Begin("About"), &App->imgui->showAbout)
 	{
 		ImGui::Separator();
-		ImGui::TextWrapped("MIT License Copyright (c) 2019 Marc Tarrés and Aleix Castillo"
+		ImGui::TextWrapped("MIT License Copyright (c) 2019 Marc Tarres and Aleix Castillo");
 
-			"Permission is hereby granted, free of charge, to any person obtaining a copy of this software"
+		ImGui::NewLine();
+
+		ImGui::TextWrapped("Permission is hereby granted, free of charge, to any person obtaining a copy of this software"
 			"and associated documentation files (the 'Software'), to deal in the Software without restriction, including without limitation the rights to use, copy, modify,"
 			"merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:");
 

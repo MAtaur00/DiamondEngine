@@ -152,7 +152,7 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
 	//Geometry
-	App->geometry->Draw();
+	App->renderer3D->DrawFBX(App->importFBX->m);
 
 	
 	//Debug Draw
@@ -192,21 +192,21 @@ void ModuleRenderer3D::OnResize(int width, int height)
 	glLoadIdentity();
 }
 
-void ModuleRenderer3D::DrawFBX(Mesh* m)
+void ModuleRenderer3D::DrawFBX(Mesh m)
 {
 	glEnableClientState(GL_VERTEX_ARRAY);
 
-	glBindBuffer(GL_ARRAY_BUFFER, m->index.id);
+	glBindBuffer(GL_ARRAY_BUFFER, m.id_index);
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m->index.id);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m.id_index);
 	if (wireframe == true)
 	{
 		glColor3d(1, 1., 0);
 		glPolygonMode(GL_FRONT, GL_LINE);
 	}
-	glDrawElements(GL_TRIANGLES, m->index.size, GL_UNSIGNED_INT, NULL);
+	glDrawElements(GL_TRIANGLES, m.num_index, GL_UNSIGNED_INT, NULL);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 	glDisableClientState(GL_VERTEX_ARRAY);

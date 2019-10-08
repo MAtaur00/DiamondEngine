@@ -36,7 +36,7 @@ bool ModuleImportFBX::Start()
 	return ret;
 }
 
-Mesh* ModuleImportFBX::Import(const char* path)
+Mesh ModuleImportFBX::Import(const char* path)
 {
 	//"Assets/Models/Warrior.fbx"
 
@@ -44,46 +44,48 @@ Mesh* ModuleImportFBX::Import(const char* path)
 	if (scene != nullptr && scene->HasMeshes())
 	{
 		// Use scene->mNumMeshes to iterate on scene->mMeshes array
-		aiReleaseImport(scene);
+		//aiReleaseImport(scene);
+
+		for (int i = 0; i < scene->mNumMeshes; i++)
+		{
+			aiMesh* new_mesh = scene->mMeshes[i];
+
+			// copy vertices
+
+			m.num_vertex = new_mesh->mNumVertices;
+			m.vertex = new float[m.num_vertex * 3];
+			memcpy(m.vertex, new_mesh->mVertices, sizeof(float) * m.num_vertex * 3);
+			LOG("New mesh with %d vertices", m.num_vertex);
+
+			// copy faces
+			if (new_mesh->HasFaces())
+			{
+				m.num_index = new_mesh->mNumFaces * 3;
+				m.index = new uint[m.num_index]; // assume each face is a triangle
+				for (uint i = 0; i < new_mesh->mNumFaces; ++i)
+				{
+					if (new_mesh->mFaces[i].mNumIndices != 3)
+					{
+						LOG("WARNING, geometry face with != 3 indices!");
+					}
+
+					else
+					{
+						memcpy(&m.index[i * 3], new_mesh->mFaces[i].mIndices, 3 * sizeof(uint));
+					}
+				}
+			}
+		}
+		glGenBuffers(1, (GLuint*) & (m.id_vertex));
+		glBindBuffer(GL_ARRAY_BUFFER, m.id_vertex);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 3 * m.num_vertex, m.vertex, GL_STATIC_DRAW);
+
+		glGenBuffers(1, (GLuint*) & (m.id_index));
+		glBindBuffer(GL_ARRAY_BUFFER, m.id_index);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m.num_index, m.index, GL_STATIC_DRAW);
 	}
 	else
 		LOG("Error loading scene %s", path);
-
-	Mesh* m = new Mesh();
-	aiMesh* new_mesh = scene->mMeshes[0];
-
-	// copy vertices
-	m->vertex.size = new_mesh->mNumVertices;
-	m->vertex.data = new float[m->vertex.size * 3];
-	memcpy(m->vertex.data, new_mesh->mVertices, sizeof(float) * m->vertex.size * 3);
-	LOG("New mesh with %d vertices", m->vertex.size);
-
-	// copy faces
-	if (new_mesh->HasFaces())
-	{
-		m->index.size = new_mesh->mNumFaces * 3;
-		m->index.data = new uint[m->index.size]; // assume each face is a triangle
-		for (uint i = 0; i < new_mesh->mNumFaces; ++i)
-		{
-			if (new_mesh->mFaces[i].mNumIndices != 3)
-			{
-				LOG("WARNING, geometry face with != 3 indices!");
-			}
-				
-			else
-			{
-				memcpy(&m->index.data[i * 3], new_mesh->mFaces[i].mIndices, 3 * sizeof(uint));
-			}		
-		}
-	}
-
-	glGenBuffers(1, (GLuint*) &(m->id));
-	glBindBuffer(GL_ARRAY_BUFFER, m->id);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 3 * m->vertex.size, m->vertex.data, GL_STATIC_DRAW);
-
-	glGenBuffers(1, (GLuint*) &(m->id));
-	glBindBuffer(GL_ARRAY_BUFFER, m->id);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 3 * m->index.size, m->index.data, GL_STATIC_DRAW);
 
 	return m;
 }

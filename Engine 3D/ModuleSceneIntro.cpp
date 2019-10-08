@@ -43,13 +43,7 @@ update_status ModuleSceneIntro::Update(float dt)
 	p.axis = true;
 	p.Render();
 
-	App->geometry->Draw();
+	
 	
 	return UPDATE_CONTINUE;
 }
-
-void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
-{
-	LOG("Hit!");
-}
-

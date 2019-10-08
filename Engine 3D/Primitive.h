@@ -10,8 +10,8 @@ enum PrimitiveTypes
 	Primitive_Plane,
 	Primitive_Cube,
 	Primitive_Sphere,
-	Primitive_Cylinder,
-	P_Mesh
+	Primitive_Cylinder
+	//P_Mesh
 };
 
 class Primitive
@@ -97,21 +97,21 @@ public:
 
 // ============================================
 
-template <typename T>
-struct buffer 
-{
-	uint id = 0u;
-	uint size = 0u;
-	T* data = nullptr;
-};
-
-class Mesh : public Primitive
-{
-public:
-	Mesh();
-	void InnerRender() const;
-public:
-	int id = -1;
-	buffer<uint> index;
-	buffer<float> vertex;
-};
+//template <typename T>
+//struct buffer 
+//{
+//	uint id = 0u;
+//	uint size = 0u;
+//	T* data = nullptr;
+//};
+//
+//class Mesh : public Primitive
+//{
+//public:
+//	Mesh();
+//	void InnerRender() const;
+//public:
+//	int id = -1;
+//	buffer<uint> index;
+//	buffer<float> vertex;
+//};
