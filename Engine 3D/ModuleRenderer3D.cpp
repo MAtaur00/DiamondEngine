@@ -201,11 +201,7 @@ void ModuleRenderer3D::DrawFBX(Mesh m)
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m.id_index);
-	if (wireframe == true)
-	{
-		glColor3d(1, 1., 0);
-		glPolygonMode(GL_FRONT, GL_LINE);
-	}
+
 	glDrawElements(GL_TRIANGLES, m.num_index, GL_UNSIGNED_INT, NULL);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
