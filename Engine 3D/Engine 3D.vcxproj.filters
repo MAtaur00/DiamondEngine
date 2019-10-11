@@ -306,7 +306,7 @@
     <ClInclude Include="ModuleGeometry.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
-    <ClInclude Include="ModuleImportFBX.h">
+    <ClInclude Include="ModuleImport.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
   </ItemGroup>
@@ -482,7 +482,7 @@
     <ClCompile Include="ModuleGeometry.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="ModuleImportFBX.cpp">
+    <ClCompile Include="ModuleImport.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
   </ItemGroup>

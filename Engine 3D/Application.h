@@ -10,7 +10,7 @@
 #include "ModuleIMGui.h"
 #include "ModuleSceneIntro.h"
 #include "ModuleGeometry.h"
-#include "ModuleImportFBX.h"
+#include "ModuleImport.h"
 #include <list>
 #include <vector>
 
@@ -25,7 +25,7 @@ public:
 	ModuleIMGui* imgui;
 	ModuleSceneIntro* sceneIntro;
 	ModuleGeometry* geometry;
-	ModuleImportFBX* importFBX;
+	ModuleImport* import;
 
 private:
 

@@ -122,7 +122,7 @@ update_status ModuleInput::PreUpdate(float dt)
 				dropped_filedir = e.drop.file;
 				// Shows directory of dropped file
 
-				App->importFBX->Import(dropped_filedir);
+				App->import->Import(dropped_filedir);
 
 				SDL_free(dropped_filedir);
 			}

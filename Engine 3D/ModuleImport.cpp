@@ -1,4 +1,4 @@
-#include "ModuleImportFBX.h"
+#include "ModuleImport.h"
 #include "Globals.h"
 #include "Application.h"
 #include "Primitive.h"
@@ -14,17 +14,17 @@
 #pragma comment (lib, "Assimp/libx86/assimp.lib")
 #include <gl/GL.h>
 
-ModuleImportFBX::ModuleImportFBX(Application* app, bool start_enabled) : Module(app, start_enabled)
+ModuleImport::ModuleImport(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 }
 
 
-ModuleImportFBX::~ModuleImportFBX()
+ModuleImport::~ModuleImport()
 {
 }
 
 
-bool ModuleImportFBX::Start() 
+bool ModuleImport::Start()
 {
 	bool ret = true;
 
@@ -36,7 +36,7 @@ bool ModuleImportFBX::Start()
 	return ret;
 }
 
-void ModuleImportFBX::Import(const char* path)
+void ModuleImport::Import(const char* path)
 {
 	//"Assets/Models/Warrior.fbx"
 
@@ -85,18 +85,17 @@ void ModuleImportFBX::Import(const char* path)
 
 			App->renderer3D->mesh_list.push_back(m);
 		}
-		
 	}
 	else
 		LOG("Error loading scene %s", path);
 }
 
-update_status ModuleImportFBX::Update(float dt) 
+update_status ModuleImport::Update(float dt)
 {
 	return UPDATE_CONTINUE;
 }
 
-bool ModuleImportFBX::CleanUp()
+bool ModuleImport::CleanUp()
 {
 	// detach log stream
 	aiDetachAllLogStreams();

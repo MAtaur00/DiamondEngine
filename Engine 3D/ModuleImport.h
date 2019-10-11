@@ -15,11 +15,11 @@ struct Mesh
 	float* vertex = nullptr;
 };
 
-class ModuleImportFBX : public Module
+class ModuleImport : public Module
 {
 public:
-	ModuleImportFBX(Application* app, bool start_enabled = true);
-	~ModuleImportFBX();
+	ModuleImport(Application* app, bool start_enabled = true);
+	~ModuleImport();
 
 	bool Start();
 	update_status Update(float dt);
