@@ -152,8 +152,10 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
 	//Geometry
-	App->renderer3D->DrawFBX(App->importFBX->m);
-
+	for (std::vector<Mesh>::iterator it = mesh_list.begin(); it != mesh_list.end(); ++it)
+	{
+		App->renderer3D->DrawFBX(*it);
+	}
 	
 	//Debug Draw
 

@@ -36,7 +36,7 @@ bool ModuleImportFBX::Start()
 	return ret;
 }
 
-Mesh ModuleImportFBX::Import(const char* path)
+void ModuleImportFBX::Import(const char* path)
 {
 	//"Assets/Models/Warrior.fbx"
 
@@ -75,19 +75,20 @@ Mesh ModuleImportFBX::Import(const char* path)
 					}
 				}
 			}
-		}
-		glGenBuffers(1, (GLuint*) & (m.id_vertex));
-		glBindBuffer(GL_ARRAY_BUFFER, m.id_vertex);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 3 * m.num_vertex, m.vertex, GL_STATIC_DRAW);
+			glGenBuffers(1, (GLuint*) & (m.id_vertex));
+			glBindBuffer(GL_ARRAY_BUFFER, m.id_vertex);
+			glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 3 * m.num_vertex, m.vertex, GL_STATIC_DRAW);
 
-		glGenBuffers(1, (GLuint*) & (m.id_index));
-		glBindBuffer(GL_ARRAY_BUFFER, m.id_index);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m.num_index, m.index, GL_STATIC_DRAW);
+			glGenBuffers(1, (GLuint*) & (m.id_index));
+			glBindBuffer(GL_ARRAY_BUFFER, m.id_index);
+			glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m.num_index, m.index, GL_STATIC_DRAW);
+
+			App->renderer3D->mesh_list.push_back(m);
+		}
+		
 	}
 	else
 		LOG("Error loading scene %s", path);
-
-	return m;
 }
 
 update_status ModuleImportFBX::Update(float dt) 

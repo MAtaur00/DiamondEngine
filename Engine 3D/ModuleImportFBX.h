@@ -2,6 +2,7 @@
 #include "Module.h"
 #include "Primitive.h"
 #include "Globals.h"
+#include <vector>
 
 struct Mesh
 {
@@ -23,7 +24,7 @@ public:
 	bool Start();
 	update_status Update(float dt);
 
-	Mesh Import(const char* path);
+	void Import(const char* path);
 
 	bool CleanUp();
 
