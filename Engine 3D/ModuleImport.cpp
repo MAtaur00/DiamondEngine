@@ -12,6 +12,8 @@
 
 
 #pragma comment (lib, "Assimp/libx86/assimp.lib")
+#pragma comment (lib, "DevIL/libx86/DevIL.lib")
+
 #include <gl/GL.h>
 
 ModuleImport::ModuleImport(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -88,6 +90,11 @@ void ModuleImport::ImportFBX(const char* path)
 	}
 	else
 		LOG("Error loading scene %s", path);
+}
+
+void ModuleImport::ImportTexture(const char* path)
+{
+
 }
 
 update_status ModuleImport::Update(float dt)

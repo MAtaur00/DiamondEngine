@@ -26,6 +26,8 @@ public:
 
 	void ImportFBX(const char* path);
 
+	void ImportTexture(const char* path);
+
 	bool CleanUp();
 
 public:
