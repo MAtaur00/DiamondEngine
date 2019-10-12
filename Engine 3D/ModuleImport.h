@@ -33,6 +33,6 @@ public:
 public:
 	Mesh m;
 
-	uint id = 0;
+	uint mesh_id = 0;
 };
 

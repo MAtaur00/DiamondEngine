@@ -7,6 +7,8 @@
 //
 //#pragma comment (lib, "glut/glut32.lib")
 
+
+
 // ------------------------------------------------------------
 Primitive::Primitive() : transform(IdentityMatrix), color(White), wire(false), axis(false), type(PrimitiveTypes::Primitive_Point)
 {}
@@ -276,8 +278,4 @@ void PrimitivePlane::InnerRender() const
 //{
 //	type = PrimitiveTypes::P_Mesh;
 //}
-//
-//void Mesh::InnerRender() const
-//{
-//	
-//}
+

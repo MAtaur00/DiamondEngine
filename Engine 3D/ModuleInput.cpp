@@ -125,8 +125,10 @@ update_status ModuleInput::PreUpdate(float dt)
 				std::string extension;
 				std::string path(dropped_filedir);
 				extension = path.substr(path.find_last_of(".") + 1);
+
 				if (!extension.compare("fbx") || !extension.compare("obj"))
 					App->import->ImportFBX(dropped_filedir);
+
 				else if (!extension.compare("png") || !extension.compare("dds") || !extension.compare("jpg") || !extension.compare("jpeg") || !extension.compare("tga"))
 					App->import->ImportTexture(dropped_filedir);
 
