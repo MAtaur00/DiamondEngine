@@ -24,7 +24,7 @@ public:
 	bool Start();
 	update_status Update(float dt);
 
-	void Import(const char* path);
+	void ImportFBX(const char* path);
 
 	bool CleanUp();
 

@@ -36,7 +36,7 @@ bool ModuleImport::Start()
 	return ret;
 }
 
-void ModuleImport::Import(const char* path)
+void ModuleImport::ImportFBX(const char* path)
 {
 	//"Assets/Models/Warrior.fbx"
 
