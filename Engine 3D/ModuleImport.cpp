@@ -106,8 +106,8 @@ void ModuleImport::ImportTexture(const char* path)
 		ILubyte* Data = ilGetData();
 
 		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-		glGenTextures(1, &id);
-		glBindTexture(GL_TEXTURE_2D, id);
+		glGenTextures(1, &mesh_id);
+		glBindTexture(GL_TEXTURE_2D, mesh_id);
 
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);

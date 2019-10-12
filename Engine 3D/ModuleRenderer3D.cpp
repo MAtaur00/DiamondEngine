@@ -204,7 +204,7 @@ void ModuleRenderer3D::DrawFBX(Mesh m)
 	
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m.id_index);
 	
-	glBindTexture(GL_TEXTURE_2D, App->import->id);
+	glBindTexture(GL_TEXTURE_2D, App->import->mesh_id);
 	
 	glDrawElements(GL_TRIANGLES, m.num_index, GL_UNSIGNED_INT, NULL);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
