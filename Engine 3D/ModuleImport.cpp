@@ -9,10 +9,14 @@
 #include "Assimp/include/scene.h"
 #include "Assimp/include/postprocess.h"
 #include "Assimp/include/cfileio.h"
+#include "DevIL/include/il.h"
+#include "DevIL/include/ilut.h"
 
 
 #pragma comment (lib, "Assimp/libx86/assimp.lib")
 #pragma comment (lib, "DevIL/libx86/DevIL.lib")
+#pragma comment ( lib, "DevIL/libx86/ILU.lib" )
+#pragma comment ( lib, "DevIL/libx86/ILUT.lib" )
 
 #include <gl/GL.h>
 
@@ -94,8 +98,26 @@ void ModuleImport::ImportFBX(const char* path)
 
 void ModuleImport::ImportTexture(const char* path)
 {
+	if (ilLoadImage(path)) {
+		ILuint Width, Height;
+		Width = ilGetInteger(IL_IMAGE_WIDTH);
+		Height = ilGetInteger(IL_IMAGE_HEIGHT);
 
+		ILubyte* Data = ilGetData();
+
+		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+		glGenTextures(1, &id);
+		glBindTexture(GL_TEXTURE_2D, id);
+
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, Width, Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, Data);
+	}
 }
+
+
 
 update_status ModuleImport::Update(float dt)
 {

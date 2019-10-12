@@ -32,5 +32,7 @@ public:
 
 public:
 	Mesh m;
+
+	uint id = 0;
 };
 

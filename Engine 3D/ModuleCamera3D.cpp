@@ -46,14 +46,44 @@ update_status ModuleCamera3D::Update(float dt)
 		speed = 8.0f * dt;
 
 	if(App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) newPos.y += speed;
-	if(App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) newPos.y -= speed;
+	
+	if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
+	{
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos -= Z * speed;
+		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos += Z * speed;
 
-	if(App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos -= Z * speed;
-	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos += Z * speed;
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos -= X * speed;
+		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos += X * speed;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT)
+	{
+		vec3 vec = { 0,0,0 };
+		LookAt(vec);
+	}
+
+	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT &&
+		App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT)
+	{
+		int dx = -App->input->GetMouseXMotion();
+		int dy = -App->input->GetMouseYMotion();
 
 
-	if(App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos -= X * speed;
-	if(App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos += X * speed;
+
+		float sensibility = 4.0f * dt;
+		if (dx != 0 || dy != 0)
+		{
+			float cameraRotationSpeed = speed * sensibility;
+
+			
+			/*if (App->scene_intro->selected_gameObject != nullptr) {
+				RotateAroundReference(App->scene_intro->selected_gameObject->GetAABB().CenterPoint(), dx * cameraRotationSpeed, dy * cameraRotationSpeed);
+			}
+			else {
+				RotateAroundReference(float3::zero, dx * cameraRotationSpeed, dy * cameraRotationSpeed);
+			}*/
+		}
+	}
 
 	Position += newPos;
 	Reference += newPos;
