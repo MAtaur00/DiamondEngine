@@ -273,9 +273,9 @@ void PrimitivePlane::InnerRender() const
 	glEnd();
 }
 
-//// MESH ============================================
-//Mesh::Mesh() : Primitive()
-//{
-//	type = PrimitiveTypes::P_Mesh;
-//}
+// MESH ============================================
+Mesh::Mesh() : Primitive()
+{
+	type = PrimitiveTypes::P_Mesh;
+}
 

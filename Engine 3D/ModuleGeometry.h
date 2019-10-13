@@ -1,6 +1,5 @@
 #pragma once
 #include "Module.h"
-#include "Primitive.h"
 #include "Globals.h"
 
 class ModuleGeometry : public Module

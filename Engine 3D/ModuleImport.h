@@ -1,19 +1,20 @@
 #pragma once
 #include "Module.h"
-#include "Primitive.h"
 #include "Globals.h"
 #include <vector>
 
-struct Mesh
-{
-	uint id_index = 0; // index in VRAM
-	uint num_index = 0;
-	uint* index = nullptr;
+class Mesh;
 
-	uint id_vertex = 0; // unique vertex in VRAM
-	uint num_vertex = 0;
-	float* vertex = nullptr;
-};
+//struct Mesh
+//{
+//	uint id_index = 0; // index in VRAM
+//	uint num_index = 0;
+//	uint* index = nullptr;
+//
+//	uint id_vertex = 0; // unique vertex in VRAM
+//	uint num_vertex = 0;
+//	float* vertex = nullptr;
+//};
 
 class ModuleImport : public Module
 {
@@ -31,7 +32,7 @@ public:
 	bool CleanUp();
 
 public:
-	Mesh m;
+	Mesh* m = nullptr;
 
 	uint mesh_id = 0;
 };

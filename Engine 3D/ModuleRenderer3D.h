@@ -3,11 +3,12 @@
 #include "Globals.h"
 #include "glmath.h"
 #include "Light.h"
-#include "Primitive.h"
 #include "ModuleImport.h"
 #include <vector>
 
 #define MAX_LIGHTS 8
+
+class Mesh;
 
 class ModuleRenderer3D : public Module
 {
@@ -20,7 +21,7 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
-	void DrawFBX(Mesh m);
+	void DrawFBX(Mesh* m);
 
 	void OnResize(int width, int height);
 
@@ -31,7 +32,7 @@ public:
 	mat3x3 NormalMatrix;
 	mat4x4 ModelMatrix, ViewMatrix, ProjectionMatrix;
 
-	std::vector<Mesh> mesh_list;
+	std::vector<Mesh*> mesh_list;
 
 	bool vsync = true;
 };

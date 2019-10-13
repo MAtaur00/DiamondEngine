@@ -5,6 +5,7 @@
 #include "SDL\include\SDL_opengl.h"
 #include "imgui_impl_sdl.h"
 #include "imgui_impl_opengl3.h"
+#include "Primitive.h"
 
 #include <gl/GL.h>
 
@@ -152,9 +153,9 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
 	//Geometry
-	for (std::vector<Mesh>::iterator it = mesh_list.begin(); it != mesh_list.end(); ++it)
+	for (std::vector<Mesh*>::iterator it = mesh_list.begin(); it != mesh_list.end(); ++it)
 	{
-		App->renderer3D->DrawFBX(*it);
+		(*it)->InnerRender();
 	}
 	
 	//Debug Draw
@@ -194,9 +195,9 @@ void ModuleRenderer3D::OnResize(int width, int height)
 	glLoadIdentity();
 }
 
-void ModuleRenderer3D::DrawFBX(Mesh m)
+void ModuleRenderer3D::DrawFBX(Mesh* m)
 {
-	glEnableClientState(GL_VERTEX_ARRAY);
+	/*glEnableClientState(GL_VERTEX_ARRAY);
 	
 	glBindBuffer(GL_ARRAY_BUFFER, m.id_vertex);
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
@@ -209,5 +210,5 @@ void ModuleRenderer3D::DrawFBX(Mesh m)
 	glDrawElements(GL_TRIANGLES, m.num_index, GL_UNSIGNED_INT, NULL);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	
-	glDisableClientState(GL_VERTEX_ARRAY);
+	glDisableClientState(GL_VERTEX_ARRAY);*/
 }

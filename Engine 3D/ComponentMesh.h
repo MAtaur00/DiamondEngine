@@ -7,4 +7,3 @@ public:
 	ComponentMesh(GameObject* parent);
 	~ComponentMesh();
 };
-

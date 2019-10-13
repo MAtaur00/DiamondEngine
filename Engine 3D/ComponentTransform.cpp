@@ -1,12 +1,11 @@
 #include "ComponentTransform.h"
-
+#include "GameObject.h"
 
 
 ComponentTransform::ComponentTransform(GameObject* parent) : Component(parent, CompTransform)
 {
 	
 }
-
 
 ComponentTransform::~ComponentTransform()
 {
@@ -62,7 +61,11 @@ float3 ComponentTransform::GetScale()
 
 float3 ComponentTransform::GetGlobalScale()
 {
-	
+	if (gameObject->parent)
+	{
+		return scale.Mul(gameObject->parent->transform->GetGlobalScale());
+	}
+	return scale;
 }
 
 void ComponentTransform::SetRotation(Quat rotation)
@@ -87,7 +90,11 @@ Quat ComponentTransform::GetRotation() const
 
 Quat ComponentTransform::GetGlobalRotation() const
 {
-	return Quat();
+	if (gameObject->parent)
+	{
+		return rotation.Mul(gameObject->parent->transform->GetGlobalRotation());
+	}
+	return rotation;
 }
 
 void ComponentTransform::SetTransform(float4x4 trans)
@@ -109,7 +116,12 @@ float4x4 ComponentTransform::GetMatrixOGL() const
 
 float4x4 ComponentTransform::GetMatrix() const
 {
-	return float4x4();
+	float4x4 localMatrix = GetLocalMatrix();
+	if (gameObject->parent)
+	{
+		return gameObject->parent->transform->GetMatrix().Mul(localMatrix);
+	}
+	return localMatrix;
 }
 
 float4x4 ComponentTransform::GetLocalMatrix() const

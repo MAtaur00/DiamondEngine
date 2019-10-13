@@ -1,6 +1,7 @@
 #pragma once
 #include "Component.h"
 #include "GameObject.h"
+#include <string>
 
 class ComponentTexture :
 	public Component
@@ -10,5 +11,12 @@ public:
 	~ComponentTexture();
 
 	void Inspector();
+
+	inline unsigned int GetID() { return tex_id; }
+
+private:
+	unsigned int tex_id = 0u;
+
+	std::string name;
 };
 

@@ -39,6 +39,8 @@ bool ModuleImport::Start()
 	stream = aiGetPredefinedLogStream(aiDefaultLogStream_DEBUGGER, nullptr);
 	aiAttachLogStream(&stream);
 
+	m = new Mesh();
+
 	return ret;
 }
 
@@ -56,18 +58,19 @@ void ModuleImport::ImportFBX(const char* path)
 		{
 			aiMesh* new_mesh = scene->mMeshes[i];
 
+			m = new Mesh();
 			// copy vertices
 
-			m.num_vertex = new_mesh->mNumVertices;
-			m.vertex = new float[m.num_vertex * 3];
-			memcpy(m.vertex, new_mesh->mVertices, sizeof(float) * m.num_vertex * 3);
-			LOG("New mesh with %d vertices", m.num_vertex);
+			m->vertex.size = new_mesh->mNumVertices;
+			m->vertex.data = new float[m->vertex.size * 3];
+			memcpy(m->vertex.data, new_mesh->mVertices, sizeof(float) * m->vertex.size * 3);
+			LOG("New mesh with %d vertices", m->vertex.size);
 
 			// copy faces
 			if (new_mesh->HasFaces())
 			{
-				m.num_index = new_mesh->mNumFaces * 3;
-				m.index = new uint[m.num_index]; // assume each face is a triangle
+				m->index.size = new_mesh->mNumFaces * 3;
+				m->index.data = new uint[m->index.size]; // assume each face is a triangle
 				for (uint i = 0; i < new_mesh->mNumFaces; ++i)
 				{
 					if (new_mesh->mFaces[i].mNumIndices != 3)
@@ -77,17 +80,17 @@ void ModuleImport::ImportFBX(const char* path)
 
 					else
 					{
-						memcpy(&m.index[i * 3], new_mesh->mFaces[i].mIndices, 3 * sizeof(uint));
+						memcpy(&m->index.data[i * 3], new_mesh->mFaces[i].mIndices, 3 * sizeof(uint));
 					}
 				}
 			}
-			glGenBuffers(1, (GLuint*) & (m.id_vertex));
-			glBindBuffer(GL_ARRAY_BUFFER, m.id_vertex);
-			glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 3 * m.num_vertex, m.vertex, GL_STATIC_DRAW);
+			glGenBuffers(1, (GLuint*) & (m->vertex.id));
+			glBindBuffer(GL_ARRAY_BUFFER, m->vertex.id);
+			glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 3 * m->vertex.size, m->vertex.data, GL_STATIC_DRAW);
 
-			glGenBuffers(1, (GLuint*) & (m.id_index));
-			glBindBuffer(GL_ARRAY_BUFFER, m.id_index);
-			glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m.num_index, m.index, GL_STATIC_DRAW);
+			glGenBuffers(1, (GLuint*) & (m->index.id));
+			glBindBuffer(GL_ARRAY_BUFFER, m->index.id);
+			glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m->index.size, m->index.data, GL_STATIC_DRAW);
 
 			App->renderer3D->mesh_list.push_back(m);
 		}
