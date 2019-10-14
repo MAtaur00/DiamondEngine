@@ -84,6 +84,26 @@ void ModuleImport::ImportFBX(const char* path)
 					}
 				}
 			}
+			if (new_mesh->HasTextureCoords(m->uvs.id))
+			{
+				m->uvs.size = new_mesh->mNumVertices;
+				m->uvs.data = new float[m->uvs.size * 2];
+
+				for (int i = 0; i < new_mesh->mNumVertices; ++i)
+				{
+					memcpy(&m->uvs.data[i * 2], &new_mesh->mTextureCoords[0][i].x, sizeof(float));
+					memcpy(&m->uvs.data[(i * 2) + 1], &new_mesh->mTextureCoords[0][i].y, sizeof(float));
+				}
+
+				glGenBuffers(1, (GLuint*)&(m->uvs.id));
+				glBindBuffer(GL_ARRAY_BUFFER, m->uvs.id);
+				glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 2 * m->uvs.size, m->uvs.data, GL_STATIC_DRAW);
+			}
+			if (new_mesh->HasNormals()) {
+				m->normals.size = new_mesh->mNumVertices;
+				m->normals.data = new float[m->normals.size * 3];
+				memcpy(m->normals.data, new_mesh->mNormals, sizeof(float) * m->normals.size * 3);
+			}
 			glGenBuffers(1, (GLuint*) & (m->vertex.id));
 			glBindBuffer(GL_ARRAY_BUFFER, m->vertex.id);
 			glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 3 * m->vertex.size, m->vertex.data, GL_STATIC_DRAW);
@@ -101,22 +121,28 @@ void ModuleImport::ImportFBX(const char* path)
 
 void ModuleImport::ImportTexture(const char* path)
 {
-	if (ilLoadImage(path)) {
-		ILuint Width, Height;
-		Width = ilGetInteger(IL_IMAGE_WIDTH);
-		Height = ilGetInteger(IL_IMAGE_HEIGHT);
+	ilInit();
+	iluInit();
+	ilutInit();
+	if (ilLoadImage(path))
+	{
+		uint id = 0;
 
-		ILubyte* Data = ilGetData();
-
-		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-		glGenTextures(1, &mesh_id);
-		glBindTexture(GL_TEXTURE_2D, mesh_id);
-
+		ilGenImages(1, &id);
+		ilBindImage(id);
+		ilLoadImage(path);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, Width, Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, Data);
+		tex_id = ilutGLBindTexImage();
+		glBindTexture(GL_TEXTURE_2D, 0);
+		ilDeleteImages(1, &id);
+		LOG("Texture loaded");
+	}
+	else
+	{
+		LOG("Couldn't load texture");
 	}
 }
 

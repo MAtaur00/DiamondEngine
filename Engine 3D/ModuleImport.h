@@ -35,5 +35,6 @@ public:
 	Mesh* m = nullptr;
 
 	uint mesh_id = 0;
+	uint tex_id = 0;
 };
 

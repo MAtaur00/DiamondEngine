@@ -115,4 +115,6 @@ public:
 	int id = -1;
 	buffer<uint> index;
 	buffer<float> vertex;
+	buffer<float> normals;
+	buffer<float> uvs;
 };
