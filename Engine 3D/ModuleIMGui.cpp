@@ -453,6 +453,7 @@ update_status ModuleIMGui::PreUpdate(float dt)
 	}
 	if (showConsole)
 	{
+		
 		gui_console->Draw();
 	}
 	if (showAbout)

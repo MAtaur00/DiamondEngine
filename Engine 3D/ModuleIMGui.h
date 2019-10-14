@@ -71,5 +71,8 @@ public:
 	bool borderless = false;
 	bool resizable = false;
 	bool fullDesktop = false;
+
+
+
 };
 

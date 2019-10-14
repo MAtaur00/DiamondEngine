@@ -27,6 +27,9 @@ public:
 	ModuleGeometry* geometry;
 	ModuleImport* import;
 
+	int width = 0;
+	int height = 0;
+
 private:
 
 	Timer	ms_timer;
