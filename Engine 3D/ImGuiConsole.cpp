@@ -8,67 +8,85 @@
 #include "Windows.h"
 #include "ModuleWindow.h"
 
+#define IM_ARRAYSIZE(_ARR)  ((int)(sizeof(_ARR)/sizeof(*_ARR)))
+
 ImGuiConsole::ImGuiConsole()
 {
-
+	ClearLog();
+	memset(inputBuf, 0, sizeof(inputBuf));
+	AddLog("Welcome to ImGui!");
+	
 }
 
 ImGuiConsole::~ImGuiConsole()
 {
-
+	ClearLog();
 }
 
-bool ImGuiConsole::Start()
-{
-	bool ret = true;
-
-	return ret;
-}
 
 
 void ImGuiConsole::AddLog(const char* fmt, ...) IM_FMTARGS(2)
 {
-	/*char buf[1024];
-	va_list args;
-	va_start(args, fmt);
-	vsnprintf(buf, _ARRAYSIZE(buf), fmt, args);
-	buf[_ARRAYSIZE(buf) - 1] = 0;
-	va_end(args);*/
-	Items.push_back(Strdup(fmt));
-	ScrollToBottom = true;
+	items.push_back(Strdup(fmt));
+	scrollToBottom = true;
 }
+
 
 void ImGuiConsole::ClearLog()
 {
-	for (int i = 0; i < Items.Size; i++)
-		free(Items[i]);
-	Items.clear();
-	ScrollToBottom = true;
+	if (items.Size > 0) {
+		for (int i = 0; i < items.Size; i++) {
+			free(items[i]);
+		}
+	}
+	items.clear();
+	scrollToBottom = true;
 }
 
 
 
 void ImGuiConsole::Draw()
 {
-	ImGuiWindowFlags flags = ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove;
-	ImGui::Begin("Console", &on, flags);
-	ImGui::SetWindowPos(ImVec2(0, 815), ImGuiCond_Once);
-	ImGui::SetWindowSize(ImVec2(App->width, 200), ImGuiCond_Always);
-	SDL_GetWindowSize(App->window->window, &App->width, &App->height);
+	ImGui::Begin("Console", &on, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_HorizontalScrollbar | ImGuiWindowFlags_NoMove);
 
+	ImGui::SetWindowPos({ 0.0f, (float)App->height - ((225 * App->height) / 1024) });
+	ImGui::SetWindowSize(ImVec2(App->width, (225 * App->height) / 1024), ImGuiCond_Always);
 
-	for (int i = 0; i < Items.Size; i++)
-	{
-		const char* item = Items[i];
-		ImVec4 col = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
-		if (strstr(item, "[error]")) col = ImColor(1.0f, 0.4f, 0.4f, 1.0f);
-		else if (strncmp(item, "# ", 2) == 0) col = ImColor(1.0f, 0.78f, 0.58f, 1.0f);
-		ImGui::PushStyleColor(ImGuiCol_Text, col);
-		ImGui::TextUnformatted(item);
-		ImGui::PopStyleColor();
-
-
+	if (ImGui::SmallButton("Clear")) {
+		ClearLog();
 	}
+	ImGui::SameLine();
+	if (ImGui::SmallButton("Scrool to bottom")) {
+		scrollToBottom = true;
+	}
+	ImGui::Separator();
+
+	ImGui::BeginChild(("Scroll"), ImVec2{ 0,-ImGui::GetItemsLineHeightWithSpacing() }, false, ImGuiWindowFlags_HorizontalScrollbar);
+	if (ImGui::BeginPopupContextWindow()) {
+		if (ImGui::Selectable("Clear")) {
+			ClearLog();
+		}
+		ImGui::EndPopup();
+	}
+
+	//Write logs
+	for (int i = 0; i < items.Size; i++) {
+		const char* currentItem = items[i];
+		ImVec4 colour = ImVec4(0.0f, 0.0f, 0.0f, 1.0f);
+		if (strstr(currentItem, "[error]")) {
+			colour = ImColor(1.0f, 0.4f, 0.4f, 1.0f);
+		}
+		else if (strncmp(currentItem, "# ", 2) == 0) {
+			colour = ImColor(1.0f, 0.78f, 0.58f, 1.0f);
+		}
+		ImGui::PushStyleColor(ImGuiCol_Text, colour);
+		ImGui::TextUnformatted(currentItem);
+		ImGui::PopStyleColor();
+	}
+	if (scrollToBottom == true) {
+		ImGui::SetScrollHere();
+	}
+	scrollToBottom = false;
 	ImGui::End();
 
 }
