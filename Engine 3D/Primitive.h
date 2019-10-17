@@ -4,6 +4,8 @@
 #include "glmath.h"
 #include "Color.h"
 
+class GameObject;
+
 enum PrimitiveTypes
 {
 	Primitive_Point,
@@ -109,7 +111,7 @@ struct buffer
 class Mesh : public Primitive
 {
 public:
-	Mesh();
+	Mesh(GameObject * parent);
 	void InnerRender() const;
 public:
 	int id = -1;
@@ -117,4 +119,6 @@ public:
 	buffer<float> vertex;
 	buffer<float> normals;
 	buffer<float> uvs;
+
+	GameObject* parent = nullptr;
 };

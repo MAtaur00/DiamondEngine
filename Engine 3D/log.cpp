@@ -20,8 +20,10 @@ void log(const char file[], int line, const char* format, ...)
 	//if (App != nullptr && App->imgui->gui_console != nullptr) {
 	//	App->imgui->gui_console->AddLog(tmp_string);
 	//}
-	if (App != nullptr && App->imgui->gui_console != nullptr)
+
+
+	/*if (App != nullptr && App->imgui->gui_console != nullptr)
 	{
 		App->imgui->gui_console->AddLog(tmp_string);
-	}
+	}*/
 }

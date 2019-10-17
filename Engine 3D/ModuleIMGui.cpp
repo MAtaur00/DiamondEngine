@@ -12,8 +12,7 @@
 #include "ImGuiConfig.h"
 #include "ImGuiConsole.h"
 #include "ImGuiAbout.h"
-
-
+#include "Hierarchy.h"
 
 using namespace ImGui;
 
@@ -80,9 +79,13 @@ update_status ModuleIMGui::PreUpdate(float dt)
 			{
 				showMath = !showMath;
 			}
-			else if (MenuItem("PCG"))
+			if (MenuItem("PCG"))
 			{
 				showRNG = !showRNG;
+			}
+			if (MenuItem("Hierarchy"))
+			{
+				showHierarchy = !showHierarchy;
 			}
 			ImGui::EndMenu();
 		}
@@ -452,13 +455,16 @@ update_status ModuleIMGui::PreUpdate(float dt)
 		
 	}
 	if (showConsole)
-	{
-		
+	{		
 		gui_console->Draw();
 	}
 	if (showAbout)
 	{
 		gui_about->Draw();
+	}
+	if (showHierarchy)
+	{
+		hierarchy->Draw();
 	}
 
 	return ret;

@@ -274,8 +274,9 @@ void PrimitivePlane::InnerRender() const
 }
 
 // MESH ============================================
-Mesh::Mesh() : Primitive()
+Mesh::Mesh(GameObject * parent) : Primitive()
 {
 	type = PrimitiveTypes::P_Mesh;
+	this->parent = parent;
 }
 

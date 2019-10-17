@@ -15,6 +15,7 @@ Application::Application()
 	sceneIntro = new ModuleSceneIntro(this);
 	geometry = new ModuleGeometry(this);
 	import = new ModuleImport(this);
+	game_object = new ModuleGameObject(this);
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -28,6 +29,7 @@ Application::Application()
 	AddModule(sceneIntro);
 	AddModule(geometry);
 	AddModule(import);
+	AddModule(game_object);
 
 	// Renderer last!
 	AddModule(renderer3D);

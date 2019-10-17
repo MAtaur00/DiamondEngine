@@ -1,6 +1,7 @@
 #pragma once
 #include "Module.h"
 #include "Globals.h"
+#include "GameObject.h"
 
 struct PhysMotor3D;
 
@@ -13,4 +14,7 @@ public:
 	bool Start();
 	update_status Update(float dt);
 	bool CleanUp();
+
+public:
+	GameObject* current_object = nullptr;
 };

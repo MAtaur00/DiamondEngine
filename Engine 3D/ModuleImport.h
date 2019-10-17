@@ -2,19 +2,12 @@
 #include "Module.h"
 #include "Globals.h"
 #include <vector>
+#include "GameObject.h"
 
 class Mesh;
 
-//struct Mesh
-//{
-//	uint id_index = 0; // index in VRAM
-//	uint num_index = 0;
-//	uint* index = nullptr;
-//
-//	uint id_vertex = 0; // unique vertex in VRAM
-//	uint num_vertex = 0;
-//	float* vertex = nullptr;
-//};
+struct aiScene;
+struct aiNode;
 
 class ModuleImport : public Module
 {
@@ -27,14 +20,13 @@ public:
 
 	void ImportFBX(const char* path);
 
+	GameObject* LoadMeshNode(const aiScene* scene, aiNode* node, GameObject* parent);
+
 	void ImportTexture(const char* path);
 
 	bool CleanUp();
 
 public:
-	Mesh* m = nullptr;
-
-	uint mesh_id = 0;
-	uint tex_id = 0;
+	
 };
 

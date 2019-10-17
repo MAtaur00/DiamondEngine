@@ -8,6 +8,8 @@ public:
 	ComponentTransform(GameObject* parent);
 	~ComponentTransform();
 
+	void Inspector();
+
 	void SetPos(float x, float y, float z);
 	void SetPos(float3 position);
 	void Move(float3 distance);

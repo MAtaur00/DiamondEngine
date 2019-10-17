@@ -10,6 +10,10 @@ public:
 	ComponentMesh(GameObject* parent);
 	~ComponentMesh();
 
+	void Inspector();
+
+
+
 public:
 	Mesh* mesh;
 	std::string name;

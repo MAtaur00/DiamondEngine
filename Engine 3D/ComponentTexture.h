@@ -14,7 +14,7 @@ public:
 
 	inline unsigned int GetID() { return tex_id; }
 
-private:
+public:
 	unsigned int tex_id = 0u;
 
 	std::string name;

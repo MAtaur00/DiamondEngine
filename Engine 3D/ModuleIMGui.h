@@ -17,6 +17,7 @@ enum ObjectType
 class ImGuiConfig;
 class ImGuiAbout;
 class ImGuiConsole;
+class Hierarchy;
 
 class ModuleIMGui : public Module
 {
@@ -37,11 +38,13 @@ public:
 	ImGuiConfig* gui_config;
 	ImGuiAbout* gui_about;
 	ImGuiConsole* gui_console;
+	Hierarchy* hierarchy;
 
 	bool showDemo = false;
 	bool showMath = false;
 	bool showRNG = false;
 	bool showAbout = false;
+	bool showHierarchy = true;
 
 	bool showConfiguration = false;
 	bool showConsole = false;

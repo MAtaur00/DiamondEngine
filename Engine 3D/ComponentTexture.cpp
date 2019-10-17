@@ -4,6 +4,7 @@
 
 ComponentTexture::ComponentTexture(GameObject* parent) : Component(parent, CompTexture)
 {
+	parent->components.push_back(this);
 }
 
 
