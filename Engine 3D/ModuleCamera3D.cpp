@@ -178,6 +178,13 @@ float* ModuleCamera3D::GetViewMatrix()
 	return &ViewMatrix;
 }
 
+float4x4 ModuleCamera3D::GetProjectionMatrix()
+{
+	float4x4 matrix = frustum.ProjectionMatrix();
+	matrix.Transpose();
+	return matrix;
+}
+
 // -----------------------------------------------------------------
 void ModuleCamera3D::CalculateViewMatrix()
 {

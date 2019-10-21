@@ -1,6 +1,7 @@
 #pragma once
 #include "Component.h"
 #include "MathGeoLib/MathGeoLib.h"
+#include "imgui.h"
 
 class ComponentTransform : public Component
 {

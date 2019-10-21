@@ -13,26 +13,22 @@
 #include "ImGuiConsole.h"
 #include "ImGuiAbout.h"
 #include "Hierarchy.h"
+#include "Inspector.h"
 
 using namespace ImGui;
-
-
                           
 ModuleIMGui::ModuleIMGui(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
+	gui_config = new ImGuiConfig;
+	gui_about = new ImGuiAbout;
+	gui_console = new ImGuiConsole;
+	hierarchy = new Hierarchy;
+	inspector = new Inspector;
 }
 
 
 ModuleIMGui::~ModuleIMGui()
 {
-}
-
-bool ModuleIMGui::Start()
-{
-	bool ret = true;
-
-	
-	return ret;
 }
 
 update_status ModuleIMGui::PreUpdate(float dt)
@@ -44,8 +40,6 @@ update_status ModuleIMGui::PreUpdate(float dt)
 	ImGui_ImplSDL2_NewFrame(App->window->window);
 	NewFrame();
 
-	
-	
 	if (BeginMainMenuBar())
 	{
 		if (BeginMenu("File"))
@@ -86,6 +80,10 @@ update_status ModuleIMGui::PreUpdate(float dt)
 			if (MenuItem("Hierarchy"))
 			{
 				showHierarchy = !showHierarchy;
+			}
+			if (MenuItem("Inspector"))
+			{
+				showInspector = !showInspector;
 			}
 			ImGui::EndMenu();
 		}
@@ -465,6 +463,10 @@ update_status ModuleIMGui::PreUpdate(float dt)
 	if (showHierarchy)
 	{
 		hierarchy->Draw();
+	}
+	if (showInspector)
+	{
+		inspector->Draw();
 	}
 
 	return ret;

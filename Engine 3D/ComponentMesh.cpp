@@ -12,3 +12,7 @@ ComponentMesh::ComponentMesh(GameObject* parent) : Component(parent, CompMesh)
 ComponentMesh::~ComponentMesh()
 {
 }
+
+void ComponentMesh::Inspector()
+{
+}

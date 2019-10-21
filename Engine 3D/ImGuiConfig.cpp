@@ -7,7 +7,6 @@
 #include "Psapi.h"
 #include "Windows.h"
 
-
 ImGuiConfig::ImGuiConfig()
 {
 
@@ -16,13 +15,6 @@ ImGuiConfig::ImGuiConfig()
 ImGuiConfig::~ImGuiConfig()
 {
 
-}
-
-bool ImGuiConfig::Start()
-{
-	bool ret = true;
-
-	return ret;
 }
 
 void ImGuiConfig::Draw()

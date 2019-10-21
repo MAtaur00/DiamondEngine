@@ -342,6 +342,9 @@
     <ClInclude Include="Hierarchy.h">
       <Filter>Sources\Modules\UI</Filter>
     </ClInclude>
+    <ClInclude Include="Inspector.h">
+      <Filter>Sources\Modules\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -543,6 +546,9 @@
       <Filter>Sources\GameObject\Components</Filter>
     </ClCompile>
     <ClCompile Include="Hierarchy.cpp">
+      <Filter>Sources\Modules\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Inspector.cpp">
       <Filter>Sources\Modules\UI</Filter>
     </ClCompile>
   </ItemGroup>

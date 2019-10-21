@@ -18,6 +18,7 @@ public:
 	Component(GameObject* parent, Object_Type type) : gameObject(parent), type(type) {}
 	~Component() {}
 
+	virtual void Inspector() {}
 public:
 	bool active = true;
 	GameObject* gameObject = nullptr;

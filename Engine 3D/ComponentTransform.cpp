@@ -11,6 +11,27 @@ ComponentTransform::~ComponentTransform()
 {
 }
 
+void ComponentTransform::Inspector()
+{
+	if (ImGui::CollapsingHeader("Transform", ImGuiTreeNodeFlags_DefaultOpen))
+	{
+		if (ImGui::DragFloat3("Position", &position[0], 0.1f, 0.0f, 0.0f, "%.2f"))
+		{
+			//SetPos(position);
+		}
+		float3 degRotation = rotation.ToEulerXYZ();
+		degRotation = RadToDeg(degRotation);
+		if (ImGui::DragFloat3("Rotation", &degRotation[0], 0.1f, 0.0f, 0.0f, "%.2f"))
+		{
+			SetRotation(DegToRad(degRotation));
+		}
+		if (ImGui::DragFloat3("Scale", &scale[0], 0.1f, 0.0f, 0.0f, "%.2f"))
+		{
+
+		}
+	}
+}
+
 void ComponentTransform::SetPos(float x, float y, float z)
 {
 	SetPos(float3(x, y, z));

@@ -11,3 +11,7 @@ ComponentTexture::ComponentTexture(GameObject* parent) : Component(parent, CompT
 ComponentTexture::~ComponentTexture()
 {
 }
+
+void ComponentTexture::Inspector()
+{
+}

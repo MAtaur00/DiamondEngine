@@ -2,9 +2,16 @@
 #include "Glew/include/glew.h"
 #include "Application.h"
 #include "ComponentTexture.h"
+#include "ComponentTransform.h"
 
 void Mesh::InnerRender() const
 {
+	ComponentTransform* transform = parent->transform;
+	glPushMatrix();
+	float4x4 mat = transform->GetMatrixOGL();
+
+	glMultMatrixf(mat.ptr());
+
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
@@ -16,13 +23,11 @@ void Mesh::InnerRender() const
 
 	if (parent)
 	{
-		LOG("tengo papá");
 		ComponentTexture* tex = (ComponentTexture*)parent->GetComponent(CompTexture);
 		if (tex)
 		{
 			glEnable(GL_TEXTURE_2D);
 			glBindTexture(GL_TEXTURE_2D, tex->GetID());
-			LOG("tengo textura");
 		}
 	}
 
@@ -36,6 +41,4 @@ void Mesh::InnerRender() const
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glDisable(GL_TEXTURE_2D);
-
-	
 }

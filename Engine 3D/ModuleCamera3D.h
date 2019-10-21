@@ -18,6 +18,8 @@ public:
 	void Move(const vec3 &Movement);
 	float* GetViewMatrix();
 
+	float4x4 GetProjectionMatrix();
+
 private:
 
 	void CalculateViewMatrix();
@@ -29,4 +31,5 @@ public:
 private:
 
 	mat4x4 ViewMatrix, ViewMatrixInverse;
+	Frustum frustum;
 };

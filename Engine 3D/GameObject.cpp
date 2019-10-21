@@ -12,7 +12,7 @@ GameObject::GameObject(GameObject* parent, const char* name)
 
 	transform = new ComponentTransform(this);
 
-	components.push_back((Component*)transform);
+	//components.push_back((Component*)transform);
 }
 
 
@@ -22,6 +22,10 @@ GameObject::~GameObject()
 
 bool GameObject::HasComponent(Object_Type type)
 {
+	if (type == CompTransform && transform)
+	{
+		return true;
+	}
 	for (list<Component*>::iterator it = components.begin(); it != components.end(); ++it)
 	{
 		if ((*it)->type == type)
@@ -34,6 +38,10 @@ bool GameObject::HasComponent(Object_Type type)
 
 Component * GameObject::GetComponent(Object_Type type)
 {
+	if (type == CompTransform && transform)
+	{
+		return transform;
+	}
 	for (list<Component*>::iterator it = components.begin(); it != components.end(); ++it)
 	{
 		if ((*it)->type == type)

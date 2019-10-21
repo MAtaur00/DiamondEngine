@@ -18,6 +18,7 @@ class ImGuiConfig;
 class ImGuiAbout;
 class ImGuiConsole;
 class Hierarchy;
+class Inspector;
 
 class ModuleIMGui : public Module
 {
@@ -25,7 +26,6 @@ public:
 	ModuleIMGui(Application * app, bool start_enabled = true);
 	~ModuleIMGui();
 
-	bool Start();
 	update_status PreUpdate(float dt);
 	update_status PostUpdate(float dt);
 	bool CleanUp();
@@ -39,15 +39,16 @@ public:
 	ImGuiAbout* gui_about;
 	ImGuiConsole* gui_console;
 	Hierarchy* hierarchy;
+	Inspector* inspector;
 
 	bool showDemo = false;
 	bool showMath = false;
 	bool showRNG = false;
 	bool showAbout = false;
 	bool showHierarchy = true;
-
+	bool showInspector = true;
 	bool showConfiguration = false;
-	bool showConsole = false;
+	bool showConsole = true;
 
 	float posx1 = 0.0f;
 	float posx2 = 5.0f;
@@ -74,8 +75,5 @@ public:
 	bool borderless = false;
 	bool resizable = false;
 	bool fullDesktop = false;
-
-
-
 };
 

@@ -6,6 +6,7 @@
 #include "imgui_impl_sdl.h"
 #include "imgui_impl_opengl3.h"
 #include "Primitive.h"
+#include "ModuleCamera3D.h"
 
 #include <gl/GL.h>
 
@@ -137,6 +138,14 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 
+	/*glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+
+	if (App->camera->GetProjectionMatrix())
+	{
+		glLoadMatrixf(App->camera->GetProjectionMatrix().ptr());
+	}*/
+
 	glMatrixMode(GL_MODELVIEW);
 	glLoadMatrixf(App->camera->GetViewMatrix());
 
@@ -193,22 +202,4 @@ void ModuleRenderer3D::OnResize(int width, int height)
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-}
-
-void ModuleRenderer3D::DrawFBX(Mesh* m)
-{
-	/*glEnableClientState(GL_VERTEX_ARRAY);
-	
-	glBindBuffer(GL_ARRAY_BUFFER, m.id_vertex);
-	glVertexPointer(3, GL_FLOAT, 0, NULL);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m.id_index);
-	
-	glBindTexture(GL_TEXTURE_2D, App->import->mesh_id);
-	
-	glDrawElements(GL_TRIANGLES, m.num_index, GL_UNSIGNED_INT, NULL);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-	
-	glDisableClientState(GL_VERTEX_ARRAY);*/
 }

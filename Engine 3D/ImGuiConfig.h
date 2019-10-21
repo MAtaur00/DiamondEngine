@@ -9,8 +9,6 @@ public:
 	ImGuiConfig();
 	~ImGuiConfig();
 
-	bool Start();
-
 	void SetState(GLenum capability, bool enable) const;
 
 	void Draw();

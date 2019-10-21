@@ -26,4 +26,9 @@ void log(const char file[], int line, const char* format, ...)
 	{
 		App->imgui->gui_console->AddLog(tmp_string);
 	}*/
+
+	if (App && App->imgui && App->imgui->gui_console) {
+		sprintf_s(tmp_string2, 4096, "\n%s", tmp_string);
+		App->imgui->gui_console->LogConsole(tmp_string2);
+	}
 }

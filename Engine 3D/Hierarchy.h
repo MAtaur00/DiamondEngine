@@ -10,8 +10,6 @@ public:
 	Hierarchy();
 	~Hierarchy();
 
-	bool Start();
-
 	void Draw();
 
 	void DrawGameObjects(GameObject* current);

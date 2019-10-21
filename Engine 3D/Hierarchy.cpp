@@ -11,16 +11,9 @@ Hierarchy::~Hierarchy()
 {
 }
 
-bool Hierarchy::Start()
-{
-	bool ret = true;
-
-	return ret;
-}
-
 void Hierarchy::Draw()
 {
-	if (ImGui::Begin("Hierarchy"), &App->imgui->showHierarchy)
+	if (ImGui::Begin("Hierarchy", &App->imgui->showHierarchy, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_HorizontalScrollbar | ImGuiWindowFlags_NoMove))
 	{
 		if (App->game_object->root)
 		{

@@ -18,16 +18,9 @@ ImGuiAbout::~ImGuiAbout()
 
 }
 
-bool ImGuiAbout::Start()
-{
-	bool ret = true;
-
-	return ret;
-}
-
 void ImGuiAbout::Draw()
 {
-	if (ImGui::Begin("About"), &App->imgui->showAbout)
+	if (ImGui::Begin("About", &App->imgui->showAbout))
 	{
 		ImGui::Separator();
 		ImGui::TextWrapped("MIT License Copyright (c) 2019 Marc Tarres and Aleix Castillo");

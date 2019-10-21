@@ -21,8 +21,6 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
-	void DrawFBX(Mesh* m);
-
 	void OnResize(int width, int height);
 
 public:

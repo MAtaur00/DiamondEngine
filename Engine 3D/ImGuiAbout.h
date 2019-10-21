@@ -8,7 +8,5 @@ public:
 	ImGuiAbout();
 	~ImGuiAbout();
 
-	bool Start();
-
 	void Draw();
 };
