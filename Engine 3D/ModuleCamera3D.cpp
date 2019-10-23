@@ -58,8 +58,12 @@ update_status ModuleCamera3D::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT)
 	{
-		vec3 vec = { 0,0,0 };
-		LookAt(vec);
+		if (App->sceneIntro->current_object)
+		{
+			float3 posCam = App->sceneIntro->current_object->transform->GetGlobalPos();
+			vec3 vec = { posCam.x, posCam.y, posCam.z };
+			LookAt(vec);
+		}	
 	}
 
 	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT &&
