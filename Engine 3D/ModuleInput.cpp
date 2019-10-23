@@ -2,7 +2,6 @@
 #include "Application.h"
 #include "ModuleInput.h"
 #include "imgui_impl_sdl.h"
-#include <string>
 
 #define MAX_KEYS 300
 
@@ -128,9 +127,11 @@ update_status ModuleInput::PreUpdate(float dt)
 
 				if (!extension.compare("fbx") || !extension.compare("obj"))
 					App->import->ImportFBX(dropped_filedir);
+					
 
 				else if (!extension.compare("png") || !extension.compare("dds") || !extension.compare("jpg") || !extension.compare("jpeg") || !extension.compare("tga"))
 					App->import->ImportTexture(dropped_filedir);
+					
 
 				SDL_free(dropped_filedir);
 			}

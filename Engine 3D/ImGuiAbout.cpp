@@ -22,6 +22,54 @@ void ImGuiAbout::Draw()
 {
 	if (ImGui::Begin("About", &App->imgui->showAbout))
 	{
+		if (ImGui::Button("Repository", ImVec2(150, 25)))
+			ShellExecuteA(NULL, "Open", "https://github.com/MAtaur00/DiamondEngine", NULL, NULL, SW_SHOWNORMAL);
+
+		ImGui::Text("Made by:");
+		if (ImGui::Button("Marc Tarres", ImVec2(150, 25)))
+			ShellExecuteA(NULL, "Open", "https://github.com/MAtaur00", NULL, NULL, SW_SHOWNORMAL);
+		ImGui::SameLine();
+		if (ImGui::Button("Aleix Castillo", ImVec2(150, 25)))
+			ShellExecuteA(NULL, "Open", "https://github.com/AleixCas95", NULL, NULL, SW_SHOWNORMAL);
+
+		ImGui::Separator();
+		ImGui::Text("Libraries used in this engine");
+
+		std::string nameStr = "ImGui ";
+		nameStr += ImGui::GetVersion();
+		if (ImGui::Button(nameStr.data(), ImVec2(125, 20)))
+			ShellExecuteA(NULL, "Open", "https://github.com/ocornut/imgui/releases", NULL, NULL, SW_SHOWNORMAL);
+
+		SDL_version current;
+		SDL_VERSION(&current);
+		char nameChar[25];
+		sprintf_s(nameChar, 25, "SDL %d.%d.%d", current.major, current.minor, current.patch);
+		if (ImGui::Button(nameChar, ImVec2(125, 20)))
+			ShellExecuteA(NULL, "Open", "https://www.libsdl.org/download-2.0.php", NULL, NULL, SW_SHOWNORMAL);
+
+		int major, minor;
+		SDL_GL_GetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, &major);
+		SDL_GL_GetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, &minor);
+		sprintf_s(nameChar, 25, "OpenGL %i.%i", major, minor);
+		if (ImGui::Button(nameChar, ImVec2(125, 20)))
+			ShellExecuteA(NULL, "Open", "https://www.opengl.org", NULL, NULL, SW_SHOWNORMAL);
+
+		sprintf_s(nameChar, 25, "MathGeoLib 1.5");
+		if (ImGui::Button(nameChar, ImVec2(125, 20)))
+			ShellExecuteA(NULL, "Open", "https://github.com/juj/MathGeoLib/releases/tag/v1.5", NULL, NULL, SW_SHOWNORMAL);
+
+		sprintf_s(nameChar, 25, "PCG 0.94");
+		if (ImGui::Button(nameChar, ImVec2(125, 20)))
+			ShellExecuteA(NULL, "Open", "http://www.pcg-random.org/download.html", NULL, NULL, SW_SHOWNORMAL);
+
+		sprintf_s(nameChar, 25, "Assimp 3.3");
+		if (ImGui::Button(nameChar, ImVec2(125, 20)))
+			ShellExecuteA(NULL, "Open", "http://www.assimp.org", NULL, NULL, SW_SHOWNORMAL);
+
+		sprintf_s(nameChar, 25, "DevIL 1.8");
+		if (ImGui::Button(nameChar, ImVec2(125, 20)))
+			ShellExecuteA(NULL, "Open", "http://openil.sourceforge.net", NULL, NULL, SW_SHOWNORMAL);
+
 		ImGui::Separator();
 		ImGui::TextWrapped("MIT License Copyright (c) 2019 Marc Tarres and Aleix Castillo");
 

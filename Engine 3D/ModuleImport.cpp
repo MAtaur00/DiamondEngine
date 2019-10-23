@@ -118,6 +118,7 @@ GameObject* ModuleImport::LoadMeshNode(const aiScene * scene, aiNode * node, Gam
 		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m->index.size, m->index.data, GL_STATIC_DRAW);
 
 		ComponentMesh* newMesh = new ComponentMesh(parent);
+		//ComponentMesh* newMesh = new ComponentMesh(App->sceneIntro->current_object);
 		newMesh->mesh = m;
 
 		App->renderer3D->mesh_list.push_back(m);
@@ -157,12 +158,16 @@ void ModuleImport::ImportTexture(const char* path)
 			ComponentTexture* texture = (ComponentTexture*)App->sceneIntro->current_object->GetComponent(CompTexture);
 			glDeleteTextures(1, &texture->tex_id);
 			texture->tex_id = texture_id;
+			std::string tex_path(path);
+			texture->path = tex_path;
 		}
 		else
 		{
 			ComponentTexture* texture = new ComponentTexture(App->sceneIntro->current_object);
 			texture->tex_id = texture_id;
-		}
+			std::string tex_path(path);
+			texture->path = tex_path;
+		}	
 	}
 	else
 	{

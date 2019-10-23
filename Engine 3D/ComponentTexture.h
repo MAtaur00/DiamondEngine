@@ -18,5 +18,7 @@ public:
 	unsigned int tex_id = 0u;
 
 	std::string name;
+
+	std::string path;
 };
 

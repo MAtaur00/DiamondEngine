@@ -14,4 +14,8 @@ ComponentTexture::~ComponentTexture()
 
 void ComponentTexture::Inspector()
 {
+	if (ImGui::CollapsingHeader("Texture", ImGuiTreeNodeFlags_DefaultOpen))
+	{
+		ImGui::Text("%s", path.c_str());
+	}
 }

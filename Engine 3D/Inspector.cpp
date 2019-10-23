@@ -12,7 +12,7 @@ Inspector::~Inspector()
 
 void Inspector::Draw()
 {
-	if (ImGui::Begin("Inspector", &App->imgui->showInspector))
+	if (ImGui::Begin("Inspector", &App->imgui->showInspector, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_HorizontalScrollbar | ImGuiWindowFlags_NoMove))
 	{
 		if (App->sceneIntro->current_object)
 		{
@@ -24,6 +24,10 @@ void Inspector::Draw()
 			}
 
 			App->sceneIntro->current_object->transform->Inspector();
+			for (std::list<Component*>::iterator it = App->sceneIntro->current_object->components.begin(); it != App->sceneIntro->current_object->components.end(); ++it)
+			{
+				(*it)->Inspector();
+			}
 		}
 	}
 	ImGui::End();

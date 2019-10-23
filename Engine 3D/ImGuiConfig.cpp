@@ -97,14 +97,9 @@ void ImGuiConfig::Draw()
 			{
 				App->window->SetFullDesktop(App->imgui->fullDesktop);
 			}
-
-			
-
-			if (ImGui::IsItemHovered)
-			{
-				ImGui::SetTooltip("Restart to apply");
-			}
-
+		}
+		if (ImGui::CollapsingHeader("Renderer"))
+		{
 			GLenum capability = 0;
 
 			capability = GL_DEPTH_TEST;
@@ -158,7 +153,6 @@ void ImGuiConfig::Draw()
 				else
 					glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 			}
-
 		}
 		/*if (ImGui::CollapsingHeader("File System"))
 		{
@@ -182,20 +176,6 @@ void ImGuiConfig::Draw()
 			ImGui::Text("Mouse Wheel:");
 			ImGui::SameLine();
 			ImGui::TextColored({ 1.f, 1.f, 0, 1.f }, "%i", App->input->GetMouseZ());
-
-			ImGui::Separator();
-
-			ImGuiWindowFlags scrollFlags = 0;
-			scrollFlags |= ImGuiWindowFlags_AlwaysVerticalScrollbar;
-
-			ImGuiTextBuffer buf;
-
-			if (ImGui::BeginChild("scroll", ImVec2(0, 0), false, scrollFlags))
-			{
-				ImGui::TextUnformatted(buf.begin());
-				ImGui::SetScrollHere(1.0f);
-			}
-			ImGui::EndChild();
 		}
 		if (ImGui::CollapsingHeader("Hardware"))
 		{
@@ -207,6 +187,18 @@ void ImGuiConfig::Draw()
 			ImGui::Text("SDL Version:");
 			ImGui::SameLine();
 			ImGui::TextColored({ 1.f, 1.f, 0, 1.f }, nameChar);
+
+			int major, minor;
+			SDL_GL_GetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, &major);
+			SDL_GL_GetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, &minor);
+			sprintf_s(nameChar, 25, "%i.%i", major, minor);
+			ImGui::Text("OpenGL version:");
+			ImGui::SameLine();
+			ImGui::TextColored({ 1.f, 1.f, 0, 1.f }, nameChar);
+
+			ImGui::Text("DevIL version:");
+			ImGui::SameLine();
+			ImGui::TextColored({ 1.f, 1.f, 0, 1.f }, "1.8");
 
 			ImGui::Separator();
 

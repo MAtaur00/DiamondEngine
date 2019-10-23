@@ -17,7 +17,7 @@ void ComponentTransform::Inspector()
 	{
 		if (ImGui::DragFloat3("Position", &position[0], 0.1f, 0.0f, 0.0f, "%.2f"))
 		{
-			//SetPos(position);
+			
 		}
 		float3 degRotation = rotation.ToEulerXYZ();
 		degRotation = RadToDeg(degRotation);

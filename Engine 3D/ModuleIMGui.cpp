@@ -85,12 +85,12 @@ update_status ModuleIMGui::PreUpdate(float dt)
 			{
 				showInspector = !showInspector;
 			}
+			if (MenuItem("Show Demo Window"))
+				showDemo = !showDemo;
 			ImGui::EndMenu();
 		}
 		if (BeginMenu("Help"))
-		{
-			if (MenuItem("Show Demo Window"))
-				showDemo = !showDemo;
+		{		
 			if (MenuItem("Documentation"))
 				ShellExecuteA(NULL, "Open", "https://github.com/MAtaur00/DiamondEngine/wiki", NULL, NULL, SW_SHOWNORMAL);
 			if (MenuItem("Download latest"))
