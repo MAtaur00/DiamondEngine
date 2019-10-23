@@ -32,4 +32,5 @@ private:
 
 	mat4x4 ViewMatrix, ViewMatrixInverse;
 	Frustum frustum;
+	int cameraSpeed = 3;
 };

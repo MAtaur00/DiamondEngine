@@ -41,4 +41,6 @@ void Mesh::InnerRender() const
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glDisable(GL_TEXTURE_2D);
+
+	glPopMatrix();
 }

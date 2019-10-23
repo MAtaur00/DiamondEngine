@@ -41,6 +41,10 @@ bool ModuleImport::Start()
 	stream = aiGetPredefinedLogStream(aiDefaultLogStream_DEBUGGER, nullptr);
 	aiAttachLogStream(&stream);
 
+	ImportFBX("Assets\\Models\\BakerHouse.fbx");
+	ImportTexture("Assets\\Textures\\Baker_house.png");
+
+
 	return ret;
 }
 
@@ -117,8 +121,8 @@ GameObject* ModuleImport::LoadMeshNode(const aiScene * scene, aiNode * node, Gam
 		glBindBuffer(GL_ARRAY_BUFFER, m->index.id);
 		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m->index.size, m->index.data, GL_STATIC_DRAW);
 
-		ComponentMesh* newMesh = new ComponentMesh(parent);
-		//ComponentMesh* newMesh = new ComponentMesh(App->sceneIntro->current_object);
+		//ComponentMesh* newMesh = new ComponentMesh(parent);
+		ComponentMesh* newMesh = new ComponentMesh(go);
 		newMesh->mesh = m;
 
 		App->renderer3D->mesh_list.push_back(m);
@@ -153,21 +157,24 @@ void ModuleImport::ImportTexture(const char* path)
 		ilDeleteImages(1, &id);
 		LOG("Texture loaded");
 
-		if (App->sceneIntro->current_object->HasComponent(CompTexture))
+		for (auto& child : App->sceneIntro->current_object->childs)
 		{
-			ComponentTexture* texture = (ComponentTexture*)App->sceneIntro->current_object->GetComponent(CompTexture);
-			glDeleteTextures(1, &texture->tex_id);
-			texture->tex_id = texture_id;
-			std::string tex_path(path);
-			texture->path = tex_path;
-		}
-		else
-		{
-			ComponentTexture* texture = new ComponentTexture(App->sceneIntro->current_object);
-			texture->tex_id = texture_id;
-			std::string tex_path(path);
-			texture->path = tex_path;
-		}	
+			if (child->HasComponent(CompTexture))
+			{
+				ComponentTexture* texture = (ComponentTexture*)child->GetComponent(CompTexture);
+				glDeleteTextures(1, &texture->tex_id);
+				texture->tex_id = texture_id;
+				std::string tex_path(path);
+				texture->path = tex_path;
+			}
+			else
+			{
+				ComponentTexture* texture = new ComponentTexture(child);
+				texture->tex_id = texture_id;
+				std::string tex_path(path);
+				texture->path = tex_path;
+			}
+		}			
 	}
 	else
 	{

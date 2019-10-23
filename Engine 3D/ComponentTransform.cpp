@@ -29,6 +29,13 @@ void ComponentTransform::Inspector()
 		{
 
 		}
+
+		if (ImGui::Button("Reset"))
+		{
+			position = float3::zero;
+			rotation = Quat::identity;
+			scale = float3::one;
+		}
 	}
 }
 
