@@ -24,11 +24,14 @@ void Mesh::InnerRender() const
 	if (parent)
 	{
 		ComponentTexture* tex = (ComponentTexture*)parent->GetComponent(CompTexture);
-		if (tex)
+		if (tex->print)
 		{
-			glEnable(GL_TEXTURE_2D);
-			glBindTexture(GL_TEXTURE_2D, tex->GetID());
-		}
+			if (tex)
+			{
+				glEnable(GL_TEXTURE_2D);
+				glBindTexture(GL_TEXTURE_2D, tex->GetID());
+			}
+		}		
 	}
 
 	glBindBuffer(GL_ARRAY_BUFFER, uvs.id);

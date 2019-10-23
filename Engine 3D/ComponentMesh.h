@@ -17,4 +17,6 @@ public:
 public:
 	Mesh* mesh;
 	std::string name;
+
+	bool print = true;
 };

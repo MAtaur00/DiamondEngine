@@ -20,5 +20,7 @@ public:
 	std::string name;
 
 	std::string path;
+
+	bool print = true;
 };
 
