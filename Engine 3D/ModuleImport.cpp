@@ -126,11 +126,12 @@ GameObject* ModuleImport::LoadMeshNode(const aiScene * scene, aiNode * node, Gam
 		newMesh->mesh = m;
 
 		App->renderer3D->mesh_list.push_back(m);
+		LOG("Mesh loaded");
 	}
 	for (int child = 0; child < node->mNumChildren; ++child)
 	{
 		LoadMeshNode(scene, node->mChildren[child], go);
-	}
+	}	
 	return go;
 }
 

@@ -49,12 +49,6 @@ void Hierarchy::DrawGameObjects(GameObject* current)
 		for (std::list<GameObject*>::iterator childs = current->childs.begin(); childs != current->childs.end(); ++childs)
 		{
 			DrawGameObjects(*childs);
-
-			//if (ImGui::IsItemClicked(1) && objectSelected == nullptr)
-			//{
-			//	objectSelected = *childs;
-			//	popHierarchy = true;
-			//}
 		}
 		ImGui::TreePop();
 	}

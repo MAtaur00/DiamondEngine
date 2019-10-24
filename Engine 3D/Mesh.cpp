@@ -24,9 +24,9 @@ void Mesh::InnerRender() const
 	if (parent)
 	{
 		ComponentTexture* tex = (ComponentTexture*)parent->GetComponent(CompTexture);
-		if (tex->print)
+		if (tex)
 		{
-			if (tex)
+			if (tex->print)
 			{
 				glEnable(GL_TEXTURE_2D);
 				glBindTexture(GL_TEXTURE_2D, tex->GetID());

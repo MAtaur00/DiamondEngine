@@ -125,7 +125,7 @@ update_status ModuleInput::PreUpdate(float dt)
 				std::string path(dropped_filedir);
 				extension = path.substr(path.find_last_of(".") + 1);
 
-				if (!extension.compare("fbx") || !extension.compare("obj"))
+				if (!extension.compare("fbx") || !extension.compare("obj") || !extension.compare("FBX"))
 					App->import->ImportFBX(dropped_filedir);
 					
 
