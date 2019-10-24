@@ -14,6 +14,7 @@
 #include "ImGuiAbout.h"
 #include "Hierarchy.h"
 #include "Inspector.h"
+#include "Shapes.h"
 
 using namespace ImGui;
                           
@@ -84,6 +85,10 @@ update_status ModuleIMGui::PreUpdate(float dt)
 			if (MenuItem("Inspector"))
 			{
 				showInspector = !showInspector;
+			}
+			if (MenuItem("Shapes"))
+			{
+				showShapes = !showShapes;
 			}
 			if (MenuItem("Show Demo Window"))
 				showDemo = !showDemo;
@@ -467,6 +472,10 @@ update_status ModuleIMGui::PreUpdate(float dt)
 	if (showInspector)
 	{
 		inspector->Draw();
+	}
+	if (showShapes)
+	{
+		shapes->Draw();
 	}
 
 	return ret;

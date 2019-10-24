@@ -171,6 +171,7 @@
     <ClInclude Include="ModuleWindow.h" />
     <ClInclude Include="pcg\pcg_basic.h" />
     <ClInclude Include="Primitive.h" />
+    <ClInclude Include="Shapes.h" />
     <ClInclude Include="Timer.h" />
   </ItemGroup>
   <ItemGroup>
@@ -241,6 +242,7 @@
     <ClCompile Include="ModuleWindow.cpp" />
     <ClCompile Include="pcg\pcg_basic.c" />
     <ClCompile Include="Primitive.cpp" />
+    <ClCompile Include="Shapes.cpp" />
     <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>

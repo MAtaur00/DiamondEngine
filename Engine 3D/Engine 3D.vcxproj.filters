@@ -345,6 +345,9 @@
     <ClInclude Include="Inspector.h">
       <Filter>Sources\Modules\UI</Filter>
     </ClInclude>
+    <ClInclude Include="Shapes.h">
+      <Filter>Sources\Modules\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -549,6 +552,9 @@
       <Filter>Sources\Modules\UI</Filter>
     </ClCompile>
     <ClCompile Include="Inspector.cpp">
+      <Filter>Sources\Modules\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Shapes.cpp">
       <Filter>Sources\Modules\UI</Filter>
     </ClCompile>
   </ItemGroup>

@@ -3,6 +3,7 @@
 #include "Globals.h"
 #include <vector>
 #include "GameObject.h"
+#include "ParShapes/par_shapes.h"
 
 class Mesh;
 
@@ -25,6 +26,8 @@ public:
 	void ImportTexture(const char* path);
 
 	bool CleanUp();
+
+	Mesh* MeshParShape(par_shapes_mesh* mesh);
 
 public:
 	

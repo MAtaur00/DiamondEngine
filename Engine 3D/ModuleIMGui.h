@@ -19,6 +19,7 @@ class ImGuiAbout;
 class ImGuiConsole;
 class Hierarchy;
 class Inspector;
+class Shapes;
 
 class ModuleIMGui : public Module
 {
@@ -40,6 +41,7 @@ public:
 	ImGuiConsole* gui_console;
 	Hierarchy* hierarchy;
 	Inspector* inspector;
+	Shapes* shapes;
 
 	bool showDemo = false;
 	bool showMath = false;
@@ -49,6 +51,7 @@ public:
 	bool showInspector = true;
 	bool showConfiguration = false;
 	bool showConsole = true;
+	bool showShapes = false;
 
 	float posx1 = 0.0f;
 	float posx2 = 5.0f;
