@@ -1,4 +1,5 @@
 #include "GameObject.h"
+#include "pcg/pcg_basic.h"
 using namespace std;
 
 
@@ -11,6 +12,8 @@ GameObject::GameObject(GameObject* parent, const char* name)
 		this->name = name;
 
 	transform = new ComponentTransform(this);
+
+	uuid = pcg32_random();
 
 	//components.push_back((Component*)transform);
 }

@@ -33,11 +33,9 @@ void Hierarchy::DrawGameObjects(GameObject* current)
 	if (current == App->sceneIntro->current_object)
 		flags |= ImGuiTreeNodeFlags_Selected;
 
-	char name[80];
+	char name[256];
 
-	std::string sName = current->name;
-
-	sprintf_s(name, 80, "%s", sName.c_str());
+	sprintf_s(name, 256, "%s##%u", current->name.c_str(), current->uuid);
 
 	if (ImGui::TreeNodeEx(name, flags))
 	{

@@ -22,4 +22,6 @@ public:
 	ComponentTransform* transform = nullptr;
 	GameObject* parent = nullptr;
 	std::list<GameObject*> childs;
+
+	unsigned int uuid = 0u;
 };
