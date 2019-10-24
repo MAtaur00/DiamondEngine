@@ -64,6 +64,10 @@ update_status ModuleCamera3D::Update(float dt)
 			{
 				float3 posCam = App->sceneIntro->current_object->transform->GetGlobalPos();
 				vec3 vec = { posCam.x, posCam.y, posCam.z };
+
+				Position.x = vec.x + 10;
+				Position.y = vec.y + 10;
+				Position.z = vec.z + 10;
 				LookAt(vec);
 			}
 		}
