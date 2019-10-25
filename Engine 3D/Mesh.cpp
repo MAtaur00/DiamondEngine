@@ -7,10 +7,10 @@
 void Mesh::InnerRender() const
 {
 	ComponentTransform* transform = parent->transform;
-	glPushMatrix();
+	//glPushMatrix();
 	float4x4 mat = transform->GetMatrixOGL();
 
-	glMultMatrixf(mat.ptr());
+	//glMultMatrixf(mat.ptr());
 
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -45,5 +45,5 @@ void Mesh::InnerRender() const
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glDisable(GL_TEXTURE_2D);
 
-	glPopMatrix();
+	//glPopMatrix();
 }
