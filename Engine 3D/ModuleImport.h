@@ -27,7 +27,7 @@ public:
 
 	bool CleanUp();
 
-	Mesh* MeshParShape(par_shapes_mesh* mesh);
+	Mesh* MeshParShape(par_shapes_mesh* mesh, const char* name);
 
 public:
 	

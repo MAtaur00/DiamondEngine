@@ -121,7 +121,6 @@ GameObject* ModuleImport::LoadMeshNode(const aiScene * scene, aiNode * node, Gam
 		glBindBuffer(GL_ARRAY_BUFFER, m->index.id);
 		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m->index.size, m->index.data, GL_STATIC_DRAW);
 
-		//ComponentMesh* newMesh = new ComponentMesh(parent);
 		ComponentMesh* newMesh = new ComponentMesh(go);
 		newMesh->mesh = m;
 
@@ -198,9 +197,11 @@ bool ModuleImport::CleanUp()
 	return true;
 }
 
-Mesh* ModuleImport::MeshParShape(par_shapes_mesh* mesh)
+Mesh* ModuleImport::MeshParShape(par_shapes_mesh* mesh, const char* name)
 {
-	Mesh* m = new Mesh(NULL);
+	GameObject* go = new GameObject(App->game_object->root, name);
+
+	Mesh* m = new Mesh(go);
 
 	m->vertex.size = mesh->npoints;
 	m->vertex.data = new float[m->vertex.size * 3];
@@ -221,6 +222,9 @@ Mesh* ModuleImport::MeshParShape(par_shapes_mesh* mesh)
 	glGenBuffers(1, (GLuint*) &(m->index.id));
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m->index.id);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(float) * m->index.size, m->index.data, GL_STATIC_DRAW);
+
+	ComponentMesh* newMesh = new ComponentMesh(go);
+	newMesh->mesh = m;
 
 	App->renderer3D->mesh_list.push_back(m);
 
