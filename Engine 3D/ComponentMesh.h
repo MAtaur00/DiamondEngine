@@ -19,4 +19,7 @@ public:
 	std::string name;
 
 	bool print = true;
+
+	bool printVertexNormals = false;
+	bool printFacesNormals = false;
 };

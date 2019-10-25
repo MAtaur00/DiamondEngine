@@ -19,5 +19,8 @@ void ComponentMesh::Inspector()
 	{
 		ImGui::Text("Number of vertices: %u", mesh->vertex.size);
 		ImGui::Text("Number of faces: %u", mesh->index.size / 3);
+
+		ImGui::Checkbox("Vertex normals", &printVertexNormals);
+		ImGui::Checkbox("Faces normals", &printFacesNormals);
 	}
 }
