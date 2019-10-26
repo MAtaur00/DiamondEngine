@@ -154,8 +154,7 @@ void ModuleImport::ImportTexture(const char* path)
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 		texture_id = ilutGLBindTexImage();
 		glBindTexture(GL_TEXTURE_2D, 0);
-		ilDeleteImages(1, &id);
-		LOG("Texture loaded");
+		ilDeleteImages(1, &id);		
 
 		for (auto& child : App->sceneIntro->current_object->childs)
 		{
@@ -166,6 +165,7 @@ void ModuleImport::ImportTexture(const char* path)
 				texture->tex_id = texture_id;
 				std::string tex_path(path);
 				texture->path = tex_path;
+				LOG("Texture loaded");
 			}
 			else
 			{
@@ -173,6 +173,7 @@ void ModuleImport::ImportTexture(const char* path)
 				texture->tex_id = texture_id;
 				std::string tex_path(path);
 				texture->path = tex_path;
+				LOG("Texture loaded");
 			}
 		}			
 	}

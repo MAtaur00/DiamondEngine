@@ -33,8 +33,8 @@ void ImGuiConsole::Draw()
 	ImGui::Separator();
 
 	ImGui::TextWrapped(textBuff.begin());
-	if (canScroll)
-		ImGui::SetScrollY(1.0f);
+	/*if (canScroll)
+		ImGui::SetScrollY(1.0f);*/
 
 	canScroll = false;
 
