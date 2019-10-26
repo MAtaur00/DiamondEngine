@@ -25,6 +25,8 @@ public:
 
 	void ImportTexture(const char* path);
 
+	void ImportTexture(const char* path, GameObject* go);
+
 	bool CleanUp();
 
 	Mesh* MeshParShape(par_shapes_mesh* mesh, const char* name);

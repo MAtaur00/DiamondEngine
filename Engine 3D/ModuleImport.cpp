@@ -42,7 +42,7 @@ bool ModuleImport::Start()
 	aiAttachLogStream(&stream);
 
 	ImportFBX("Assets\\Models\\BakerHouse.fbx");
-	ImportTexture("Assets\\Textures\\Baker_house.png");
+	/*ImportTexture("Assets\\Textures\\Baker_house.png");*/
 
 
 	return ret;
@@ -108,6 +108,26 @@ GameObject* ModuleImport::LoadMeshNode(const aiScene * scene, aiNode * node, Gam
 			glBindBuffer(GL_ARRAY_BUFFER, m->uvs.id);
 			glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 2 * m->uvs.size, m->uvs.data, GL_STATIC_DRAW);
 		}
+
+		if (scene->HasMaterials())
+		{
+			aiMaterial* material = scene->mMaterials[new_mesh->mMaterialIndex];
+
+			if (material)
+			{
+				aiString textName;
+				material->GetTexture(aiTextureType_DIFFUSE, 0, &textName);
+
+				std::string textPath(textName.data);
+
+				textPath = textPath.substr(textPath.find_last_of("\\") + 1);
+
+				textPath = "Assets\\Textures\\" + textPath;
+
+				ImportTexture(textPath.c_str(), go);
+			}
+		}
+
 		if (new_mesh->HasNormals()) {
 			m->normals.size = new_mesh->mNumVertices;
 			m->normals.data = new float[m->normals.size * 3];
@@ -180,6 +200,53 @@ void ModuleImport::ImportTexture(const char* path)
 	else
 	{
 		LOG("Couldn't load texture");
+	}
+}
+
+void ModuleImport::ImportTexture(const char * path, GameObject * go)
+{
+	ilInit();
+	iluInit();
+	ilutInit();
+	if (ilLoadImage(path))
+	{
+		uint texture_id = 0;
+
+		uint id = 0;
+
+		ilGenImages(1, &id);
+		ilBindImage(id);
+		ilLoadImage(path);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		texture_id = ilutGLBindTexImage();
+		glBindTexture(GL_TEXTURE_2D, 0);
+		ilDeleteImages(1, &id);
+
+		
+		if (go->HasComponent(CompTexture))
+		{
+			ComponentTexture* texture = (ComponentTexture*)go->GetComponent(CompTexture);
+			glDeleteTextures(1, &texture->tex_id);
+			texture->tex_id = texture_id;
+			std::string tex_path(path);
+			texture->path = tex_path;
+			LOG("Texture loaded");
+		}
+		else
+		{
+			ComponentTexture* texture = new ComponentTexture(go);
+			texture->tex_id = texture_id;
+			std::string tex_path(path);
+			texture->path = tex_path;
+			LOG("Texture loaded");
+		}
+	}
+	else
+	{
+		LOG("Couldn't load texture: %s", path);
 	}
 }
 
