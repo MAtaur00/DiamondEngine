@@ -149,6 +149,7 @@ GameObject* ModuleImport::LoadMeshNode(const aiScene * scene, aiNode * node, Gam
 		}
 
 		if (new_mesh->HasNormals()) {
+			m->hasNormals = true;
 			m->normals.size = new_mesh->mNumVertices;
 			m->normals.data = new float[m->normals.size * 3];
 			memcpy(m->normals.data, new_mesh->mNormals, sizeof(float) * m->normals.size * 3);

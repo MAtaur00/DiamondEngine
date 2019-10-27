@@ -3,6 +3,7 @@
 #include "Application.h"
 #include "ComponentTexture.h"
 #include "ComponentTransform.h"
+#include "ComponentMesh.h"
 
 void Mesh::InnerRender() const
 {
@@ -31,8 +32,27 @@ void Mesh::InnerRender() const
 				glEnable(GL_TEXTURE_2D);
 				glBindTexture(GL_TEXTURE_2D, tex->GetID());
 			}
-		}		
+		}	
+
+		ComponentMesh* mesh = (ComponentMesh*)parent->GetComponent(CompMesh);
+
+		if (mesh && mesh->printVertexNormals && hasNormals)
+		{
+			int size = 2;
+			glColor3f(1.0f, 1.0f, 1.0f);
+
+			for (uint i = 0; i < vertex.size * 3; i += 3)
+			{
+				glBegin(GL_LINES);
+				glVertex3f(vertex.data[i], vertex.data[i + 1], vertex.data[i + 2]);
+				glVertex3f(vertex.data[i] + normals.data[i] * size, vertex.data[i + 1] + normals.data[i + 1] * size, vertex.data[i + 2] + normals.data[i + 2] * size);
+				glEnd();
+			}
+			glColor3f(1.0f, 1.0f, 1.0f);
+		}
 	}
+
+	
 
 	glBindBuffer(GL_ARRAY_BUFFER, uvs.id);
 	glTexCoordPointer(2, GL_FLOAT, 0, NULL);
