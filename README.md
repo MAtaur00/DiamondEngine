@@ -6,6 +6,12 @@ Diamond Engine is a 3D game engine created by Marc Tarrés and Aleix Castillo, t
 - Aleix Castillo [Github account](https://github.com/AleixCas95)
 - Diamond Engine [Github repository](https://github.com/MAtaur00/DiamondEngine)
 
+## Features
+
+- The engine accepts drag & drop for both 3D models and textures.
+- As long as the textures are kept with their original name and as long as no files are corrupted, if the original textures for a 3D model are in the Textures folder in the engine, you can drag the original 3D model from anywhere in the computer and it will automatically load the textures and paint it.
+- You can change the position, rotation and scale of the GameObjects from the Inspector window.
+
 ## Inputs & Shortcuts
 
 #### Camera controls
