@@ -39,7 +39,7 @@ void Mesh::InnerRender() const
 		if (mesh && mesh->printVertexNormals && hasNormals)
 		{
 			int size = 2;
-			glColor3f(1.0f, 1.0f, 1.0f);
+			glColor3f(0.0f, 1.0f, 0.0f);
 
 			for (uint i = 0; i < vertex.size * 3; i += 3)
 			{
