@@ -197,26 +197,23 @@ void ModuleImport::ImportTexture(const char* path)
 		glBindTexture(GL_TEXTURE_2D, 0);
 		ilDeleteImages(1, &id);		
 
-		for (auto& child : App->sceneIntro->current_object->childs)
+		if (App->sceneIntro->current_object->HasComponent(CompTexture))
 		{
-			if (child->HasComponent(CompTexture))
-			{
-				ComponentTexture* texture = (ComponentTexture*)child->GetComponent(CompTexture);
-				glDeleteTextures(1, &texture->tex_id);
-				texture->tex_id = texture_id;
-				std::string tex_path(path);
-				texture->path = tex_path;
-				LOG("Texture loaded");
-			}
-			else
-			{
-				ComponentTexture* texture = new ComponentTexture(child);
-				texture->tex_id = texture_id;
-				std::string tex_path(path);
-				texture->path = tex_path;
-				LOG("Texture loaded");
-			}
-		}			
+			ComponentTexture* texture = (ComponentTexture*)App->sceneIntro->current_object->GetComponent(CompTexture);
+			glDeleteTextures(1, &texture->tex_id);
+			texture->tex_id = texture_id;
+			std::string tex_path(path);
+			texture->path = tex_path;
+			LOG("Texture loaded");
+		}
+		else
+		{
+			ComponentTexture* texture = new ComponentTexture(App->sceneIntro->current_object);
+			texture->tex_id = texture_id;
+			std::string tex_path(path);
+			texture->path = tex_path;
+			LOG("Texture loaded");
+		}
 	}
 	else
 	{
