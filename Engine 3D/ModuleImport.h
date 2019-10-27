@@ -32,6 +32,8 @@ public:
 	Mesh* MeshParShape(par_shapes_mesh* mesh, const char* name);
 
 public:
+
+	uint checkerImageID = 0u;
 	
 };
 

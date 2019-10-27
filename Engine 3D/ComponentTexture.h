@@ -1,4 +1,6 @@
 #pragma once
+#include "Application.h"
+#include "ModuleImport.h"
 #include "Component.h"
 #include "GameObject.h"
 #include <string>
@@ -12,7 +14,7 @@ public:
 
 	void Inspector();
 
-	inline unsigned int GetID() { return tex_id; }
+	inline unsigned int GetID() { return checkers == false ? tex_id : App->import->checkerImageID; }
 
 public:
 	unsigned int tex_id = 0u;
@@ -22,5 +24,7 @@ public:
 	std::string path;
 
 	bool print = true;
+
+	bool checkers = false;
 };
 
