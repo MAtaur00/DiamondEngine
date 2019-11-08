@@ -1,5 +1,7 @@
 #include "ModuleResources.h"
-
+#include <fstream>
+#include <iostream>
+using namespace std;
 
 
 ModuleResources::ModuleResources(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -11,22 +13,40 @@ ModuleResources::~ModuleResources()
 {
 }
 
-bool ModuleResources::Import(const char * file, const char * path, std::string & output_file)
+bool ModuleResources::Init()
 {
-	return false;
+	CreateDirectory("Llibrary", NULL);
+	CreateDirectory("Llibrary/Meshes", NULL);
+	CreateDirectory("Llibrary/Textures", NULL);
+
+	return true;
 }
 
-bool ModuleResources::Import(const void * buffer, uint size, std::string & output_file)
+void ModuleResources::SaveFile(uint size, char * output_file, ResourceType type, uint uuid, const char * path)
 {
-	return false;
+	
 }
 
-bool ModuleResources::Load(const char * exported_file, ComponentTexture * resource)
+string ModuleResources::GetDirection(ResourceType type, uint uuid, const char * path)
 {
-	return false;
-}
+	string filePath = "Library/";
 
-bool ModuleResources::LoadCheckers(ComponentTexture * resource)
-{
-	return false;
+	switch (type)
+	{
+	case Mesh:
+		filePath += "Models/";
+		filePath += to_string(uuid);
+		filePath += ".dmnd";
+		break;
+	case Texture:
+		filePath += "Textures/";
+		uint initialPos = filePath.find_last_of("\\") + 1;
+		uint finalPos = filePath.find_last_of(".") + 1;
+		filePath.substr(initialPos, (finalPos - initialPos)) + "dds";
+		break;
+	default:
+		break;
+	}
+
+	return filePath;
 }
