@@ -25,7 +25,5 @@ public:
 	buffer<float> uvs;
 
 	bool hasNormals = false;
-
-	GameObject* parent = nullptr;
 };
 
