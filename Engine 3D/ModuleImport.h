@@ -5,7 +5,7 @@
 #include "GameObject.h"
 #include "ParShapes/par_shapes.h"
 
-class Mesh;
+class ResourceMesh;
 
 struct aiScene;
 struct aiNode;
@@ -29,7 +29,7 @@ public:
 
 	bool CleanUp();
 
-	Mesh* MeshParShape(par_shapes_mesh* mesh, const char* name);
+	ResourceMesh* MeshParShape(par_shapes_mesh* mesh, const char* name);
 
 public:
 

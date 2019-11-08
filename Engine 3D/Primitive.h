@@ -4,8 +4,6 @@
 #include "glmath.h"
 #include "Color.h"
 
-class GameObject;
-
 enum PrimitiveTypes
 {
 	Primitive_Point,
@@ -13,8 +11,7 @@ enum PrimitiveTypes
 	Primitive_Plane,
 	Primitive_Cube,
 	Primitive_Sphere,
-	Primitive_Cylinder,
-	P_Mesh
+	Primitive_Cylinder
 };
 
 class Primitive
@@ -99,28 +96,3 @@ public:
 };
 
 // ============================================
-
-template <typename T>
-struct buffer 
-{
-	uint id = 0u;
-	uint size = 0u;
-	T* data = nullptr;
-};
-
-class Mesh : public Primitive
-{
-public:
-	Mesh(GameObject * parent);
-	void InnerRender() const;
-public:
-	int id = -1;
-	buffer<uint> index;
-	buffer<float> vertex;
-	buffer<float> normals;
-	buffer<float> uvs;
-
-	bool hasNormals = false;
-
-	GameObject* parent = nullptr;
-};

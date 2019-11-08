@@ -162,9 +162,9 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
 	//Geometry
-	for (std::vector<Mesh*>::iterator it = mesh_list.begin(); it != mesh_list.end(); ++it)
+	for (std::vector<ComponentMesh*>::iterator it = mesh_list.begin(); it != mesh_list.end(); ++it)
 	{
-		(*it)->InnerRender();
+		(*it)->Draw();
 	}
 	
 	//Debug Draw

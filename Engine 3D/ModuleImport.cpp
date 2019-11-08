@@ -89,7 +89,7 @@ GameObject* ModuleImport::LoadMeshNode(const aiScene * scene, aiNode * node, Gam
 	{
 		aiMesh* new_mesh = scene->mMeshes[node->mMeshes[0]];
 
-		Mesh* m = new Mesh(go);
+		ResourceMesh* m = new ResourceMesh();
 
 		m->vertex.size = new_mesh->mNumVertices;
 		m->vertex.data = new float[m->vertex.size * 3];
@@ -165,7 +165,7 @@ GameObject* ModuleImport::LoadMeshNode(const aiScene * scene, aiNode * node, Gam
 		ComponentMesh* newMesh = new ComponentMesh(go);
 		newMesh->mesh = m;
 
-		App->renderer3D->mesh_list.push_back(m);
+		App->renderer3D->mesh_list.push_back(newMesh);
 		LOG("Mesh loaded");
 	}
 	for (int child = 0; child < node->mNumChildren; ++child)
@@ -283,11 +283,11 @@ bool ModuleImport::CleanUp()
 	return true;
 }
 
-Mesh* ModuleImport::MeshParShape(par_shapes_mesh* mesh, const char* name)
+ResourceMesh* ModuleImport::MeshParShape(par_shapes_mesh* mesh, const char* name)
 {
 	GameObject* go = new GameObject(App->game_object->root, name);
 
-	Mesh* m = new Mesh(go);
+	ResourceMesh* m = new ResourceMesh();
 
 	m->vertex.size = mesh->npoints;
 	m->vertex.data = new float[m->vertex.size * 3];
@@ -312,7 +312,7 @@ Mesh* ModuleImport::MeshParShape(par_shapes_mesh* mesh, const char* name)
 	ComponentMesh* newMesh = new ComponentMesh(go);
 	newMesh->mesh = m;
 
-	App->renderer3D->mesh_list.push_back(m);
+	App->renderer3D->mesh_list.push_back(newMesh);
 
 	LOG("Par_Shapes Mesh loaded");
 

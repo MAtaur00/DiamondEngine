@@ -5,6 +5,7 @@
 #include "Light.h"
 #include "ModuleImport.h"
 #include <vector>
+#include "ComponentMesh.h"
 
 #define MAX_LIGHTS 8
 
@@ -30,7 +31,7 @@ public:
 	mat3x3 NormalMatrix;
 	mat4x4 ModelMatrix, ViewMatrix, ProjectionMatrix;
 
-	std::vector<Mesh*> mesh_list;
+	std::vector<ComponentMesh*> mesh_list;
 
 	bool vsync = true;
 };

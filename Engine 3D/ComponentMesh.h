@@ -1,6 +1,6 @@
 #pragma once
 #include "Component.h"
-#include "Primitive.h"
+#include "ResourceMesh.h"
 #include <string>
 
 class ComponentMesh :
@@ -12,10 +12,12 @@ public:
 
 	void Inspector();
 
+	void Draw();
+
 
 
 public:
-	Mesh* mesh;
+	ResourceMesh* mesh;
 	std::string name;
 
 	bool print = true;
