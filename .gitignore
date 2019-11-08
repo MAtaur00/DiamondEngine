@@ -86,8 +86,8 @@ StyleCopReport.xml
 *.scc
 
 #Engine Files
-*.fty
-Llibrary/
+*.dmnd
+Library/
 
 # Chutzpah Test files
 _Chutzpah*
