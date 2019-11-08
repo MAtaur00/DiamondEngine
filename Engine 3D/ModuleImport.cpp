@@ -13,6 +13,7 @@
 #include "DevIL/include/ilut.h"
 #include "ComponentTexture.h"
 #include "ComponentMesh.h"
+#include "ModuleResources.h"
 
 
 #pragma comment (lib, "Assimp/libx86/assimp.lib")
@@ -164,6 +165,8 @@ GameObject* ModuleImport::LoadMeshNode(const aiScene * scene, aiNode * node, Gam
 
 		ComponentMesh* newMesh = new ComponentMesh(go);
 		newMesh->mesh = m;
+		
+		SaveMeshImporter(m, newMesh->uuid);
 
 		App->renderer3D->mesh_list.push_back(newMesh);
 		LOG("Mesh loaded");
@@ -173,6 +176,48 @@ GameObject* ModuleImport::LoadMeshNode(const aiScene * scene, aiNode * node, Gam
 		LoadMeshNode(scene, node->mChildren[child], go);
 	}	
 	return go;
+}
+
+void ModuleImport::SaveMeshImporter(ResourceMesh* m, const uint &uuid, char* path)
+{
+	uint ranges[4] = { m->index.size, m->vertex.size, m->normals.size, m->uvs.size };
+	float size = sizeof(ranges) +
+		sizeof(uint) * m->index.size +
+		sizeof(float) * m->vertex.size * 3 +
+		sizeof(float) * m->normals.size * 3 +
+		sizeof(float) * m->uvs.size * 2;
+
+	char* meshBuffer = new char[size];
+	char* cursor = meshBuffer;
+
+	uint bytes = sizeof(ranges);
+	memcpy(cursor, ranges, bytes);
+
+	cursor += bytes;
+	bytes = sizeof(uint) * m->index.size;
+	memcpy(cursor, m->index.data, bytes);
+
+	cursor += bytes;
+	bytes = sizeof(float) * m->vertex.size * 3;
+	memcpy(cursor, m->vertex.data, bytes);
+
+	if (m->normals.data)
+	{
+		cursor += bytes;
+		bytes = sizeof(float) * m->normals.size * 3;
+		memcpy(cursor, m->normals.data, bytes);
+	}
+
+	if (m->uvs.data)
+	{
+		cursor += bytes;
+		bytes = sizeof(float) * m->uvs.size * 2;
+		memcpy(cursor, m->uvs.data, bytes);
+	}
+
+	App->resources->SaveFile(size, meshBuffer, ResourceType::Mesh, uuid, path);
+
+	delete[] meshBuffer;
 }
 
 void ModuleImport::ImportTexture(const char* path)

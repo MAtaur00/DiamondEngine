@@ -23,6 +23,8 @@ public:
 
 	GameObject* LoadMeshNode(const aiScene* scene, aiNode* node, GameObject* parent);
 
+	void SaveMeshImporter(ResourceMesh * m, const uint &uuid, char * path = nullptr);
+
 	void ImportTexture(const char* path);
 
 	void ImportTexture(const char* path, GameObject* go);
