@@ -1,4 +1,5 @@
 #pragma once
+#include "pcg/pcg_basic.h"
 class GameObject;
 
 enum Object_Type
@@ -15,7 +16,7 @@ enum Object_Type
 class Component
 {
 public:
-	Component(GameObject* parent, Object_Type type) : gameObject(parent), type(type) {}
+	Component(GameObject* parent, Object_Type type) : gameObject(parent), type(type) { uuid = pcg32_random(); }
 	~Component() {}
 
 	virtual void Inspector() {}
@@ -23,4 +24,6 @@ public:
 	bool active = true;
 	GameObject* gameObject = nullptr;
 	Object_Type type;
+
+	unsigned int uuid = 0u;
 };
