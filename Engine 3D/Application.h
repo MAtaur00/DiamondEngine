@@ -12,6 +12,8 @@
 #include "ModuleGeometry.h"
 #include "ModuleImport.h"
 #include "ModuleGameObject.h"
+#include "ModuleResources.h"
+
 #include <list>
 #include <vector>
 
@@ -28,6 +30,7 @@ public:
 	ModuleGeometry* geometry;
 	ModuleImport* import;
 	ModuleGameObject* game_object;
+	ModuleResources* resources;
 
 	int width = 0;
 	int height = 0;
