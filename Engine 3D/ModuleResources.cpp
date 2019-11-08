@@ -15,34 +15,46 @@ ModuleResources::~ModuleResources()
 
 bool ModuleResources::Init()
 {
-	CreateDirectory("Llibrary", NULL);
-	CreateDirectory("Llibrary/Meshes", NULL);
-	CreateDirectory("Llibrary/Textures", NULL);
+	CreateDirectory("Library", NULL);
+	CreateDirectory("Library/Models", NULL);
+	CreateDirectory("Library/Textures", NULL);
 
 	return true;
 }
 
-void ModuleResources::SaveFile(uint size, char * output_file, ResourceType type, uint uuid, const char * path)
+void ModuleResources::SaveFile(uint size, char* output_file, ResourceType type, uint uuid, const char* path)
 {
-	
+	string direction = GetDirection(type, uuid, path);
+
+	ofstream file(direction.c_str(), ios::out | ios::binary);
+
+	if (file.is_open())
+	{
+		file.write(output_file, size);
+		file.close();
+	}
 }
 
-string ModuleResources::GetDirection(ResourceType type, uint uuid, const char * path)
+string ModuleResources::GetDirection(ResourceType type, uint uuid, const char* path)
 {
 	string filePath = "Library/";
 
 	switch (type)
 	{
 	case Mesh:
+	{
 		filePath += "Models/";
 		filePath += to_string(uuid);
 		filePath += ".dmnd";
+	}
 		break;
 	case Texture:
+	{
 		filePath += "Textures/";
 		uint initialPos = filePath.find_last_of("\\") + 1;
 		uint finalPos = filePath.find_last_of(".") + 1;
 		filePath.substr(initialPos, (finalPos - initialPos)) + "dds";
+	}
 		break;
 	default:
 		break;
