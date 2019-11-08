@@ -1,6 +1,6 @@
 #include "ComponentTexture.h"
-
-
+#include "Application.h"
+#include "ModuleImport.h"
 
 ComponentTexture::ComponentTexture(GameObject* parent) : Component(parent, CompTexture)
 {
@@ -21,4 +21,9 @@ void ComponentTexture::Inspector()
 		ImGui::Image((void*)(intptr_t)tex_id, ImVec2(225,225), ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f));
 		ImGui::Checkbox("Checkers", &checkers);
 	}
+}
+
+unsigned int ComponentTexture::GetID()
+{
+	return checkers == false ? tex_id : App->import->checkerImageID;
 }
