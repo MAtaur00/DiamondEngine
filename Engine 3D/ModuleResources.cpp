@@ -41,14 +41,14 @@ string ModuleResources::GetDirection(ResourceType type, uint uuid, const char* p
 
 	switch (type)
 	{
-	case Mesh:
+	case ResourceType::Mesh:
 	{
 		filePath += "Models/";
 		filePath += to_string(uuid);
 		filePath += ".dmnd";
 	}
 		break;
-	case Texture:
+	case ResourceType::Texture:
 	{
 		filePath += "Textures/";
 		uint initialPos = filePath.find_last_of("\\") + 1;
@@ -61,4 +61,17 @@ string ModuleResources::GetDirection(ResourceType type, uint uuid, const char* p
 	}
 
 	return filePath;
+}
+
+Resource* ModuleResources::GetResource(ResourceType type, const char * path)
+{
+	for (std::list<Resource*>::iterator it = resources.begin(); it != resources.end(); ++it)
+	{
+		if ((*it)->type == type)
+		{
+			if (strcmp((*it)->name.data(), path) == 0)
+				return *it;
+		}
+	}
+	return nullptr;
 }
