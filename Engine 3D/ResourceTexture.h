@@ -4,7 +4,6 @@ class ResourceTexture :
 	public Resource
 {
 public:
-	ResourceTexture();
+	ResourceTexture(const char * path);
 	~ResourceTexture();
 };
-

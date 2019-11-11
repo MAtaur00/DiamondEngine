@@ -1,8 +1,7 @@
 #include "ResourceMesh.h"
 
 
-
-ResourceMesh::ResourceMesh()
+ResourceMesh::ResourceMesh(const char * path) : Resource(ResourceType::Mesh, path)
 {
 }
 

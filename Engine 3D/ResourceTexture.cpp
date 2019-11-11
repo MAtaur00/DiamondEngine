@@ -2,7 +2,7 @@
 
 
 
-ResourceTexture::ResourceTexture()
+ResourceTexture::ResourceTexture(const char * path) : Resource(ResourceType::Texture, path)
 {
 }
 
