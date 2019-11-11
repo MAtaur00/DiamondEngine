@@ -6,4 +6,7 @@ class ResourceTexture :
 public:
 	ResourceTexture(const char * path);
 	~ResourceTexture();
+
+public:
+	uint id = 0u;
 };
