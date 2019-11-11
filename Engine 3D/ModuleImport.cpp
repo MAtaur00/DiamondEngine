@@ -134,25 +134,6 @@ GameObject* ModuleImport::LoadMeshNode(const aiScene * scene, aiNode * node, Gam
 				glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 2 * m->uvs.size, m->uvs.data, GL_STATIC_DRAW);
 			}
 
-			if (scene->HasMaterials())
-			{
-				aiMaterial* material = scene->mMaterials[new_mesh->mMaterialIndex];
-
-				if (material)
-				{
-					aiString textName;
-					material->GetTexture(aiTextureType_DIFFUSE, 0, &textName);
-
-					std::string textPath(textName.data);
-
-					textPath = textPath.substr(textPath.find_last_of("\\") + 1);
-
-					textPath = "Assets\\Textures\\" + textPath;
-
-					ImportTexture(textPath.c_str(), go);
-				}
-			}
-
 			if (new_mesh->HasNormals()) {
 				m->hasNormals = true;
 				m->normals.size = new_mesh->mNumVertices;
@@ -172,6 +153,25 @@ GameObject* ModuleImport::LoadMeshNode(const aiScene * scene, aiNode * node, Gam
 		else
 		{
 			App->resources->ResourceUsageIncreased(m);
+		}
+
+		if (scene->HasMaterials())
+		{
+			aiMaterial* material = scene->mMaterials[new_mesh->mMaterialIndex];
+
+			if (material)
+			{
+				aiString textName;
+				material->GetTexture(aiTextureType_DIFFUSE, 0, &textName);
+
+				std::string textPath(textName.data);
+
+				textPath = textPath.substr(textPath.find_last_of("\\") + 1);
+
+				textPath = "Assets\\Textures\\" + textPath;
+
+				ImportTexture(textPath.c_str(), go);
+			}
 		}
 
 		ComponentMesh* newMesh = new ComponentMesh(go);
@@ -272,6 +272,8 @@ void ModuleImport::ImportTexture(const char* path)
 			ilDeleteImages(1, &id);
 
 			m->id = texture_id;
+
+			App->resources->AddResource(m);
 		}
 		else
 		{
@@ -344,6 +346,8 @@ void ModuleImport::ImportTexture(const char * path, GameObject * go)
 			ilDeleteImages(1, &id);	
 
 			m->id = texture_id;
+
+			App->resources->AddResource(m);
 		}
 		else
 		{
