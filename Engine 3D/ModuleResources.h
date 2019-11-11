@@ -2,12 +2,7 @@
 #include "Module.h"
 #include <string>
 #include "ComponentTexture.h"
-
-enum ResourceType
-{
-	Mesh = 0,
-	Texture
-};
+#include "Resource.h"
 
 class ModuleResources : public Module
 {
