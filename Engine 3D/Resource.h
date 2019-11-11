@@ -15,6 +15,8 @@ public:
 	Resource(ResourceType type, const char* path) : type(type), name(path) {};
 	~Resource();
 
+	virtual void Unload() {};
+
 	bool operator==(Resource other);
 
 public:
