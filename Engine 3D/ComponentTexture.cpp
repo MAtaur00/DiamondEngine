@@ -18,12 +18,12 @@ void ComponentTexture::Inspector()
 	{
 		ImGui::Checkbox("Active", &print);
 		ImGui::Text("%s", path.c_str());
-		ImGui::Image((void*)(intptr_t)tex_id, ImVec2(225,225), ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f));
+		ImGui::Image((void*)(intptr_t)RTexture->id, ImVec2(225,225), ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f));
 		ImGui::Checkbox("Checkers", &checkers);
 	}
 }
 
 unsigned int ComponentTexture::GetID()
 {
-	return checkers == false ? tex_id : App->import->checkerImageID;
+	return checkers == false ? RTexture->id : App->import->checkerImageID;
 }
