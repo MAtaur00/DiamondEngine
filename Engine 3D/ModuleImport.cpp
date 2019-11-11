@@ -84,16 +84,18 @@ void ModuleImport::ImportFBX(const char* path)
 GameObject* ModuleImport::LoadMeshNode(const aiScene * scene, aiNode * node, GameObject * parent, const char* path)
 {
 	GameObject* go = new GameObject(parent, node->mName.C_Str());
-
+	
 	if (node->mNumMeshes > 0)
 	{
 		aiMesh* new_mesh = scene->mMeshes[node->mMeshes[0]];
 
-		ResourceMesh* m = (ResourceMesh*)App->resources->GetResource(ResourceType::Mesh, path);
+		std::string _path = path;
+		std::string _name = node->mName.C_Str();
+
+		ResourceMesh* m = (ResourceMesh*)App->resources->GetResource(ResourceType::Mesh, (_path + _name).c_str());
 		if (m == nullptr)
 		{
-			m = new ResourceMesh(path);
-
+			m = new ResourceMesh((_path + _name).c_str());
 			m->vertex.size = new_mesh->mNumVertices;
 			m->vertex.data = new float[m->vertex.size * 3];
 			memcpy(m->vertex.data, new_mesh->mVertices, sizeof(float) * m->vertex.size * 3);

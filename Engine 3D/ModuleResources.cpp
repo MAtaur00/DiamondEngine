@@ -69,7 +69,7 @@ Resource* ModuleResources::GetResource(ResourceType type, const char* path)
 	{
 		if ((*it)->type == type)
 		{
-			if (strcmp((*it)->name.data(), path) == 0)
+			if (strcmp((*it)->name.c_str(), path) == 0)
 				return *it;
 		}
 	}
