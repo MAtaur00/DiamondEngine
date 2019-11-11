@@ -15,8 +15,6 @@ public:
 	Resource(ResourceType type, const char* path) : type(type), name(path) {};
 	~Resource();
 
-	bool operator==(Resource other);
-
 public:
 
 	std::string name;
