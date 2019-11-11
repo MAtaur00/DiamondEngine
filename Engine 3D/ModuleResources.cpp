@@ -63,7 +63,7 @@ string ModuleResources::GetDirection(ResourceType type, uint uuid, const char* p
 	return filePath;
 }
 
-Resource* ModuleResources::GetResource(ResourceType type, const char * path)
+Resource* ModuleResources::GetResource(ResourceType type, const char* path)
 {
 	for (std::list<Resource*>::iterator it = resources.begin(); it != resources.end(); ++it)
 	{
@@ -74,4 +74,30 @@ Resource* ModuleResources::GetResource(ResourceType type, const char * path)
 		}
 	}
 	return nullptr;
+}
+
+void ModuleResources::AddResource(Resource* resource)
+{
+	for (std::list<Resource*>::iterator it = resources.begin(); it != resources.end(); ++it)
+	{
+		if (&resource == &*it)
+			return;
+	}
+	resources.push_back(resource);
+}
+
+void ModuleResources::ResourceUsageIncreased(Resource* resource)
+{
+	resource->usage++;
+}
+
+void ModuleResources::ResourceUsageDecreased(Resource* resource)
+{
+	resource->usage--;
+	if (resource->usage <= 0)
+	{
+		resource->Unload();
+		resources.remove(resource);
+		/// delete resource;
+	}
 }

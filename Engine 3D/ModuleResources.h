@@ -19,6 +19,12 @@ public:
 
 	Resource* GetResource(ResourceType type, const char* path);
 
+	void AddResource(Resource* resource);
+
+	void ResourceUsageIncreased(Resource* resource);
+
+	void ResourceUsageDecreased(Resource* resource);
+
 public:
 	
 	std::list<Resource*> resources;
