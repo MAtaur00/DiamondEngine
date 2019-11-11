@@ -26,8 +26,6 @@ public:
 
 	void SaveMeshImporter(ResourceMesh* m, const uint &uuid, char* path = nullptr);
 
-	void SaveTextureImporter(ResourceTexture* m, const uint &uuid, char* path = nullptr);
-
 	void ImportTexture(const char* path);
 
 	void ImportTexture(const char* path, GameObject* go);

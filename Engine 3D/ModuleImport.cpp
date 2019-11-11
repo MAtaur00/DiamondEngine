@@ -230,14 +230,6 @@ void ModuleImport::SaveMeshImporter(ResourceMesh* m, const uint &uuid, char* pat
 	delete[] meshBuffer;
 }
 
-void ModuleImport::SaveTextureImporter(ResourceTexture * m, const uint & uuid, char * path)
-{
-	if ()
-	{
-
-	}
-}
-
 void ModuleImport::ImportTexture(const char* path)
 {
 	ResourceTexture* m = (ResourceTexture*)App->resources->GetResource(ResourceType::Texture, path);
@@ -249,6 +241,19 @@ void ModuleImport::ImportTexture(const char* path)
 		ilutInit();
 		if (ilLoadImage(path))
 		{
+			ilEnable(IL_FILE_OVERWRITE);
+
+			ILuint size;
+			ILubyte *data;
+
+			ilSetInteger(IL_DXTC_FORMAT, IL_DXT5);
+			size = ilSaveL(IL_DDS, NULL, 0);
+			if (size > 0) {
+				data = new ILubyte[size];
+				if (ilSaveL(IL_DDS, data, size) > 0)
+					App->resources->SaveFile(size, (char*)data, ResourceType::Texture, 0u, path);
+			}
+
 			uint texture_id = 0;
 
 			uint id = 0;
@@ -269,6 +274,7 @@ void ModuleImport::ImportTexture(const char* path)
 		else
 		{
 			LOG("Couldn't load texture");
+			return;
 		}
 	}
 	else
@@ -307,6 +313,19 @@ void ModuleImport::ImportTexture(const char * path, GameObject * go)
 		ilutInit();
 		if (ilLoadImage(path))
 		{
+			ilEnable(IL_FILE_OVERWRITE);
+
+			ILuint size;
+			ILubyte *data;
+
+			ilSetInteger(IL_DXTC_FORMAT, IL_DXT5);
+			size = ilSaveL(IL_DDS, NULL, 0);
+			if (size > 0) {
+				data = new ILubyte[size];
+				if (ilSaveL(IL_DDS, data, size) > 0)
+					App->resources->SaveFile(size, (char*)data, ResourceType::Texture, 0u, path);
+			}
+
 			uint texture_id = 0;
 
 			uint id = 0;
