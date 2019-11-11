@@ -17,6 +17,10 @@ public:
 	ResourceMesh(const char* path);
 	~ResourceMesh();
 
+	void Unload(); 
+
+public:
+
 	int id = -1;
 	buffer<unsigned int> index;
 	buffer<float> vertex;

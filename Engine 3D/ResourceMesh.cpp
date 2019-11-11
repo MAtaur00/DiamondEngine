@@ -9,3 +9,8 @@ ResourceMesh::ResourceMesh(const char * path) : Resource(ResourceType::Mesh, pat
 ResourceMesh::~ResourceMesh()
 {
 }
+
+void ResourceMesh::Unload()
+{
+	/// TODO
+}

@@ -10,3 +10,8 @@ ResourceTexture::ResourceTexture(const char * path) : Resource(ResourceType::Tex
 ResourceTexture::~ResourceTexture()
 {
 }
+
+void ResourceTexture::Unload()
+{
+	/// TODO
+}
