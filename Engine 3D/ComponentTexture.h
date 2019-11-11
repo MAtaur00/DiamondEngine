@@ -1,6 +1,7 @@
 #pragma once
 #include "Component.h"
 #include "GameObject.h"
+#include "ResourceTexture.h"
 #include <string>
 
 class ComponentTexture :
@@ -15,7 +16,7 @@ public:
 	unsigned int GetID();
 
 public:
-	unsigned int tex_id = 0u;
+	ResourceTexture* RTexture;
 
 	std::string name;
 
