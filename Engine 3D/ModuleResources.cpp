@@ -84,6 +84,7 @@ void ModuleResources::AddResource(Resource* resource)
 			return;
 	}
 	resources.push_back(resource);
+	ResourceUsageIncreased(resource);
 }
 
 void ModuleResources::ResourceUsageIncreased(Resource* resource)
