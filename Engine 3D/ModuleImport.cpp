@@ -15,7 +15,6 @@
 #include "ComponentMesh.h"
 #include "ModuleResources.h"
 
-
 #pragma comment (lib, "Assimp/libx86/assimp.lib")
 #pragma comment (lib, "DevIL/libx86/DevIL.lib")
 #pragma comment ( lib, "DevIL/libx86/ILU.lib" )
@@ -74,7 +73,7 @@ void ModuleImport::ImportFBX(const char* path)
 	const aiScene* scene = aiImportFile(path, aiProcessPreset_TargetRealtime_MaxQuality);
 	if (scene != nullptr && scene->HasMeshes())
 	{
-		GameObject* newGameObject = App->sceneIntro->current_object = LoadMeshNode(scene, scene->mRootNode, App->game_object->root);
+		GameObject* newGameObject = App->sceneIntro->current_object = LoadMeshNode(scene, scene->mRootNode, App->game_object->root, path);
 
 		aiReleaseImport(scene);
 	}
@@ -82,7 +81,7 @@ void ModuleImport::ImportFBX(const char* path)
 		LOG("Error loading scene %s", path);
 }
 
-GameObject* ModuleImport::LoadMeshNode(const aiScene * scene, aiNode * node, GameObject * parent)
+GameObject* ModuleImport::LoadMeshNode(const aiScene * scene, aiNode * node, GameObject * parent, const char* path)
 {
 	GameObject* go = new GameObject(parent, node->mName.C_Str());
 
@@ -90,78 +89,88 @@ GameObject* ModuleImport::LoadMeshNode(const aiScene * scene, aiNode * node, Gam
 	{
 		aiMesh* new_mesh = scene->mMeshes[node->mMeshes[0]];
 
-		ResourceMesh* m = new ResourceMesh();
-
-		m->vertex.size = new_mesh->mNumVertices;
-		m->vertex.data = new float[m->vertex.size * 3];
-		memcpy(m->vertex.data, new_mesh->mVertices, sizeof(float) * m->vertex.size * 3);
-		LOG("New mesh with %d vertices", m->vertex.size);
-
-		if (new_mesh->HasFaces())
+		ResourceMesh* m = (ResourceMesh*)App->resources->GetResource(ResourceType::Mesh, path);
+		if (m == nullptr)
 		{
-			m->index.size = new_mesh->mNumFaces * 3;
-			m->index.data = new uint[m->index.size];
-			for (uint i = 0; i < new_mesh->mNumFaces; ++i)
+			m = new ResourceMesh(path);
+
+			m->vertex.size = new_mesh->mNumVertices;
+			m->vertex.data = new float[m->vertex.size * 3];
+			memcpy(m->vertex.data, new_mesh->mVertices, sizeof(float) * m->vertex.size * 3);
+			LOG("New mesh with %d vertices", m->vertex.size);
+
+			if (new_mesh->HasFaces())
 			{
-				if (new_mesh->mFaces[i].mNumIndices != 3)
+				m->index.size = new_mesh->mNumFaces * 3;
+				m->index.data = new uint[m->index.size];
+				for (uint i = 0; i < new_mesh->mNumFaces; ++i)
 				{
-					LOG("WARNING, geometry face with != 3 indices!");
+					if (new_mesh->mFaces[i].mNumIndices != 3)
+					{
+						LOG("WARNING, geometry face with != 3 indices!");
+					}
+
+					else
+					{
+						memcpy(&m->index.data[i * 3], new_mesh->mFaces[i].mIndices, 3 * sizeof(uint));
+					}
+				}
+			}
+			if (new_mesh->HasTextureCoords(m->uvs.id))
+			{
+				m->uvs.size = new_mesh->mNumVertices;
+				m->uvs.data = new float[m->uvs.size * 2];
+
+				for (int i = 0; i < new_mesh->mNumVertices; ++i)
+				{
+					memcpy(&m->uvs.data[i * 2], &new_mesh->mTextureCoords[0][i].x, sizeof(float));
+					memcpy(&m->uvs.data[(i * 2) + 1], &new_mesh->mTextureCoords[0][i].y, sizeof(float));
 				}
 
-				else
+				glGenBuffers(1, (GLuint*)&(m->uvs.id));
+				glBindBuffer(GL_ARRAY_BUFFER, m->uvs.id);
+				glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 2 * m->uvs.size, m->uvs.data, GL_STATIC_DRAW);
+			}
+
+			if (scene->HasMaterials())
+			{
+				aiMaterial* material = scene->mMaterials[new_mesh->mMaterialIndex];
+
+				if (material)
 				{
-					memcpy(&m->index.data[i * 3], new_mesh->mFaces[i].mIndices, 3 * sizeof(uint));
+					aiString textName;
+					material->GetTexture(aiTextureType_DIFFUSE, 0, &textName);
+
+					std::string textPath(textName.data);
+
+					textPath = textPath.substr(textPath.find_last_of("\\") + 1);
+
+					textPath = "Assets\\Textures\\" + textPath;
+
+					ImportTexture(textPath.c_str(), go);
 				}
 			}
-		}
-		if (new_mesh->HasTextureCoords(m->uvs.id))
-		{
-			m->uvs.size = new_mesh->mNumVertices;
-			m->uvs.data = new float[m->uvs.size * 2];
 
-			for (int i = 0; i < new_mesh->mNumVertices; ++i)
-			{
-				memcpy(&m->uvs.data[i * 2], &new_mesh->mTextureCoords[0][i].x, sizeof(float));
-				memcpy(&m->uvs.data[(i * 2) + 1], &new_mesh->mTextureCoords[0][i].y, sizeof(float));
+			if (new_mesh->HasNormals()) {
+				m->hasNormals = true;
+				m->normals.size = new_mesh->mNumVertices;
+				m->normals.data = new float[m->normals.size * 3];
+				memcpy(m->normals.data, new_mesh->mNormals, sizeof(float) * m->normals.size * 3);
 			}
+			glGenBuffers(1, (GLuint*) & (m->vertex.id));
+			glBindBuffer(GL_ARRAY_BUFFER, m->vertex.id);
+			glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 3 * m->vertex.size, m->vertex.data, GL_STATIC_DRAW);
 
-			glGenBuffers(1, (GLuint*)&(m->uvs.id));
-			glBindBuffer(GL_ARRAY_BUFFER, m->uvs.id);
-			glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 2 * m->uvs.size, m->uvs.data, GL_STATIC_DRAW);
+			glGenBuffers(1, (GLuint*) & (m->index.id));
+			glBindBuffer(GL_ARRAY_BUFFER, m->index.id);
+			glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m->index.size, m->index.data, GL_STATIC_DRAW);
+
+			App->resources->AddResource(m);
 		}
-
-		if (scene->HasMaterials())
+		else
 		{
-			aiMaterial* material = scene->mMaterials[new_mesh->mMaterialIndex];
-
-			if (material)
-			{
-				aiString textName;
-				material->GetTexture(aiTextureType_DIFFUSE, 0, &textName);
-
-				std::string textPath(textName.data);
-
-				textPath = textPath.substr(textPath.find_last_of("\\") + 1);
-
-				textPath = "Assets\\Textures\\" + textPath;
-
-				ImportTexture(textPath.c_str(), go);
-			}
+			App->resources->ResourceUsageIncreased(m);
 		}
-
-		if (new_mesh->HasNormals()) {
-			m->hasNormals = true;
-			m->normals.size = new_mesh->mNumVertices;
-			m->normals.data = new float[m->normals.size * 3];
-			memcpy(m->normals.data, new_mesh->mNormals, sizeof(float) * m->normals.size * 3);
-		}
-		glGenBuffers(1, (GLuint*) & (m->vertex.id));
-		glBindBuffer(GL_ARRAY_BUFFER, m->vertex.id);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 3 * m->vertex.size, m->vertex.data, GL_STATIC_DRAW);
-
-		glGenBuffers(1, (GLuint*) & (m->index.id));
-		glBindBuffer(GL_ARRAY_BUFFER, m->index.id);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m->index.size, m->index.data, GL_STATIC_DRAW);
 
 		ComponentMesh* newMesh = new ComponentMesh(go);
 		newMesh->mesh = m;
@@ -173,7 +182,7 @@ GameObject* ModuleImport::LoadMeshNode(const aiScene * scene, aiNode * node, Gam
 	}
 	for (int child = 0; child < node->mNumChildren; ++child)
 	{
-		LoadMeshNode(scene, node->mChildren[child], go);
+		LoadMeshNode(scene, node->mChildren[child], go, path);
 	}	
 	return go;
 }
@@ -181,7 +190,8 @@ GameObject* ModuleImport::LoadMeshNode(const aiScene * scene, aiNode * node, Gam
 void ModuleImport::SaveMeshImporter(ResourceMesh* m, const uint &uuid, char* path)
 {
 	uint ranges[4] = { m->index.size, m->vertex.size, m->normals.size, m->uvs.size };
-	float size = sizeof(ranges) +
+	float size = 
+		sizeof(ranges) +
 		sizeof(uint) * m->index.size +
 		sizeof(float) * m->vertex.size * 3 +
 		sizeof(float) * m->normals.size * 3 +
@@ -220,96 +230,127 @@ void ModuleImport::SaveMeshImporter(ResourceMesh* m, const uint &uuid, char* pat
 	delete[] meshBuffer;
 }
 
+void ModuleImport::SaveTextureImporter(ResourceTexture * m, const uint & uuid, char * path)
+{
+	if ()
+	{
+
+	}
+}
+
 void ModuleImport::ImportTexture(const char* path)
 {
-	ilInit();
-	iluInit();
-	ilutInit();
-	if (ilLoadImage(path))
+	ResourceTexture* m = (ResourceTexture*)App->resources->GetResource(ResourceType::Texture, path);
+	if (m == nullptr)
 	{
-		uint texture_id = 0;
-
-		uint id = 0;
-
-		ilGenImages(1, &id);
-		ilBindImage(id);
-		ilLoadImage(path);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-		texture_id = ilutGLBindTexImage();
-		glBindTexture(GL_TEXTURE_2D, 0);
-		ilDeleteImages(1, &id);		
-
-		if (App->sceneIntro->current_object->HasComponent(CompTexture))
+		m = new ResourceTexture(path);
+		ilInit();
+		iluInit();
+		ilutInit();
+		if (ilLoadImage(path))
 		{
-			ComponentTexture* texture = (ComponentTexture*)App->sceneIntro->current_object->GetComponent(CompTexture);
-			glDeleteTextures(1, &texture->tex_id);
-			texture->tex_id = texture_id;
-			std::string tex_path(path);
-			texture->path = tex_path;
-			LOG("Texture loaded");
+			uint texture_id = 0;
+
+			uint id = 0;
+
+			ilGenImages(1, &id);
+			ilBindImage(id);
+			ilLoadImage(path);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+			texture_id = ilutGLBindTexImage();
+			glBindTexture(GL_TEXTURE_2D, 0);
+			ilDeleteImages(1, &id);
+
+			m->id = texture_id;
 		}
 		else
 		{
-			ComponentTexture* texture = new ComponentTexture(App->sceneIntro->current_object);
-			texture->tex_id = texture_id;
-			std::string tex_path(path);
-			texture->path = tex_path;
-			LOG("Texture loaded");
+			LOG("Couldn't load texture");
 		}
 	}
 	else
 	{
-		LOG("Couldn't load texture");
+		App->resources->ResourceUsageIncreased(m);
+	}
+
+	if (App->sceneIntro->current_object->HasComponent(CompTexture))
+	{
+		ComponentTexture* texture = (ComponentTexture*)App->sceneIntro->current_object->GetComponent(CompTexture);
+		App->resources->ResourceUsageDecreased(texture->RTexture);	
+		std::string tex_path(path);
+		texture->path = tex_path;
+		texture->RTexture = m;
+		LOG("Texture loaded");
+	}
+	else
+	{
+		ComponentTexture* texture = new ComponentTexture(App->sceneIntro->current_object);
+		std::string tex_path(path);
+		texture->path = tex_path;
+		texture->RTexture = m;
+		LOG("Texture loaded");
 	}
 }
 
 void ModuleImport::ImportTexture(const char * path, GameObject * go)
 {
-	ilInit();
-	iluInit();
-	ilutInit();
-	if (ilLoadImage(path))
+	ResourceTexture* m = (ResourceTexture*)App->resources->GetResource(ResourceType::Texture, path);
+	if (m == nullptr)
 	{
-		uint texture_id = 0;
+		m = new ResourceTexture(path);
 
-		uint id = 0;
-
-		ilGenImages(1, &id);
-		ilBindImage(id);
-		ilLoadImage(path);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-		texture_id = ilutGLBindTexImage();
-		glBindTexture(GL_TEXTURE_2D, 0);
-		ilDeleteImages(1, &id);
-
-		
-		if (go->HasComponent(CompTexture))
+		ilInit();
+		iluInit();
+		ilutInit();
+		if (ilLoadImage(path))
 		{
-			ComponentTexture* texture = (ComponentTexture*)go->GetComponent(CompTexture);
-			glDeleteTextures(1, &texture->tex_id);
-			texture->tex_id = texture_id;
-			std::string tex_path(path);
-			texture->path = tex_path;
-			LOG("Texture loaded");
+			uint texture_id = 0;
+
+			uint id = 0;
+
+			ilGenImages(1, &id);
+			ilBindImage(id);
+			ilLoadImage(path);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+			texture_id = ilutGLBindTexImage();
+			glBindTexture(GL_TEXTURE_2D, 0);
+			ilDeleteImages(1, &id);	
+
+			m->id = texture_id;
 		}
 		else
 		{
-			ComponentTexture* texture = new ComponentTexture(go);
-			texture->tex_id = texture_id;
-			std::string tex_path(path);
-			texture->path = tex_path;
-			LOG("Texture loaded");
+			LOG("Couldn't load texture: %s", path);
+			return;
 		}
 	}
 	else
 	{
-		LOG("Couldn't load texture: %s", path);
+		App->resources->ResourceUsageIncreased(m);
+	}
+
+	if (go->HasComponent(CompTexture))
+	{
+		ComponentTexture* texture = (ComponentTexture*)go->GetComponent(CompTexture);
+		App->resources->ResourceUsageDecreased(texture->RTexture);
+		std::string tex_path(path);
+		texture->path = tex_path;
+		texture->RTexture = m;
+		LOG("Texture loaded");
+	}
+	else
+	{
+		ComponentTexture* texture = new ComponentTexture(go);
+		std::string tex_path(path);
+		texture->path = tex_path;
+		texture->RTexture = m;
+		LOG("Texture loaded");
 	}
 }
 
@@ -332,27 +373,38 @@ ResourceMesh* ModuleImport::MeshParShape(par_shapes_mesh* mesh, const char* name
 {
 	GameObject* go = new GameObject(App->game_object->root, name);
 
-	ResourceMesh* m = new ResourceMesh();
+	ResourceMesh* m = (ResourceMesh*)App->resources->GetResource(ResourceType::Mesh, name);
 
-	m->vertex.size = mesh->npoints;
-	m->vertex.data = new float[m->vertex.size * 3];
-	memcpy(m->vertex.data, mesh->points, sizeof(float) * mesh->npoints * 3);
-
-	m->index.size = mesh->ntriangles * 3;
-	m->index.data = new uint[m->index.size];
-
-	for (int i = 0; i < m->index.size; i++)
+	if (m == nullptr)
 	{
-		m->index.data[i] = (uint)mesh->triangles[i];
+		m = new ResourceMesh(name);
+
+		m->vertex.size = mesh->npoints;
+		m->vertex.data = new float[m->vertex.size * 3];
+		memcpy(m->vertex.data, mesh->points, sizeof(float) * mesh->npoints * 3);
+
+		m->index.size = mesh->ntriangles * 3;
+		m->index.data = new uint[m->index.size];
+
+		for (int i = 0; i < m->index.size; i++)
+		{
+			m->index.data[i] = (uint)mesh->triangles[i];
+		}
+
+		glGenBuffers(1, (GLuint*) &(m->vertex.id));
+		glBindBuffer(GL_ARRAY_BUFFER, m->vertex.id);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 3 * m->vertex.size, m->vertex.data, GL_STATIC_DRAW);
+
+		glGenBuffers(1, (GLuint*) &(m->index.id));
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m->index.id);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(float) * m->index.size, m->index.data, GL_STATIC_DRAW);
+
+		App->resources->AddResource(m);
 	}
-
-	glGenBuffers(1, (GLuint*) &(m->vertex.id));
-	glBindBuffer(GL_ARRAY_BUFFER, m->vertex.id);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 3 * m->vertex.size, m->vertex.data, GL_STATIC_DRAW);
-
-	glGenBuffers(1, (GLuint*) &(m->index.id));
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m->index.id);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(float) * m->index.size, m->index.data, GL_STATIC_DRAW);
+	else
+	{
+		App->resources->ResourceUsageIncreased(m);
+	}
 
 	ComponentMesh* newMesh = new ComponentMesh(go);
 	newMesh->mesh = m;

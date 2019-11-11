@@ -6,6 +6,7 @@
 #include "ParShapes/par_shapes.h"
 
 class ResourceMesh;
+class ResourceTexture;
 
 struct aiScene;
 struct aiNode;
@@ -21,9 +22,11 @@ public:
 
 	void ImportFBX(const char* path);
 
-	GameObject* LoadMeshNode(const aiScene* scene, aiNode* node, GameObject* parent);
+	GameObject* LoadMeshNode(const aiScene* scene, aiNode* node, GameObject* parent, const char* path);
 
-	void SaveMeshImporter(ResourceMesh * m, const uint &uuid, char * path = nullptr);
+	void SaveMeshImporter(ResourceMesh* m, const uint &uuid, char* path = nullptr);
+
+	void SaveTextureImporter(ResourceTexture* m, const uint &uuid, char* path = nullptr);
 
 	void ImportTexture(const char* path);
 
@@ -36,6 +39,5 @@ public:
 public:
 
 	uint checkerImageID = 0u;
-	
 };
 
