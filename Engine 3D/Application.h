@@ -13,6 +13,7 @@
 #include "ModuleImport.h"
 #include "ModuleGameObject.h"
 #include "ModuleResources.h"
+#include "ModulePicking.h"
 
 #include <list>
 #include <vector>
@@ -31,9 +32,7 @@ public:
 	ModuleImport* import;
 	ModuleGameObject* game_object;
 	ModuleResources* resources;
-
-	int width = 0;
-	int height = 0;
+	ModulePicking* picking;
 
 private:
 

@@ -17,6 +17,7 @@ Application::Application()
 	import = new ModuleImport(this);
 	game_object = new ModuleGameObject(this);
 	resources = new ModuleResources(this);
+	picking = new ModulePicking(this);
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -32,6 +33,7 @@ Application::Application()
 	AddModule(import);
 	AddModule(game_object);
 	AddModule(resources);
+	AddModule(picking);
 
 	// Renderer last!
 	AddModule(renderer3D);
