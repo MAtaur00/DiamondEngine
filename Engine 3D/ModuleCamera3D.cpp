@@ -45,7 +45,7 @@ update_status ModuleCamera3D::Update(float dt)
 		float3 newPos(0, 0, 0);
 		float speed = 3.0f * dt;
 		if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
-			speed = 8.0f * dt;
+			speed = 6.0f * dt;
 
 		float3 forward = compCamera->frustum.front * speed;
 		float3 right = compCamera->frustum.WorldRight() * speed;
@@ -60,6 +60,8 @@ update_status ModuleCamera3D::Update(float dt)
 
 			if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT) newPos += float3::unitY * speed;
 			if (App->input->GetKey(SDL_SCANCODE_E) == KEY_REPEAT) newPos -= float3::unitY * speed;
+
+			compCamera->frustum.Translate(newPos);
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT)
@@ -83,37 +85,32 @@ update_status ModuleCamera3D::Update(float dt)
 		if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT &&
 			App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT)
 		{
-			int dx = -App->input->GetMouseXMotion();
-			int dy = -App->input->GetMouseYMotion();
-
-			float Sensitivity = 0.25f;
+			float Sensitivity = 0.1f;
+			int dx = -App->input->GetMouseXMotion() * Sensitivity;
+			int dy = -App->input->GetMouseYMotion() * Sensitivity;
 
 			if (App->sceneIntro->current_object) {
-				float3 object = App->sceneIntro->current_object->transform->GetPos();
-				float3 originalPosition = compCamera->frustum.pos - object;
+				float3 object = App->sceneIntro->current_object->transform->GetGlobalPos();
 
-				Quat yRotation(compCamera->frustum.up, dx);
-				Quat xRotation(compCamera->frustum.WorldRight(), dy);
+				math::Quat rotationX = math::Quat::RotateAxisAngle({ 0.0f,1.0f,0.0f }, -App->input->GetMouseXMotion() * Sensitivity * DEGTORAD);
+				math::Quat rotationY = math::Quat::RotateAxisAngle(compCamera->frustum.WorldRight(), -App->input->GetMouseYMotion() * Sensitivity * DEGTORAD);
+				math::Quat finalRotation = rotationX * rotationY;
 
-				float3 newPosition = originalPosition;
+				compCamera->frustum.up = finalRotation * compCamera->frustum.up;
+				compCamera->frustum.front = finalRotation * compCamera->frustum.front;
 
-				newPosition = xRotation.Transform(newPosition);
-				newPosition = yRotation.Transform(newPosition);
-
-				compCamera->frustum.pos = newPosition + object;
-
-				LookAt(object);
+				float distance = (compCamera->frustum.pos - object).Length();
+				compCamera->frustum.pos = object + (-compCamera->frustum.front * distance);
 			}
 		}
 
 		// Mouse motion ----------------
 
-		if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
+		else if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
 		{
+			float Sensitivity = 0.001f;
 			int dx = -App->input->GetMouseXMotion();
-			int dy = -App->input->GetMouseYMotion();
-
-			float Sensitivity = 0.25f;
+			int dy = -App->input->GetMouseYMotion();		
 
 			if (dx != 0)
 			{
