@@ -27,13 +27,17 @@ Application::Application()
 	AddModule(window);
 	AddModule(camera);
 	AddModule(input);
-	AddModule(imgui);
-	AddModule(sceneIntro);
-	AddModule(geometry);
+
 	AddModule(import);
+	AddModule(sceneIntro);
+
 	AddModule(game_object);
 	AddModule(resources);
+	AddModule(imgui);
+
 	AddModule(picking);
+
+	AddModule(geometry);
 
 	// Renderer last!
 	AddModule(renderer3D);
