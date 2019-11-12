@@ -37,7 +37,8 @@ public:
 
 	SDL_Surface* icon = nullptr;
 
-	
+	int width = 0;
+	int height = 0;
 };
 
 #endif // __ModuleWindow_H__
