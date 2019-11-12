@@ -25,5 +25,5 @@ update_status ModulePicking::Update(float dt)
 		}
 	}
 
-	return update_status();
+	return UPDATE_CONTINUE;
 }
