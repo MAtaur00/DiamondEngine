@@ -52,6 +52,7 @@ public:
 	bool showConfiguration = false;
 	bool showConsole = true;
 	bool showShapes = false;
+	bool showCamera = false;
 
 	float posx1 = 0.0f;
 	float posx2 = 5.0f;

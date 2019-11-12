@@ -92,6 +92,8 @@ update_status ModuleIMGui::PreUpdate(float dt)
 			}
 			if (MenuItem("Show Demo Window"))
 				showDemo = !showDemo;
+			if (MenuItem("Camera"))
+				showCamera = !showCamera;
 			ImGui::EndMenu();
 		}
 		if (BeginMenu("Help"))
@@ -476,6 +478,14 @@ update_status ModuleIMGui::PreUpdate(float dt)
 	if (showShapes)
 	{
 		shapes->Draw();
+	}
+	if (showCamera)
+	{
+		ImGui::Begin("Camera", &App->imgui->showCamera);
+
+		App->camera->compCamera->Inspector();
+
+		ImGui::End();
 	}
 
 	return ret;
