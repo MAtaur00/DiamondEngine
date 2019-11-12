@@ -4,6 +4,8 @@
 
 ComponentCamera::ComponentCamera(GameObject* parent) : Component(parent, CompCamera)
 {
+	parent->components.push_back(this);
+
 	frustum.type = PerspectiveFrustum;
 
 	frustum.pos = float3::zero;

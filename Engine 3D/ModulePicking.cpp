@@ -21,7 +21,7 @@ update_status ModulePicking::Update(float dt)
 			float mouseX = -(1.f - ((float(App->input->GetMouseX()) * 2.f) / (float)App->window->width));
 			float mouseY = (1.f - ((float(App->input->GetMouseY()) * 2.f) / (float)App->window->height));
 
-			LineSegment ray = App->camera->frustum.UnProjectLineSegment(mouseX, mouseY);
+			LineSegment ray = App->camera->compCamera->frustum.UnProjectLineSegment(mouseX, mouseY);
 		}
 	}
 

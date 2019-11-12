@@ -164,6 +164,7 @@
     <ClInclude Include="ModuleGeometry.h" />
     <ClInclude Include="ModuleIMGui.h" />
     <ClInclude Include="ModuleImport.h" />
+    <ClInclude Include="ModulePicking.h" />
     <ClInclude Include="ModuleRenderer3D.h" />
     <ClInclude Include="Module.h" />
     <ClInclude Include="ModuleInput.h" />
@@ -240,6 +241,7 @@
     <ClCompile Include="ModuleIMGui.cpp" />
     <ClCompile Include="ModuleImport.cpp" />
     <ClCompile Include="ModuleInput.cpp" />
+    <ClCompile Include="ModulePicking.cpp" />
     <ClCompile Include="ModuleRenderer3D.cpp" />
     <ClCompile Include="ModuleResources.cpp" />
     <ClCompile Include="ModuleSceneIntro.cpp" />
