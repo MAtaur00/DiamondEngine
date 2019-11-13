@@ -102,7 +102,8 @@ GameObject* ModuleImport::LoadMeshNode(const aiScene * scene, aiNode * node, Gam
 			LOG("New mesh with %d vertices", m->vertex.size);
 
 			//Load bounding box
-			go->boundingBox.Enclose((float3*)m->vertex.data, m->vertex.size);
+			go->originalBoundingBox.Enclose((float3*)m->vertex.data, m->vertex.size);
+			go->boundingBox = go->originalBoundingBox;
 
 			if (new_mesh->HasFaces())
 			{
