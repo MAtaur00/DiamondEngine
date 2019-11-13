@@ -15,7 +15,8 @@ GameObject::GameObject(GameObject* parent, const char* name)
 
 	uuid = pcg32_random();
 
-	//components.push_back((Component*)transform);
+	originalBoundingBox.SetNegativeInfinity();
+	boundingBox.SetNegativeInfinity();
 }
 
 

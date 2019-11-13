@@ -23,5 +23,10 @@ public:
 	GameObject* parent = nullptr;
 	std::list<GameObject*> childs;
 
+	AABB originalBoundingBox;
+	AABB boundingBox;
+
+	bool isStatic = false;
+
 	unsigned int uuid = 0u;
 };
