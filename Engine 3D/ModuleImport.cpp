@@ -101,6 +101,9 @@ GameObject* ModuleImport::LoadMeshNode(const aiScene * scene, aiNode * node, Gam
 			memcpy(m->vertex.data, new_mesh->mVertices, sizeof(float) * m->vertex.size * 3);
 			LOG("New mesh with %d vertices", m->vertex.size);
 
+			//Load bounding box
+			go->boundingBox.Enclose((float3*)m->vertex.data, m->vertex.size);
+
 			if (new_mesh->HasFaces())
 			{
 				m->index.size = new_mesh->mNumFaces * 3;
@@ -173,7 +176,7 @@ GameObject* ModuleImport::LoadMeshNode(const aiScene * scene, aiNode * node, Gam
 				ImportTexture(textPath.c_str(), go);
 			}
 		}
-
+		
 		ComponentMesh* newMesh = new ComponentMesh(go);
 		newMesh->mesh = m;
 		
