@@ -1,15 +1,19 @@
 #include "GameObject.h"
+#include "Application.h"
 #include "pcg/pcg_basic.h"
 using namespace std;
 
 
-GameObject::GameObject(GameObject* parent, const char* name)
+GameObject::GameObject(GameObject* parent, const char* name, bool addToList)
 {
 	this->parent = parent;
 	if (parent)
 		parent->childs.push_back(this);
 	if (name)
 		this->name = name;
+
+	if (addToList)
+		App->game_object->gameObjects.push_back(this);
 
 	transform = new ComponentTransform(this);
 
@@ -22,6 +26,7 @@ GameObject::GameObject(GameObject* parent, const char* name)
 
 GameObject::~GameObject()
 {
+	App->game_object->gameObjects.remove(this);
 }
 
 bool GameObject::HasComponent(Object_Type type)

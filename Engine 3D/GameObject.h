@@ -8,7 +8,7 @@
 class GameObject
 {
 public:
-	GameObject(GameObject* parent, const char* name = nullptr);
+	GameObject(GameObject* parent, const char* name = nullptr, bool addToList = true);
 	~GameObject();
 
 	bool HasComponent(Object_Type type);
