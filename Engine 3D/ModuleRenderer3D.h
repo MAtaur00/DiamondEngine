@@ -34,4 +34,6 @@ public:
 	std::vector<ComponentMesh*> mesh_list;
 
 	bool vsync = true;
+
+	bool drawBoxes = false;
 };

@@ -166,8 +166,112 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	}
 	
 	//Debug Draw
+	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+	{
+		drawBoxes = !drawBoxes;
+	}
 
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	glDisable(GL_CULL_FACE);
 
+	if (drawBoxes)
+	{
+		for (auto gameobject : App->game_object->gameObjects)
+		{
+			float3 corners[8];
+			gameobject->boundingBox.GetCornerPoints(corners);
+
+			glLineWidth(2.0f);
+
+			if (gameobject == App->sceneIntro->current_object)
+				glColor3f(0.0f, 1.0f, 0.0f);
+
+			else
+				glColor3f(0.0f, 0.0f, 1.0f);
+
+			glBegin(GL_QUADS);
+
+			glVertex3fv((GLfloat*)&corners[1]);
+			glVertex3fv((GLfloat*)&corners[5]);
+			glVertex3fv((GLfloat*)&corners[7]);
+			glVertex3fv((GLfloat*)&corners[3]);
+								
+			glVertex3fv((GLfloat*)&corners[4]);
+			glVertex3fv((GLfloat*)&corners[0]);
+			glVertex3fv((GLfloat*)&corners[2]);
+			glVertex3fv((GLfloat*)&corners[6]);
+								
+			glVertex3fv((GLfloat*)&corners[5]);
+			glVertex3fv((GLfloat*)&corners[4]);
+			glVertex3fv((GLfloat*)&corners[6]);
+			glVertex3fv((GLfloat*)&corners[7]);
+								
+			glVertex3fv((GLfloat*)&corners[0]);
+			glVertex3fv((GLfloat*)&corners[1]);
+			glVertex3fv((GLfloat*)&corners[3]);
+			glVertex3fv((GLfloat*)&corners[2]);
+
+			glVertex3fv((GLfloat*)&corners[3]);
+			glVertex3fv((GLfloat*)&corners[7]);
+			glVertex3fv((GLfloat*)&corners[6]);
+			glVertex3fv((GLfloat*)&corners[2]);
+
+			glVertex3fv((GLfloat*)&corners[0]);
+			glVertex3fv((GLfloat*)&corners[4]);
+			glVertex3fv((GLfloat*)&corners[5]);
+			glVertex3fv((GLfloat*)&corners[1]);
+
+			glEnd();
+		}
+	}
+
+	else
+	{
+		if (App->sceneIntro->current_object)
+		{
+			float3 corners[8];
+			App->sceneIntro->current_object->boundingBox.GetCornerPoints(corners);
+
+			glLineWidth(2.0f);
+			glColor3f(0.0f, 1.0f, 0.0f);
+			glBegin(GL_QUADS);
+
+			glVertex3fv((GLfloat*)&corners[1]);
+			glVertex3fv((GLfloat*)&corners[5]);
+			glVertex3fv((GLfloat*)&corners[7]);
+			glVertex3fv((GLfloat*)&corners[3]);
+
+			glVertex3fv((GLfloat*)&corners[4]);
+			glVertex3fv((GLfloat*)&corners[0]);
+			glVertex3fv((GLfloat*)&corners[2]);
+			glVertex3fv((GLfloat*)&corners[6]);
+
+			glVertex3fv((GLfloat*)&corners[5]);
+			glVertex3fv((GLfloat*)&corners[4]);
+			glVertex3fv((GLfloat*)&corners[6]);
+			glVertex3fv((GLfloat*)&corners[7]);
+
+			glVertex3fv((GLfloat*)&corners[0]);
+			glVertex3fv((GLfloat*)&corners[1]);
+			glVertex3fv((GLfloat*)&corners[3]);
+			glVertex3fv((GLfloat*)&corners[2]);
+
+			glVertex3fv((GLfloat*)&corners[3]);
+			glVertex3fv((GLfloat*)&corners[7]);
+			glVertex3fv((GLfloat*)&corners[6]);
+			glVertex3fv((GLfloat*)&corners[2]);
+
+			glVertex3fv((GLfloat*)&corners[0]);
+			glVertex3fv((GLfloat*)&corners[4]);
+			glVertex3fv((GLfloat*)&corners[5]);
+			glVertex3fv((GLfloat*)&corners[1]);
+
+			glEnd();
+		}
+	}
+
+	glPolygonMode(GL_FRONT, GL_FILL);
+	glEnable(GL_CULL_FACE);
 
 	//UI
 	App->imgui->Draw();
