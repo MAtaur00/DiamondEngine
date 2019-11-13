@@ -18,8 +18,8 @@ public:
 
 public:
 	
-	ComponentCamera* compCamera;
-	GameObject* cameraGO;
+	ComponentCamera* compCamera = nullptr;
+	GameObject* cameraGO = nullptr;
 
 private:
 	int cameraSpeed = 3;
