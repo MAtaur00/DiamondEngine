@@ -307,4 +307,7 @@ void ModuleRenderer3D::OnResize(int width, int height)
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+
+	if (App->camera->compCamera)
+		App->camera->compCamera->frustum.horizontalFov = 2.f * atan(tan(App->camera->compCamera->frustum.verticalFov * 0.5f) * (float(App->window->width) / App->window->height));
 }
