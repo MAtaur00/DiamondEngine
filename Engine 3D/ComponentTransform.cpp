@@ -17,24 +17,25 @@ void ComponentTransform::Inspector()
 	{
 		if (ImGui::DragFloat3("Position", &position[0], 0.1f, 0.0f, 0.0f, "%.2f"))
 		{
-			
+			UpdateBoundingBox();
 		}
 		float3 degRotation = rotation.ToEulerXYZ();
 		degRotation = RadToDeg(degRotation);
 		if (ImGui::DragFloat3("Rotation", &degRotation[0], 0.1f, 0.0f, 0.0f, "%.2f"))
 		{
 			SetRotation(DegToRad(degRotation));
+			UpdateBoundingBox();
 		}
 		if (ImGui::DragFloat3("Scale", &scale[0], 0.1f, 0.0f, 0.0f, "%.2f"))
 		{
-
+			UpdateBoundingBox();
 		}
-
 		if (ImGui::Button("Reset"))
 		{
 			position = float3::zero;
 			rotation = Quat::identity;
 			scale = float3::one;
+			UpdateBoundingBox();
 		}
 	}
 }
@@ -47,11 +48,13 @@ void ComponentTransform::SetPos(float x, float y, float z)
 void ComponentTransform::SetPos(float3 position)
 {
 	this->position = position;
+	UpdateBoundingBox();
 }
 
 void ComponentTransform::Move(float3 distance)
 {
-	this->position = this->position.Add(position);
+	this->position = this->position.Add(distance);
+	UpdateBoundingBox();
 }
 
 float3 ComponentTransform::GetPos() const
@@ -70,16 +73,19 @@ float3 ComponentTransform::GetGlobalPos() const
 void ComponentTransform::SetScale(float x, float y, float z)
 {
 	scale = float3(x, y, z);
+	UpdateBoundingBox();
 }
 
 void ComponentTransform::SetScale(float3 scale)
 {
 	this->scale = scale;
+	UpdateBoundingBox();
 }
 
 void ComponentTransform::Scale(float3 scale)
 {
 	this->scale = this->scale.Mul(scale);
+	UpdateBoundingBox();
 }
 
 float3 ComponentTransform::GetScale()
@@ -99,16 +105,19 @@ float3 ComponentTransform::GetGlobalScale()
 void ComponentTransform::SetRotation(Quat rotation)
 {
 	this->rotation = rotation;
+	UpdateBoundingBox();
 }
 
 void ComponentTransform::SetRotation(float3 rotation)
 {
 	this->rotation = Quat::FromEulerXYZ(rotation.x, rotation.y, rotation.z);
+	UpdateBoundingBox();
 }
 
 void ComponentTransform::Rotate(Quat rotation)
 {
 	this->rotation = rotation.Mul(this->rotation).Normalized();
+	UpdateBoundingBox();
 }
 
 Quat ComponentTransform::GetRotation() const
@@ -128,6 +137,7 @@ Quat ComponentTransform::GetGlobalRotation() const
 void ComponentTransform::SetTransform(float4x4 trans)
 {
 	trans.Decompose(position, rotation, scale);
+	UpdateBoundingBox();
 }
 
 void ComponentTransform::SetIdentity()
@@ -135,6 +145,7 @@ void ComponentTransform::SetIdentity()
 	position = float3::zero;
 	rotation = Quat::identity;
 	scale = float3::one;
+	UpdateBoundingBox();
 }
 
 float4x4 ComponentTransform::GetMatrixOGL() const
@@ -155,4 +166,18 @@ float4x4 ComponentTransform::GetMatrix() const
 float4x4 ComponentTransform::GetLocalMatrix() const
 {
 	return float4x4::FromTRS(position, rotation, scale);
+}
+
+void ComponentTransform::UpdateBoundingBox()
+{
+	OBB obb;
+	obb = parent->originalBoundingBox.ToOBB();
+	obb.Transform(GetMatrix());
+
+	parent->boundingBox = obb.MinimalEnclosingAABB();	
+
+	for (std::list<GameObject*>::iterator it = parent->childs.begin(); it != parent->childs.end(); ++it)
+	{
+		(*it)->transform->UpdateBoundingBox();
+	}
 }
