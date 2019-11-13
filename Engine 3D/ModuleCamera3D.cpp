@@ -15,7 +15,7 @@ bool ModuleCamera3D::Start()
 	LOG("Setting up the camera");
 	bool ret = true;
 
-	cameraGO = new GameObject(nullptr);
+	cameraGO = new GameObject(nullptr, "Editor Camera", false);
 
 	compCamera = new ComponentCamera(cameraGO);
 
