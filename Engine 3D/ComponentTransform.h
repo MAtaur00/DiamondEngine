@@ -45,7 +45,6 @@ public:
 	void UpdateBoundingBox();
 
 public:
-	GameObject* parent = nullptr;
 	AABB bounding_box;
 	AABB original_box;
 

@@ -171,12 +171,12 @@ float4x4 ComponentTransform::GetLocalMatrix() const
 void ComponentTransform::UpdateBoundingBox()
 {
 	OBB obb;
-	obb = parent->originalBoundingBox.ToOBB();
+	obb = gameObject->originalBoundingBox.ToOBB();
 	obb.Transform(GetMatrix());
 
-	parent->boundingBox = obb.MinimalEnclosingAABB();	
+	gameObject->boundingBox = obb.MinimalEnclosingAABB();
 
-	for (std::list<GameObject*>::iterator it = parent->childs.begin(); it != parent->childs.end(); ++it)
+	for (std::list<GameObject*>::iterator it = gameObject->childs.begin(); it != gameObject->childs.end(); ++it)
 	{
 		(*it)->transform->UpdateBoundingBox();
 	}
