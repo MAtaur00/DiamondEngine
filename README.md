@@ -1,4 +1,4 @@
-# Diamond Engine
+﻿# Diamond Engine
 
 Diamond Engine is a 3D game engine created by Marc Tarrés and Aleix Castillo, two students of CITM, UPC in Terrassa. This code is written in C++.
 
@@ -22,6 +22,11 @@ Diamond Engine is a 3D game engine created by Marc Tarrés and Aleix Castillo, t
 - F: Focus on the selected object
 - Wheel: Zoom In and Out
 - Shift: Double movement speed
+
+### Engine controls
+
+- F1 key: Paint AABBs of all Objects
+- Mouse wheel click: Select Object
 
 ## External Libreries
 

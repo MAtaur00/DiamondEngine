@@ -12,7 +12,7 @@ Inspector::~Inspector()
 
 void Inspector::Draw()
 {
-	if (ImGui::Begin("Inspector", &App->imgui->showInspector, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_HorizontalScrollbar | ImGuiWindowFlags_NoMove))
+	if (ImGui::Begin("Inspector", &App->imgui->showInspector, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_HorizontalScrollbar))
 	{
 		if (App->sceneIntro->current_object)
 		{
