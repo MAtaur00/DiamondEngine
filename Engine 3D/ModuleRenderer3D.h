@@ -36,4 +36,6 @@ public:
 	bool vsync = true;
 
 	bool drawBoxes = false;
+
+	bool paintTextures = true;
 };

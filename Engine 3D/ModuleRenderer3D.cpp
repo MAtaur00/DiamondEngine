@@ -273,6 +273,26 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	glPolygonMode(GL_FRONT, GL_FILL);
 	glEnable(GL_CULL_FACE);
 
+	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+	{
+		for (auto gameobject : App->game_object->gameObjects)
+		{
+			if (gameobject->HasComponent(Object_Type::CompTexture))
+			{
+				ComponentTexture* tex = (ComponentTexture*)gameobject->GetComponent(Object_Type::CompTexture);
+				if (paintTextures)
+				{
+					tex->print = false;
+				}
+				else if (!paintTextures)
+				{
+					tex->print = true;
+				}
+			}
+		}
+		paintTextures = !paintTextures;
+	}
+
 	//UI
 	App->imgui->Draw();
 
