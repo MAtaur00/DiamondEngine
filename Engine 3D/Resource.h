@@ -6,7 +6,8 @@ enum class ResourceType
 {
 	None = 0,
 	Mesh,
-	Texture
+	Texture,
+	Scene
 };
 
 class Resource

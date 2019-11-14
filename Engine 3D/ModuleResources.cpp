@@ -51,9 +51,20 @@ string ModuleResources::GetDirection(ResourceType type, uint uuid, const char* p
 	case ResourceType::Texture:
 	{
 		filePath += "Textures/";
-		uint initialPos = filePath.find_last_of("\\") + 1;
-		uint finalPos = filePath.find_last_of(".") + 1;
-		filePath.substr(initialPos, (finalPos - initialPos)) + "dds";
+		string name(path);
+		uint initialPos = name.find_last_of("\\") + 1;
+		uint finalPos = name.find_last_of(".") + 1;
+		filePath += name.substr(initialPos, (finalPos - initialPos)) + "dds";
+	}
+		break;
+
+	case ResourceType::Scene:
+	{
+		filePath = "Assets/Scenes/";
+		string name(path);
+		uint initialPos = name.find_last_of("\\") + 1;
+		uint finalPos = name.find_last_of(".");
+		filePath += name.substr(initialPos, (finalPos - initialPos)) + ".json";
 	}
 		break;
 	default:
