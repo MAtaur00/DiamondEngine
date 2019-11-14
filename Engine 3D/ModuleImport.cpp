@@ -61,7 +61,7 @@ bool ModuleImport::Start()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 500, 500, 0, GL_RGBA, GL_UNSIGNED_BYTE, checkImage);
 
-	ImportFBX("Assets\\Models\\BakerHouse.fbx");
+	ImportFBX("Assets\\Models\\Street environment_V01.FBX");
 	/*ImportTexture("Assets\\Textures\\Baker_house.png");*/
 
 
@@ -96,19 +96,21 @@ GameObject* ModuleImport::LoadMeshNode(const aiScene * scene, aiNode * node, Gam
 		if (m == nullptr)
 		{
 			m = new ResourceMesh((_path + _name).c_str());
-			m->vertex.size = new_mesh->mNumVertices;
-			m->vertex.data = new float[m->vertex.size * 3];
-			memcpy(m->vertex.data, new_mesh->mVertices, sizeof(float) * m->vertex.size * 3);
+			m->vertex.size = new_mesh->mNumVertices * 3;
+			m->vertex.data = new float[m->vertex.size];
+			memset(m->vertex.data, 0, sizeof(float) * m->vertex.size);
+			memcpy(m->vertex.data, new_mesh->mVertices, sizeof(float) * m->vertex.size);
 			LOG("New mesh with %d vertices", m->vertex.size);
 
 			//Load bounding box
-			go->originalBoundingBox.Enclose((float3*)m->vertex.data, m->vertex.size);
+			go->originalBoundingBox.Enclose((float3*)m->vertex.data, m->vertex.size/3);
 			go->boundingBox = go->originalBoundingBox;
 
 			if (new_mesh->HasFaces())
 			{
 				m->index.size = new_mesh->mNumFaces * 3;
 				m->index.data = new uint[m->index.size];
+				memset(m->index.data, 0, sizeof(float) * m->index.size);
 				for (uint i = 0; i < new_mesh->mNumFaces; ++i)
 				{
 					if (new_mesh->mFaces[i].mNumIndices != 3)
@@ -146,7 +148,7 @@ GameObject* ModuleImport::LoadMeshNode(const aiScene * scene, aiNode * node, Gam
 			}
 			glGenBuffers(1, (GLuint*) & (m->vertex.id));
 			glBindBuffer(GL_ARRAY_BUFFER, m->vertex.id);
-			glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 3 * m->vertex.size, m->vertex.data, GL_STATIC_DRAW);
+			glBufferData(GL_ARRAY_BUFFER, sizeof(float) *m->vertex.size, m->vertex.data, GL_STATIC_DRAW);
 
 			glGenBuffers(1, (GLuint*) & (m->index.id));
 			glBindBuffer(GL_ARRAY_BUFFER, m->index.id);
@@ -186,10 +188,19 @@ GameObject* ModuleImport::LoadMeshNode(const aiScene * scene, aiNode * node, Gam
 		App->renderer3D->mesh_list.push_back(newMesh);
 		LOG("Mesh loaded");
 	}
+
+	float4x4 transformMat(
+		node->mTransformation.a1, node->mTransformation.a2, node->mTransformation.a3, node->mTransformation.a4,
+		node->mTransformation.b1, node->mTransformation.b2, node->mTransformation.b3, node->mTransformation.b4,
+		node->mTransformation.c1, node->mTransformation.c2, node->mTransformation.c3, node->mTransformation.c4,
+		node->mTransformation.d1, node->mTransformation.d2, node->mTransformation.d3, node->mTransformation.d4);
+
+	go->transform->SetTransform(transformMat);
+
 	for (int child = 0; child < node->mNumChildren; ++child)
 	{
 		LoadMeshNode(scene, node->mChildren[child], go, path);
-	}	
+	}
 	return go;
 }
 
@@ -199,7 +210,7 @@ void ModuleImport::SaveMeshImporter(ResourceMesh* m, const uint &uuid, char* pat
 	float size = 
 		sizeof(ranges) +
 		sizeof(uint) * m->index.size +
-		sizeof(float) * m->vertex.size * 3 +
+		sizeof(float) * m->vertex.size +
 		sizeof(float) * m->normals.size * 3 +
 		sizeof(float) * m->uvs.size * 2;
 
@@ -214,7 +225,7 @@ void ModuleImport::SaveMeshImporter(ResourceMesh* m, const uint &uuid, char* pat
 	memcpy(cursor, m->index.data, bytes);
 
 	cursor += bytes;
-	bytes = sizeof(float) * m->vertex.size * 3;
+	bytes = sizeof(float) * m->vertex.size;
 	memcpy(cursor, m->vertex.data, bytes);
 
 	if (m->normals.data)
