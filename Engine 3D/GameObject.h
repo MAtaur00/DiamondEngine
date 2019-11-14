@@ -16,7 +16,6 @@ public:
 	Component* GetComponent(Object_Type type);
 
 public:
-	bool active = true;
 	std::string name = "gameObject";
 	std::list<Component*> components;
 	ComponentTransform* transform = nullptr;
@@ -26,6 +25,7 @@ public:
 	AABB originalBoundingBox;
 	AABB boundingBox;
 
+	bool active = true;
 	bool isStatic = false;
 
 	unsigned int uuid = 0u;

@@ -37,6 +37,10 @@ void ComponentTransform::Inspector()
 			scale = float3::one;
 			UpdateBoundingBox();
 		}
+
+		ImGui::Separator();
+
+		ImGui::Checkbox("Static", &gameObject->isStatic);
 	}
 }
 

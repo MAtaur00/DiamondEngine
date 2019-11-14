@@ -23,6 +23,8 @@ void Inspector::Draw()
 				App->sceneIntro->current_object->name = buf;
 			}
 
+			ImGui::Checkbox("Active", &App->sceneIntro->current_object->active);
+
 			App->sceneIntro->current_object->transform->Inspector();
 			for (std::list<Component*>::iterator it = App->sceneIntro->current_object->components.begin(); it != App->sceneIntro->current_object->components.end(); ++it)
 			{

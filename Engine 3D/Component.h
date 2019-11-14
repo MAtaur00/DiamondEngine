@@ -21,7 +21,6 @@ public:
 
 	virtual void Inspector() {}
 public:
-	bool active = true;
 	GameObject* gameObject = nullptr;
 	Object_Type type;
 

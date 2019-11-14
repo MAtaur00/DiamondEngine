@@ -33,59 +33,62 @@ void ComponentMesh::Inspector()
 
 void ComponentMesh::Draw()
 {
-	ComponentTransform* transform = gameObject->transform;
-	glPushMatrix();
-	float4x4 mat = transform->GetMatrixOGL();
-
-	glMultMatrixf(mat.ptr());
-
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-
-	glBindBuffer(GL_ARRAY_BUFFER, mesh->vertex.id);
-	glVertexPointer(3, GL_FLOAT, 0, NULL);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->index.id);
-
-	if (gameObject)
+	if (gameObject->active)
 	{
-		ComponentTexture* tex = (ComponentTexture*)gameObject->GetComponent(CompTexture);
-		if (tex)
+		ComponentTransform* transform = gameObject->transform;
+		glPushMatrix();
+		float4x4 mat = transform->GetMatrixOGL();
+
+		glMultMatrixf(mat.ptr());
+
+		glEnableClientState(GL_VERTEX_ARRAY);
+		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+
+		glBindBuffer(GL_ARRAY_BUFFER, mesh->vertex.id);
+		glVertexPointer(3, GL_FLOAT, 0, NULL);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->index.id);
+
+		if (gameObject)
 		{
-			if (tex->print)
+			ComponentTexture* tex = (ComponentTexture*)gameObject->GetComponent(CompTexture);
+			if (tex)
 			{
-				glEnable(GL_TEXTURE_2D);
-				glBindTexture(GL_TEXTURE_2D, tex->GetID());
+				if (tex->print)
+				{
+					glEnable(GL_TEXTURE_2D);
+					glBindTexture(GL_TEXTURE_2D, tex->GetID());
+				}
+			}
+
+			if (printVertexNormals && mesh->hasNormals)
+			{
+				int size = 2;
+				glColor3f(0.0f, 1.0f, 0.0f);
+
+				for (uint i = 0; i < mesh->vertex.size * 3; i += 3)
+				{
+					glBegin(GL_LINES);
+					glVertex3f(mesh->vertex.data[i], mesh->vertex.data[i + 1], mesh->vertex.data[i + 2]);
+					glVertex3f(mesh->vertex.data[i] + mesh->normals.data[i] * size, mesh->vertex.data[i + 1] + mesh->normals.data[i + 1] * size, mesh->vertex.data[i + 2] + mesh->normals.data[i + 2] * size);
+					glEnd();
+				}
+				glColor3f(1.0f, 1.0f, 1.0f);
 			}
 		}
 
-		if (printVertexNormals && mesh->hasNormals)
-		{
-			int size = 2;
-			glColor3f(0.0f, 1.0f, 0.0f);
+		glBindBuffer(GL_ARRAY_BUFFER, mesh->uvs.id);
+		glTexCoordPointer(2, GL_FLOAT, 0, NULL);
 
-			for (uint i = 0; i < mesh->vertex.size * 3; i += 3)
-			{
-				glBegin(GL_LINES);
-				glVertex3f(mesh->vertex.data[i], mesh->vertex.data[i + 1], mesh->vertex.data[i + 2]);
-				glVertex3f(mesh->vertex.data[i] + mesh->normals.data[i] * size, mesh->vertex.data[i + 1] + mesh->normals.data[i + 1] * size, mesh->vertex.data[i + 2] + mesh->normals.data[i + 2] * size);
-				glEnd();
-			}
-			glColor3f(1.0f, 1.0f, 1.0f);
-		}
+		glDrawElements(GL_TRIANGLES, mesh->index.size, GL_UNSIGNED_INT, NULL);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+		glDisableClientState(GL_VERTEX_ARRAY);
+		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+		glBindTexture(GL_TEXTURE_2D, 0);
+		glDisable(GL_TEXTURE_2D);
+
+		glPopMatrix();
 	}
-
-	glBindBuffer(GL_ARRAY_BUFFER, mesh->uvs.id);
-	glTexCoordPointer(2, GL_FLOAT, 0, NULL);
-
-	glDrawElements(GL_TRIANGLES, mesh->index.size, GL_UNSIGNED_INT, NULL);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
-	glDisableClientState(GL_VERTEX_ARRAY);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-	glBindTexture(GL_TEXTURE_2D, 0);
-	glDisable(GL_TEXTURE_2D);
-
-	glPopMatrix();
 }
