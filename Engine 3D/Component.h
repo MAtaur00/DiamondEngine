@@ -1,5 +1,6 @@
 #pragma once
 #include "pcg/pcg_basic.h"
+#include "Globals.h"
 class GameObject;
 
 enum Object_Type
@@ -20,6 +21,8 @@ public:
 	~Component() {}
 
 	virtual void Inspector() {}
+
+	virtual void Save(JSON_Object* parent) {}
 public:
 	GameObject* gameObject = nullptr;
 	Object_Type type;

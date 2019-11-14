@@ -38,3 +38,5 @@ enum update_status
 #define VSYNC true
 #define TITLE "Diamond Engine"
 #define ORGANIZATION "UPC CITM"
+
+#include "JSON/parson.h"

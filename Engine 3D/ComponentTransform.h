@@ -44,6 +44,8 @@ public:
 
 	void UpdateBoundingBox();
 
+	void Save(JSON_Object* parent);
+
 public:
 	AABB bounding_box;
 	AABB original_box;
