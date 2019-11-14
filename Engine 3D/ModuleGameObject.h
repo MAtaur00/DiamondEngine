@@ -11,6 +11,10 @@ public:
 
 	bool Init();
 
+	void SaveScene(const char* name);
+
+	void SaveGameObjects(JSON_Array* &parent, GameObject* current);
+
 public:
 	GameObject* root = nullptr;
 
