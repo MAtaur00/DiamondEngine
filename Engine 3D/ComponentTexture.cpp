@@ -28,3 +28,14 @@ unsigned int ComponentTexture::GetID()
 {
 	return checkers == false ? RTexture->id : App->import->checkerImageID;
 }
+
+void ComponentTexture::Save(JSON_Object * parent)
+{
+	json_object_set_number(parent, "Type", type);
+	json_object_set_number(parent, "UUID", uuid);
+
+	// Path
+	//------------------------------------------------------------------------
+	json_object_set_string(parent, "Path", path.c_str());
+	//------------------------------------------------------------------------
+}

@@ -15,6 +15,8 @@ public:
 
 	unsigned int GetID();
 
+	void Save(JSON_Object* parent);
+
 public:
 	ResourceTexture* RTexture;
 
