@@ -29,39 +29,42 @@ update_status ModulePicking::Update(float dt)
 
 			for (std::list<GameObject*>::iterator it = App->game_object->gameObjects.begin(); it != App->game_object->gameObjects.end(); ++it)
 			{
-				LineSegment ray(picking);
-				ray.Transform((*it)->transform->GetMatrix().Inverted());
-
-				ComponentMesh* mesh = (ComponentMesh*)(*it)->GetComponent(Object_Type::CompMesh);
-				if (mesh)
+				if ((*it)->active)
 				{
-					Triangle triangle;
-					for (int i = 0; i < mesh->mesh->index.size / 3; ++i)
+					LineSegment ray(picking);
+					ray.Transform((*it)->transform->GetMatrix().Inverted());
+
+					ComponentMesh* mesh = (ComponentMesh*)(*it)->GetComponent(Object_Type::CompMesh);
+					if (mesh)
 					{
-						triangle.a.x = mesh->mesh->vertex.data[mesh->mesh->index.data[i * 3] * 3];
-						triangle.a.y = mesh->mesh->vertex.data[mesh->mesh->index.data[i * 3] * 3 + 1];
-						triangle.a.z = mesh->mesh->vertex.data[mesh->mesh->index.data[i * 3] * 3 + 2];
-
-						triangle.b.x = mesh->mesh->vertex.data[mesh->mesh->index.data[i * 3 + 1] * 3];
-						triangle.b.y = mesh->mesh->vertex.data[mesh->mesh->index.data[i * 3 + 1] * 3 + 1];
-						triangle.b.z = mesh->mesh->vertex.data[mesh->mesh->index.data[i * 3 + 1] * 3 + 2];
-
-						triangle.c.x = mesh->mesh->vertex.data[mesh->mesh->index.data[i * 3 + 2] * 3];
-						triangle.c.y = mesh->mesh->vertex.data[mesh->mesh->index.data[i * 3 + 2] * 3 + 1];
-						triangle.c.z = mesh->mesh->vertex.data[mesh->mesh->index.data[i * 3 + 2] * 3 + 2];
-
-						float distance;
-						float3 position;
-
-						if (ray.Intersects(triangle, &distance, &position))
+						Triangle triangle;
+						for (int i = 0; i < mesh->mesh->index.size / 3; ++i)
 						{
-							if (distance < smallerDist || smallerDist == -1.0f)
+							triangle.a.x = mesh->mesh->vertex.data[mesh->mesh->index.data[i * 3] * 3];
+							triangle.a.y = mesh->mesh->vertex.data[mesh->mesh->index.data[i * 3] * 3 + 1];
+							triangle.a.z = mesh->mesh->vertex.data[mesh->mesh->index.data[i * 3] * 3 + 2];
+
+							triangle.b.x = mesh->mesh->vertex.data[mesh->mesh->index.data[i * 3 + 1] * 3];
+							triangle.b.y = mesh->mesh->vertex.data[mesh->mesh->index.data[i * 3 + 1] * 3 + 1];
+							triangle.b.z = mesh->mesh->vertex.data[mesh->mesh->index.data[i * 3 + 1] * 3 + 2];
+
+							triangle.c.x = mesh->mesh->vertex.data[mesh->mesh->index.data[i * 3 + 2] * 3];
+							triangle.c.y = mesh->mesh->vertex.data[mesh->mesh->index.data[i * 3 + 2] * 3 + 1];
+							triangle.c.z = mesh->mesh->vertex.data[mesh->mesh->index.data[i * 3 + 2] * 3 + 2];
+
+							float distance;
+							float3 position;
+
+							if (ray.Intersects(triangle, &distance, &position))
 							{
-								smallerDist = distance;
-								closestObject = (*it);
+								if (distance < smallerDist || smallerDist == -1.0f)
+								{
+									smallerDist = distance;
+									closestObject = (*it);
+								}
 							}
 						}
-					}			
+					}
 				}
 			}
 			App->sceneIntro->current_object = closestObject;
