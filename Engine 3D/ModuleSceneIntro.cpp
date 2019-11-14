@@ -20,8 +20,6 @@ bool ModuleSceneIntro::Start()
 	LOG("Loading Intro assets");
 	bool ret = true;
 
-	App->geometry->Draw();
-
 	return ret;
 }
 
@@ -39,8 +37,6 @@ update_status ModuleSceneIntro::Update(float dt)
 	PrimitivePlane p(0, 1, 0, 0);
 	p.axis = true;
 	p.Render();
-
-	
 	
 	return UPDATE_CONTINUE;
 }
