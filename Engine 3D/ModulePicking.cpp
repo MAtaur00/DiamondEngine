@@ -31,7 +31,7 @@ update_status ModulePicking::Update(float dt)
 
 			for (std::list<GameObject*>::iterator it = App->game_object->gameObjects.begin(); it != App->game_object->gameObjects.end(); ++it)
 			{
-				if ((*it)->active)
+				if ((*it)->active && (*it)->HasComponent(Object_Type::CompMesh))
 				{
 					LineSegment ray(picking);
 					/*ray.Transform((*it)->transform->GetMatrix().Inverted());*/
@@ -54,7 +54,6 @@ update_status ModulePicking::Update(float dt)
 					Triangle triangle;
 					for (int i = 0; i < mesh->mesh->index.size / 3; ++i)
 					{
-						LOG("%i", mesh->mesh->index.data[i*3]);
 						triangle.a.x = mesh->mesh->vertex.data[mesh->mesh->index.data[i * 3] * 3];
 						triangle.a.y = mesh->mesh->vertex.data[mesh->mesh->index.data[i * 3] * 3 + 1];
 						triangle.a.z = mesh->mesh->vertex.data[mesh->mesh->index.data[i * 3] * 3 + 2];
