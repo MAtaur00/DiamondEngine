@@ -15,6 +15,8 @@ public:
 
 	Component* GetComponent(Object_Type type);
 
+	void Save(JSON_Object* parent);
+
 public:
 	std::string name = "gameObject";
 	std::list<Component*> components;

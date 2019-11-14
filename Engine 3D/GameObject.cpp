@@ -60,3 +60,30 @@ Component * GameObject::GetComponent(Object_Type type)
 	}
 	return nullptr;
 }
+
+void GameObject::Save(JSON_Object * parent)
+{
+	json_object_set_string(parent, "Name", name.data());
+	json_object_set_number(parent, "UUID", uuid);
+	json_object_set_boolean(parent, "Active", active);
+
+	if (this->parent)
+	{
+		json_object_set_number(parent, "UUID", this->parent->uuid);
+	}
+
+	JSON_Value* componentsValue = json_value_init_array();
+	JSON_Array* componentsObj = json_value_get_array(componentsValue);
+
+	json_object_set_value(parent, "Components", componentsValue);
+
+	for (auto child : childs)
+	{
+		JSON_Value* childValue = json_value_init_object();
+		JSON_Object* childObj = json_value_get_object(childValue);
+
+		child->Save(childObj);
+
+		json_array_append_value(componentsObj, childValue);
+	}
+}
