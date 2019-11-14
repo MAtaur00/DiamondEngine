@@ -48,6 +48,7 @@ update_status ModuleIMGui::PreUpdate(float dt)
 			if (MenuItem("Save"))
 			{
 				
+				saveScenePopup = true;
 			}
 			if (MenuItem("Load"))
 			{
@@ -486,6 +487,38 @@ update_status ModuleIMGui::PreUpdate(float dt)
 		App->camera->compCamera->Inspector();
 
 		ImGui::End();
+	}
+
+	if (saveScenePopup)
+	{
+		ImGui::OpenPopup("Save Scene Here");
+		saveScenePopup = false;
+	}
+
+	if (ImGui::BeginPopup("Save Scene Here", ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove))
+	{
+		char buf[64];
+		sprintf_s(buf, 64, lastSceneName.data());
+		if (ImGui::InputText("Scene Name", buf, IM_ARRAYSIZE(buf)))
+		{
+			lastSceneName = buf;
+		}
+
+		ImGui::SameLine();
+
+		if (ImGui::Button("SAVE"))
+		{
+			App->game_object->SaveScene(lastSceneName.data());
+
+			ImGui::CloseCurrentPopup();
+		}
+
+		if (ImGui::Button("CANCEL"))
+		{
+			lastSceneName = "Scene";
+			ImGui::CloseCurrentPopup();
+		}
+		ImGui::EndPopup();
 	}
 
 	return ret;

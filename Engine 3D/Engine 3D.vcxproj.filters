@@ -52,6 +52,9 @@
     <Filter Include="Sources\Resources">
       <UniqueIdentifier>{933abb72-70e2-4b1f-8628-35559d61065c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\Containers\Parson">
+      <UniqueIdentifier>{e049306f-f60b-4775-859f-18cf681e9bef}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -366,6 +369,9 @@
     <ClInclude Include="ModulePicking.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
+    <ClInclude Include="JSON\parson.h">
+      <Filter>Sources\Containers\Parson</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -589,6 +595,9 @@
     </ClCompile>
     <ClCompile Include="ModulePicking.cpp">
       <Filter>Sources\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="JSON\parson.c">
+      <Filter>Sources\Containers\Parson</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

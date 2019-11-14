@@ -2,7 +2,7 @@
 #include "Module.h"
 #include "imgui.h"
 #include <vector>
-
+#include <string>
 
 enum ObjectType
 {
@@ -53,6 +53,7 @@ public:
 	bool showConsole = true;
 	bool showShapes = false;
 	bool showCamera = false;
+	bool saveScenePopup = false;
 
 	float posx1 = 0.0f;
 	float posx2 = 5.0f;
@@ -79,5 +80,7 @@ public:
 	bool borderless = false;
 	bool resizable = false;
 	bool fullDesktop = false;
+
+	std::string lastSceneName = "Scene";
 };
 
