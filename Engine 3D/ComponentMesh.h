@@ -14,7 +14,7 @@ public:
 
 	void Draw();
 
-
+	void Save(JSON_Object* parent);
 
 public:
 	ResourceMesh* mesh;

@@ -92,3 +92,9 @@ void ComponentMesh::Draw()
 		glPopMatrix();
 	}
 }
+
+void ComponentMesh::Save(JSON_Object * parent)
+{
+	json_object_set_number(parent, "Type", type);
+	json_object_set_number(parent, "UUID", uuid);
+}
