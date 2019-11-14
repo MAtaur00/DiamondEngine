@@ -77,13 +77,20 @@ void GameObject::Save(JSON_Object * parent)
 
 	json_object_set_value(parent, "Components", componentsValue);
 
-	for (auto child : childs)
+	JSON_Value* transformValue = json_value_init_object();
+	JSON_Object* transformObj = json_value_get_object(transformValue);
+
+	transform->Save(transformObj);
+
+	json_array_append_value(componentsObj, transformValue);
+
+	for (auto component : components)
 	{
-		JSON_Value* childValue = json_value_init_object();
-		JSON_Object* childObj = json_value_get_object(childValue);
+		JSON_Value* componentValue = json_value_init_object();
+		JSON_Object* componentObj = json_value_get_object(componentValue);
 
-		child->Save(childObj);
+		component->Save(componentObj);
 
-		json_array_append_value(componentsObj, childValue);
+		json_array_append_value(componentsObj, componentValue);
 	}
 }
