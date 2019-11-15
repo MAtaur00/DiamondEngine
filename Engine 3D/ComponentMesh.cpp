@@ -22,6 +22,7 @@ void ComponentMesh::Inspector()
 {
 	if (ImGui::CollapsingHeader("Mesh", ImGuiTreeNodeFlags_DefaultOpen))
 	{
+		ImGui::Checkbox("Mesh Active", &print);
 		ImGui::Text("Number of vertices: %u", mesh->vertex.size);
 		ImGui::Text("Number of faces: %u", mesh->index.size / 3);
 
@@ -33,7 +34,7 @@ void ComponentMesh::Inspector()
 
 void ComponentMesh::Draw()
 {
-	if (gameObject->active)
+	if (gameObject->active && print)
 	{
 		ComponentTransform* transform = gameObject->transform;
 		glPushMatrix();
