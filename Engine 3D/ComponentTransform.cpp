@@ -203,18 +203,6 @@ void ComponentTransform::Save(JSON_Object * parent)
 	json_object_set_number(positionObj, "Z", position.z);
 	//------------------------------------------------------------------------
 
-	// Scale
-	//------------------------------------------------------------------------
-	JSON_Value* scal = json_value_init_object();
-	JSON_Object* scaleObj = json_value_get_object(scal);
-
-	json_object_set_value(parent, "Rotation", scal);
-
-	json_object_set_number(scaleObj, "X", scale.x);
-	json_object_set_number(scaleObj, "Y", scale.y);
-	json_object_set_number(scaleObj, "Z", scale.z);
-	//------------------------------------------------------------------------
-
 	// Rotation
 	//------------------------------------------------------------------------
 	JSON_Value* rot = json_value_init_object();
@@ -225,5 +213,17 @@ void ComponentTransform::Save(JSON_Object * parent)
 	json_object_set_number(rotationObj, "X", rotation.x);
 	json_object_set_number(rotationObj, "Y", rotation.y);
 	json_object_set_number(rotationObj, "Z", rotation.z);
+	//------------------------------------------------------------------------
+
+	// Scale
+	//------------------------------------------------------------------------
+	JSON_Value* scal = json_value_init_object();
+	JSON_Object* scaleObj = json_value_get_object(scal);
+
+	json_object_set_value(parent, "Rotation", scal);
+
+	json_object_set_number(scaleObj, "X", scale.x);
+	json_object_set_number(scaleObj, "Y", scale.y);
+	json_object_set_number(scaleObj, "Z", scale.z);
 	//------------------------------------------------------------------------
 }

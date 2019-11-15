@@ -21,7 +21,6 @@ public:
 	bool operator==(Resource other);
 
 public:
-
 	std::string name;
 	ResourceType type = ResourceType::None;
 	uint usage = 0u;
