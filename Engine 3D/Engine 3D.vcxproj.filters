@@ -372,6 +372,9 @@
     <ClInclude Include="JSON\parson.h">
       <Filter>Sources\Containers\Parson</Filter>
     </ClInclude>
+    <ClInclude Include="QuadTree.h">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -598,6 +601,9 @@
     </ClCompile>
     <ClCompile Include="JSON\parson.c">
       <Filter>Sources\Containers\Parson</Filter>
+    </ClCompile>
+    <ClCompile Include="QuadTree.cpp">
+      <Filter>Sources\Containers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
