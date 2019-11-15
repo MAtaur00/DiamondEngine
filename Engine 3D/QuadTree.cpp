@@ -7,62 +7,88 @@ QuadTree_Node::QuadTree_Node(math::AABB& boundingBox)
 
 QuadTree_Node::~QuadTree_Node()
 {
-
+	if (HasChilds())
+	{
+		for (size_t i = 0; i < 4; i++)
+		{
+			if (childs[i] != nullptr)
+			{
+				delete childs[i];
+				childs[i] = nullptr;
+			}
+		}
+	}
 
 }
 
 
-bool HasChilds() 
+bool QuadTree_Node::HasChilds() 
 {
-
+	if (childs[0] == nullptr)
+		return false;
 	return true;
 }
-void Subdivide() 
+
+void QuadTree_Node::Subdivide()
 {
 
 }
 
-void IntersectGameObject(GameObject* object)
+void QuadTree_Node::InsertGameObject(GameObject* object)
 {
 
 }
 
-void RedistributeChilds()
+void QuadTree_Node::RedistributeChilds()
 {
 
 }
 
-void DeleteGameObjet(GameObject* object)
-{
-
-}
-
-
-void QT_Render(QuadTree_Node* node) 
-{
-
-}
-
-void QT_Create(math::AABB parameters) 
-{
-
-}
-
-void QT_Clear()
+void QuadTree_Node::DeleteGameObjet(GameObject* object)
 {
 
 }
 
 
-void QT_Insert(GameObject* object) 
+Quad_Tree::Quad_Tree()
+{
+	
+}
+
+Quad_Tree::~Quad_Tree()
+{
+	QT_Clear();
+}
+
+void Quad_Tree::QT_Render(QuadTree_Node* node)
 {
 
 }
 
-void QT_Remove(GameObject* object)
+void Quad_Tree::QT_Create(math::AABB parameters)
 {
-
+	QT_Clear();
+	root = new QuadTree_Node(parameters);
 }
+
+void Quad_Tree::QT_Clear()
+{
+	if (root != nullptr)
+	{
+		delete root;
+	}
+}
+
+
+void Quad_Tree::QT_Insert(GameObject* object)
+{
+	if (object->boundingBox.Intersects(root->bounding_Box))
+	{
+		root->InsertGameObject(object);
+	}
+}
+
+
 
 //If it is within the limits of Quadtree
 //Add it to the root node:
