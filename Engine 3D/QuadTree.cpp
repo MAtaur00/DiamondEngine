@@ -11,6 +11,33 @@ QuadTree_Node::~QuadTree_Node()
 
 }
 
+
+bool HasChilds() 
+{
+
+	return true;
+}
+void Subdivide() 
+{
+
+}
+
+void IntersectGameObject(GameObject* object)
+{
+
+}
+
+void RedistributeChilds()
+{
+
+}
+
+void DeleteGameObjet(GameObject* object)
+{
+
+}
+
+
 void QT_Render(QuadTree_Node* node) 
 {
 

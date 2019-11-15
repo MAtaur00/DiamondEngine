@@ -11,6 +11,13 @@ public:
 	~QuadTree_Node();
 
 
+	bool HasChilds();
+	void Subdivide();
+	void IntersectGameObject(GameObject* object);
+	void RedistributeChilds();
+	void DeleteGameObjet(GameObject* object);
+
+
 public:
 
 	math::AABB bounding_Box;
@@ -37,7 +44,7 @@ public:
 
 	void QT_Insert(GameObject* object);
 	void QT_Remove(GameObject* object);
-	//void QT_Intersect(vector<GameObject*>& , PRIMITIVE);
+	//void QT_Intersect(std::vector<GameObject*>& , PRIMITIVE);
 
 public:
 
