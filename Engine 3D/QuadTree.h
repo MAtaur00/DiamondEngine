@@ -4,6 +4,10 @@
 #include <list>
 #include "Primitive.h"
 
+
+#define MAX_NODE_ELEMENTS 10
+
+
 class QuadTree_Node
 {
 public:
@@ -13,7 +17,7 @@ public:
 
 	bool HasChilds();
 	void Subdivide();
-	void IntersectGameObject(GameObject* object);
+	void InsertGameObject(GameObject* object);
 	void RedistributeChilds();
 	void DeleteGameObjet(GameObject* object);
 
@@ -23,10 +27,10 @@ public:
 	math::AABB bounding_Box;
 
 	QuadTree_Node* parent = nullptr;
-	QuadTree_Node* children[4] = { nullptr, nullptr, nullptr, nullptr };
+	QuadTree_Node* childs[4] = { nullptr, nullptr, nullptr, nullptr };
 	
 	std::list<GameObject*> objects;
-	unsigned int subdivision = 0;
+	int subdivision = 0;
 };
 
 
