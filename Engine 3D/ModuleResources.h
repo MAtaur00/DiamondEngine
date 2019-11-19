@@ -15,6 +15,8 @@ public:
 
 	void SaveFile(uint size, char* output_file, ResourceType type, uint uuid, const char* path = nullptr);
 
+	char* LoadFile(const char* path, ResourceType type, uint uuid);
+
 	std::string GetDirection(ResourceType type, uint uuid, const char* path = nullptr);
 
 	Resource* GetResource(ResourceType type, const char* path);
