@@ -126,8 +126,8 @@ GameObject* ModuleImport::LoadMeshNode(const aiScene * scene, aiNode * node, Gam
 			}
 			if (new_mesh->HasTextureCoords(m->uvs.id))
 			{
-				m->uvs.size = new_mesh->mNumVertices;
-				m->uvs.data = new float[m->uvs.size * 2];
+				m->uvs.size = new_mesh->mNumVertices * 2;
+				m->uvs.data = new float[m->uvs.size];
 
 				for (int i = 0; i < new_mesh->mNumVertices; ++i)
 				{
@@ -137,18 +137,18 @@ GameObject* ModuleImport::LoadMeshNode(const aiScene * scene, aiNode * node, Gam
 
 				glGenBuffers(1, (GLuint*)&(m->uvs.id));
 				glBindBuffer(GL_ARRAY_BUFFER, m->uvs.id);
-				glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 2 * m->uvs.size, m->uvs.data, GL_STATIC_DRAW);
+				glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m->uvs.size, m->uvs.data, GL_STATIC_DRAW);
 			}
 
 			if (new_mesh->HasNormals()) {
 				m->hasNormals = true;
-				m->normals.size = new_mesh->mNumVertices;
-				m->normals.data = new float[m->normals.size * 3];
-				memcpy(m->normals.data, new_mesh->mNormals, sizeof(float) * m->normals.size * 3);
+				m->normals.size = new_mesh->mNumVertices * 3;
+				m->normals.data = new float[m->normals.size];
+				memcpy(m->normals.data, new_mesh->mNormals, sizeof(float) * m->normals.size);
 			}
 			glGenBuffers(1, (GLuint*) & (m->vertex.id));
 			glBindBuffer(GL_ARRAY_BUFFER, m->vertex.id);
-			glBufferData(GL_ARRAY_BUFFER, sizeof(float) *m->vertex.size, m->vertex.data, GL_STATIC_DRAW);
+			glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m->vertex.size, m->vertex.data, GL_STATIC_DRAW);
 
 			glGenBuffers(1, (GLuint*) & (m->index.id));
 			glBindBuffer(GL_ARRAY_BUFFER, m->index.id);
@@ -211,8 +211,8 @@ void ModuleImport::SaveMeshImporter(ResourceMesh* m, const uint &uuid, char* pat
 		sizeof(ranges) +
 		sizeof(uint) * m->index.size +
 		sizeof(float) * m->vertex.size +
-		sizeof(float) * m->normals.size * 3 +
-		sizeof(float) * m->uvs.size * 2;
+		sizeof(float) * m->normals.size +
+		sizeof(float) * m->uvs.size;
 
 	char* meshBuffer = new char[size];
 	char* cursor = meshBuffer;
@@ -231,14 +231,14 @@ void ModuleImport::SaveMeshImporter(ResourceMesh* m, const uint &uuid, char* pat
 	if (m->normals.data)
 	{
 		cursor += bytes;
-		bytes = sizeof(float) * m->normals.size * 3;
+		bytes = sizeof(float) * m->normals.size;
 		memcpy(cursor, m->normals.data, bytes);
 	}
 
 	if (m->uvs.data)
 	{
 		cursor += bytes;
-		bytes = sizeof(float) * m->uvs.size * 2;
+		bytes = sizeof(float) * m->uvs.size;
 		memcpy(cursor, m->uvs.data, bytes);
 	}
 
@@ -247,54 +247,65 @@ void ModuleImport::SaveMeshImporter(ResourceMesh* m, const uint &uuid, char* pat
 	delete[] meshBuffer;
 }
 
+void ModuleImport::LoadMeshImporter(ResourceMesh* m, const uint &uuid, char* buff)
+{
+	uint ranges[4];
+
+	char* cursor = buff;
+
+	uint bytes = sizeof(ranges);
+	memcpy(ranges, cursor, bytes);
+
+	m->index.size = ranges[0];
+	m->vertex.size = ranges[1];
+	m->normals.size = ranges[2];
+	m->uvs.size = ranges[3];
+
+	cursor += bytes;
+	bytes = sizeof(uint) * m->index.size;
+	m->index.data = new uint[m->index.size];
+	memcpy(m->index.data, cursor, bytes);
+
+	glGenBuffers(1, (GLuint*) & (m->index.id));
+	glBindBuffer(GL_ARRAY_BUFFER, m->index.id);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m->index.size, m->index.data, GL_STATIC_DRAW);
+
+	cursor += bytes;
+	bytes = sizeof(float) * m->vertex.size;
+	m->vertex.data = new float[m->vertex.size];
+	memcpy(m->vertex.data, cursor, bytes);
+
+	glGenBuffers(1, (GLuint*) & (m->vertex.id));
+	glBindBuffer(GL_ARRAY_BUFFER, m->vertex.id);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m->vertex.size, m->vertex.data, GL_STATIC_DRAW);
+
+	cursor += bytes;
+	bytes = sizeof(float) * m->normals.size;
+	m->normals.data = new float[m->normals.size];
+	memcpy(m->normals.data, cursor, bytes);
+
+	cursor += bytes;
+	bytes = sizeof(float) * m->uvs.size;
+	m->uvs.data = new float[m->uvs.size];
+	memcpy(m->uvs.data, cursor, bytes);
+
+	glGenBuffers(1, (GLuint*)&(m->uvs.id));
+	glBindBuffer(GL_ARRAY_BUFFER, m->uvs.id);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m->uvs.size, m->uvs.data, GL_STATIC_DRAW);
+}
+
 void ModuleImport::ImportTexture(const char* path)
 {
 	ResourceTexture* m = (ResourceTexture*)App->resources->GetResource(ResourceType::Texture, path);
 	if (m == nullptr)
 	{
 		m = new ResourceTexture(path);
-		ilInit();
-		iluInit();
-		ilutInit();
-		if (ilLoadImage(path))
-		{
-			ilEnable(IL_FILE_OVERWRITE);
+		uint texture_id = 0;
 
-			ILuint size;
-			ILubyte *data;
+		RealLoadTexture(path, texture_id);
+		m->id = texture_id;
 
-			ilSetInteger(IL_DXTC_FORMAT, IL_DXT5);
-			size = ilSaveL(IL_DDS, NULL, 0);
-			if (size > 0) {
-				data = new ILubyte[size];
-				if (ilSaveL(IL_DDS, data, size) > 0)
-					App->resources->SaveFile(size, (char*)data, ResourceType::Texture, 0u, path);
-			}
-
-			uint texture_id = 0;
-
-			uint id = 0;
-
-			ilGenImages(1, &id);
-			ilBindImage(id);
-			ilLoadImage(path);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-			texture_id = ilutGLBindTexImage();
-			glBindTexture(GL_TEXTURE_2D, 0);
-			ilDeleteImages(1, &id);
-
-			m->id = texture_id;
-
-			App->resources->AddResource(m);
-		}
-		else
-		{
-			LOG("Couldn't load texture");
-			return;
-		}
+		App->resources->AddResource(m);
 	}
 	else
 	{
@@ -317,6 +328,45 @@ void ModuleImport::ImportTexture(const char* path)
 		texture->path = tex_path;
 		texture->RTexture = m;
 		LOG("Texture loaded");
+	}
+}
+
+void ModuleImport::RealLoadTexture(const char* path, uint &texture_id)
+{
+	ilInit();
+	iluInit();
+	ilutInit();
+	if (ilLoadImage(path))
+	{
+		ilEnable(IL_FILE_OVERWRITE);
+
+		ILuint size;
+		ILubyte *data;
+
+		ilSetInteger(IL_DXTC_FORMAT, IL_DXT5);
+		size = ilSaveL(IL_DDS, NULL, 0);
+		if (size > 0) {
+			data = new ILubyte[size];
+			if (ilSaveL(IL_DDS, data, size) > 0)
+				App->resources->SaveFile(size, (char*)data, ResourceType::Texture, 0u, path);
+		}
+
+		uint id = 0;
+
+		ilGenImages(1, &id);
+		ilBindImage(id);
+		ilLoadImage(path);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		texture_id = ilutGLBindTexImage();
+		glBindTexture(GL_TEXTURE_2D, 0);
+		ilDeleteImages(1, &id);
+	}
+	else
+	{
+		LOG("Couldn't load texture");
 	}
 }
 
@@ -393,8 +443,6 @@ void ModuleImport::ImportTexture(const char * path, GameObject * go)
 		LOG("Texture loaded");
 	}
 }
-
-
 
 update_status ModuleImport::Update(float dt)
 {
