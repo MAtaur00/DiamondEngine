@@ -16,6 +16,7 @@ ComponentMesh::ComponentMesh(GameObject* parent) : Component(parent, CompMesh)
 
 ComponentMesh::~ComponentMesh()
 {
+	delete mesh;
 }
 
 void ComponentMesh::Inspector()
@@ -98,4 +99,18 @@ void ComponentMesh::Save(JSON_Object * parent)
 {
 	json_object_set_number(parent, "Type", type);
 	json_object_set_number(parent, "UUID", uuid);
+	json_object_set_string(parent, "Name", mesh->name.c_str());
+}
+
+void ComponentMesh::Load(JSON_Object * parent)
+{
+	uuid = json_object_get_number(parent, "UUID");
+
+	std::string name = json_object_get_string(parent, "Name");
+
+	mesh = new ResourceMesh(name.c_str());
+
+	App->import->LoadMeshImporter(mesh, uuid, App->resources->LoadFile(nullptr, ResourceType::Mesh, uuid));
+
+	App->renderer3D->mesh_list.push_back(this);
 }

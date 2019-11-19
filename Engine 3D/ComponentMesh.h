@@ -16,9 +16,10 @@ public:
 
 	void Save(JSON_Object* parent);
 
+	void Load(JSON_Object* parent);
+
 public:
 	ResourceMesh* mesh;
-	std::string name;
 
 	bool print = true;
 
