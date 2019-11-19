@@ -51,8 +51,10 @@ void ModuleGameObject::LoadScene(const char * name)
 		App->sceneIntro->current_object = nullptr;
 		App->resources->resources.clear();
 		App->renderer3D->mesh_list.clear();
+
 		// Prepare new Quadtree
 
+		// Load new scene
 		JSON_Array* objArray = json_value_get_array(scene);
 
 		int objectsInScene = json_array_get_count(objArray);
