@@ -10,6 +10,7 @@ ComponentTexture::ComponentTexture(GameObject* parent) : Component(parent, CompT
 
 ComponentTexture::~ComponentTexture()
 {
+	delete RTexture;
 }
 
 void ComponentTexture::Inspector()
@@ -38,4 +39,15 @@ void ComponentTexture::Save(JSON_Object * parent)
 	//------------------------------------------------------------------------
 	json_object_set_string(parent, "Path", path.c_str());
 	//------------------------------------------------------------------------
+}
+
+void ComponentTexture::Load(JSON_Object * parent)
+{
+	uuid = json_object_get_number(parent, "UUID");
+
+	path = json_object_get_string(parent, "Path");
+
+	RTexture = new ResourceTexture(path.c_str());
+
+	App->import->RealLoadTexture(path.c_str(), RTexture->id);
 }
