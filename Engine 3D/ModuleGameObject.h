@@ -13,7 +13,11 @@ public:
 
 	void SaveScene(const char* name);
 
+	void LoadScene(const char* name);
+
 	void SaveGameObjects(JSON_Array* &parent, GameObject* current);
+
+	GameObject* GetGO(unsigned int uuid);
 
 public:
 	GameObject* root = nullptr;
