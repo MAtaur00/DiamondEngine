@@ -127,10 +127,13 @@ update_status ModuleInput::PreUpdate(float dt)
 
 				if (!extension.compare("fbx") || !extension.compare("obj") || !extension.compare("FBX"))
 					App->import->ImportFBX(dropped_filedir);
-					
+
 
 				else if (!extension.compare("png") || !extension.compare("dds") || !extension.compare("jpg") || !extension.compare("jpeg") || !extension.compare("tga"))
 					App->import->ImportTexture(dropped_filedir);
+
+				else if (!extension.compare("json"))
+					App->game_object->LoadScene(dropped_filedir);
 					
 
 				SDL_free(dropped_filedir);
