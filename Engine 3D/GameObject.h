@@ -11,11 +11,17 @@ public:
 	GameObject(GameObject* parent, const char* name = nullptr, bool addToList = true);
 	~GameObject();
 
+	void RealDelete();
+
 	bool HasComponent(Object_Type type);
 
 	Component* GetComponent(Object_Type type);
 
 	void Save(JSON_Object* parent);
+
+	void Load(JSON_Object* info);
+
+	bool SetParent(GameObject* parent);
 
 public:
 	std::string name = "gameObject";
@@ -31,4 +37,6 @@ public:
 	bool isStatic = false;
 
 	unsigned int uuid = 0u;
+
+	unsigned int parentUUID = 0u;
 };
