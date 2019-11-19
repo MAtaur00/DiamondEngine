@@ -54,6 +54,7 @@ public:
 	bool showShapes = false;
 	bool showCamera = false;
 	bool saveScenePopup = false;
+	bool loadScenePopup = false;
 
 	float posx1 = 0.0f;
 	float posx2 = 5.0f;

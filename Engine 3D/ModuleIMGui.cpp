@@ -47,12 +47,11 @@ update_status ModuleIMGui::PreUpdate(float dt)
 		{
 			if (MenuItem("Save"))
 			{
-				
 				saveScenePopup = true;
 			}
 			if (MenuItem("Load"))
 			{
-				
+				loadScenePopup = true;
 			}
 			ImGui::Separator();
 			if (MenuItem("Quit"))
@@ -518,6 +517,18 @@ update_status ModuleIMGui::PreUpdate(float dt)
 			lastSceneName = "Scene";
 			ImGui::CloseCurrentPopup();
 		}
+		ImGui::EndPopup();
+	}
+
+	if (loadScenePopup)
+	{
+		ImGui::OpenPopup("Load");
+		loadScenePopup = false;
+	}
+
+	if (ImGui::BeginPopup("Load"))
+	{
+		ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "Drag the scene file to load");
 		ImGui::EndPopup();
 	}
 
