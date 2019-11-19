@@ -46,9 +46,7 @@ public:
 
 	void Save(JSON_Object* parent);
 
-public:
-	AABB bounding_box;
-	AABB original_box;
+	void Load(JSON_Object* parent);
 
 private:
 	float3 position = float3::zero;

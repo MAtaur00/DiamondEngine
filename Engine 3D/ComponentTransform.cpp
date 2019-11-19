@@ -208,11 +208,12 @@ void ComponentTransform::Save(JSON_Object * parent)
 	JSON_Value* rot = json_value_init_object();
 	JSON_Object* rotationObj = json_value_get_object(rot);
 
-	json_object_set_value(parent, "Scale", rot);
+	json_object_set_value(parent, "Rotation", rot);
 
 	json_object_set_number(rotationObj, "X", rotation.x);
 	json_object_set_number(rotationObj, "Y", rotation.y);
 	json_object_set_number(rotationObj, "Z", rotation.z);
+	json_object_set_number(rotationObj, "W", rotation.w);
 	//------------------------------------------------------------------------
 
 	// Scale
@@ -220,10 +221,40 @@ void ComponentTransform::Save(JSON_Object * parent)
 	JSON_Value* scal = json_value_init_object();
 	JSON_Object* scaleObj = json_value_get_object(scal);
 
-	json_object_set_value(parent, "Rotation", scal);
+	json_object_set_value(parent, "Scale", scal);
 
 	json_object_set_number(scaleObj, "X", scale.x);
 	json_object_set_number(scaleObj, "Y", scale.y);
 	json_object_set_number(scaleObj, "Z", scale.z);
+	//------------------------------------------------------------------------
+}
+
+void ComponentTransform::Load(JSON_Object * parent)
+{
+	uuid = json_object_get_number(parent, "UUID");
+
+	// Position
+	//------------------------------------------------------------------------
+	JSON_Object* pos = json_object_get_object(parent, "Position");
+	position.x = json_object_get_number(pos, "X");
+	position.y = json_object_get_number(pos, "Y");
+	position.z = json_object_get_number(pos, "Z");
+	//------------------------------------------------------------------------
+
+	// Scale
+	//------------------------------------------------------------------------
+	JSON_Object* scal = json_object_get_object(parent, "Scale");
+	scale.x = json_object_get_number(scal, "X");
+	scale.y = json_object_get_number(scal, "Y");
+	scale.z = json_object_get_number(scal, "Z");
+	//------------------------------------------------------------------------
+
+	// Rotation
+	//------------------------------------------------------------------------
+	JSON_Object* rot = json_object_get_object(parent, "Rotation");
+	rotation.x = json_object_get_number(rot, "X");
+	rotation.y = json_object_get_number(rot, "Y");
+	rotation.z = json_object_get_number(rot, "Z");
+	rotation.w = json_object_get_number(rot, "W");
 	//------------------------------------------------------------------------
 }
