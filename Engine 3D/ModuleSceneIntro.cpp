@@ -32,7 +32,7 @@ bool ModuleSceneIntro::CleanUp()
 }
 
 // Update
-update_status ModuleSceneIntro::Update(float dt)
+update_status ModuleSceneIntro::Update()
 {
 	PrimitivePlane p(0, 1, 0, 0);
 	p.axis = true;

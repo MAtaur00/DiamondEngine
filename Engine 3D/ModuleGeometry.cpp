@@ -27,8 +27,7 @@ void ModuleGeometry::Draw(){
 	
 }
 
-update_status ModuleGeometry::Update(float dt) 
+update_status ModuleGeometry::Update() 
 {
-
 	return UPDATE_CONTINUE;
 }

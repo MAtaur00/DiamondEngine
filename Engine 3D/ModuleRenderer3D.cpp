@@ -133,7 +133,7 @@ bool ModuleRenderer3D::Init()
 }
 
 // PreUpdate: clear buffer
-update_status ModuleRenderer3D::PreUpdate(float dt)
+update_status ModuleRenderer3D::PreUpdate()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -157,7 +157,7 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 }
 
 // PostUpdate present buffer to screen
-update_status ModuleRenderer3D::PostUpdate(float dt)
+update_status ModuleRenderer3D::PostUpdate()
 {
 	//Geometry
 	for (std::vector<ComponentMesh*>::iterator it = mesh_list.begin(); it != mesh_list.end(); ++it)

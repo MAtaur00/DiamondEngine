@@ -9,7 +9,7 @@ public:
 	~ModuleGeometry();
 
 	bool Start();
-	update_status Update(float dt);
+	update_status Update();
 
 	bool ret = true;
 	void Draw();

@@ -7,6 +7,6 @@ public:
 	ModulePicking(Application* app, bool start_enabled = true);
 	~ModulePicking();
 
-	update_status Update(float dt);
+	update_status Update();
 };
 

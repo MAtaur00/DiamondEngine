@@ -444,7 +444,7 @@ void ModuleImport::ImportTexture(const char * path, GameObject * go)
 	}
 }
 
-update_status ModuleImport::Update(float dt)
+update_status ModuleImport::Update()
 {
 	return UPDATE_CONTINUE;
 }

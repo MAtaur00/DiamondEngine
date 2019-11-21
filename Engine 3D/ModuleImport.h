@@ -18,7 +18,7 @@ public:
 	~ModuleImport();
 
 	bool Start();
-	update_status Update(float dt);
+	update_status Update();
 
 	void ImportFBX(const char* path);
 

@@ -12,7 +12,7 @@ ModulePicking::~ModulePicking()
 {
 }
 
-update_status ModulePicking::Update(float dt)
+update_status ModulePicking::Update()
 {
 	if (!ImGui::IsWindowHovered(ImGuiHoveredFlags_AnyWindow))
 	{

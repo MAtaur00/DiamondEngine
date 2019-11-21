@@ -32,7 +32,7 @@ ModuleIMGui::~ModuleIMGui()
 {
 }
 
-update_status ModuleIMGui::PreUpdate(float dt)
+update_status ModuleIMGui::PreUpdate()
 {
 	update_status ret = UPDATE_CONTINUE;
 
@@ -535,7 +535,7 @@ update_status ModuleIMGui::PreUpdate(float dt)
 	return ret;
 }
 
-update_status ModuleIMGui::PostUpdate(float dt)
+update_status ModuleIMGui::PostUpdate()
 {
 	PROCESS_MEMORY_COUNTERS counters;
 	GetProcessMemoryInfo(GetCurrentProcess(), &counters, sizeof(counters));
