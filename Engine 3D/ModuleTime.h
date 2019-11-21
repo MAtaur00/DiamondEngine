@@ -11,18 +11,20 @@ enum class GameState {
 static class Time : public Module
 {
 public:
-	Time(Application* app, bool start_enabled);
+	Time(Application* app, bool start_enabled = true);
 	~Time();
-
-	update_status PreUpdate();
 
 	bool Start();
 
-
+	update_status PreUpdate();
 
 public:
 
-	float dt = 0.0f;
+	static float dt;
 
 	Timer timer;
+
+	static GameState gameState;
+
+	float timeScale = 1.0f;
 };
