@@ -532,6 +532,31 @@ update_status ModuleIMGui::PreUpdate()
 		ImGui::EndPopup();
 	}
 
+	if (ImGui::Begin("State Buttons", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize))
+	{
+		std::string play(Time::gameState == GameState::EDITOR ? "Play" : "Stop");
+		
+		if (ImGui::Button(play.c_str()))
+		{
+			if (App->renderer3D->play_cam)
+			{
+				Time::gameState = Time::gameState == GameState::EDITOR ? GameState::PLAYING : GameState::EDITOR;
+
+				App->renderer3D->current_cam = Time::gameState == GameState::PLAYING ? App->renderer3D->play_cam : App->camera->compCamera;
+			}
+		}
+
+		ImGui::SameLine();
+
+		if (ImGui::Button("Pause"))
+		{
+			if (Time::gameState != GameState::EDITOR)
+				Time::gameState = Time::gameState == GameState::PLAYING ? GameState::PAUSE : GameState::PLAYING;
+		}
+
+		ImGui::End();
+	}
+
 	return ret;
 }
 
