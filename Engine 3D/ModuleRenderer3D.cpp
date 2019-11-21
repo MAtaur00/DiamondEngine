@@ -140,15 +140,13 @@ update_status ModuleRenderer3D::PreUpdate()
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 
-	glLoadMatrixf(App->camera->compCamera->GetProjectionMatrix().ptr());
-
-
+	glLoadMatrixf(current_cam->GetProjectionMatrix().ptr());
 
 	glMatrixMode(GL_MODELVIEW);
-	glLoadMatrixf(App->camera->compCamera->GetViewMatrix().ptr());
+	glLoadMatrixf(current_cam->GetViewMatrix().ptr());
 
 	// light 0 on cam pos
-	lights[0].SetPos(App->camera->compCamera->frustum.pos.x, App->camera->compCamera->frustum.pos.y, App->camera->compCamera->frustum.pos.z);
+	lights[0].SetPos(current_cam->frustum.pos.x, current_cam->frustum.pos.y, current_cam->frustum.pos.z);
 
 	for(uint i = 0; i < MAX_LIGHTS; ++i)
 		lights[i].Render();
@@ -233,6 +231,55 @@ update_status ModuleRenderer3D::PostUpdate()
 			{
 				float3 corners[8];
 				App->sceneIntro->current_object->boundingBox.GetCornerPoints(corners);
+
+				glLineWidth(2.0f);
+				glColor3f(0.0f, 1.0f, 0.0f);
+				glBegin(GL_QUADS);
+
+				glVertex3fv((GLfloat*)&corners[1]);
+				glVertex3fv((GLfloat*)&corners[5]);
+				glVertex3fv((GLfloat*)&corners[7]);
+				glVertex3fv((GLfloat*)&corners[3]);
+
+				glVertex3fv((GLfloat*)&corners[4]);
+				glVertex3fv((GLfloat*)&corners[0]);
+				glVertex3fv((GLfloat*)&corners[2]);
+				glVertex3fv((GLfloat*)&corners[6]);
+
+				glVertex3fv((GLfloat*)&corners[5]);
+				glVertex3fv((GLfloat*)&corners[4]);
+				glVertex3fv((GLfloat*)&corners[6]);
+				glVertex3fv((GLfloat*)&corners[7]);
+
+				glVertex3fv((GLfloat*)&corners[0]);
+				glVertex3fv((GLfloat*)&corners[1]);
+				glVertex3fv((GLfloat*)&corners[3]);
+				glVertex3fv((GLfloat*)&corners[2]);
+
+				glVertex3fv((GLfloat*)&corners[3]);
+				glVertex3fv((GLfloat*)&corners[7]);
+				glVertex3fv((GLfloat*)&corners[6]);
+				glVertex3fv((GLfloat*)&corners[2]);
+
+				glVertex3fv((GLfloat*)&corners[0]);
+				glVertex3fv((GLfloat*)&corners[4]);
+				glVertex3fv((GLfloat*)&corners[5]);
+				glVertex3fv((GLfloat*)&corners[1]);
+
+				glEnd();
+			}
+		}
+	}
+
+	if (App->sceneIntro->current_object)
+	{
+		if (App->sceneIntro->current_object->active)
+		{
+			ComponentCamera* cam = (ComponentCamera*)App->sceneIntro->current_object->GetComponent(Object_Type::CompCamera);
+			if (cam)
+			{
+				float3 corners[8];
+				cam->frustum.GetCornerPoints(corners);
 
 				glLineWidth(2.0f);
 				glColor3f(0.0f, 1.0f, 0.0f);

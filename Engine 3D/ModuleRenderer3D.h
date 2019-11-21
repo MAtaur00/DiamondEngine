@@ -6,6 +6,7 @@
 #include "ModuleImport.h"
 #include <vector>
 #include "ComponentMesh.h"
+#include "ComponentCamera.h"
 
 #define MAX_LIGHTS 8
 
@@ -38,4 +39,8 @@ public:
 	bool drawBoxes = false;
 
 	bool paintTextures = true;
+
+	ComponentCamera* current_cam = nullptr;
+
+	ComponentCamera* play_cam = nullptr;
 };
