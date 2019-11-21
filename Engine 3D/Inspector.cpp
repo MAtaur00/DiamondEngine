@@ -33,6 +33,26 @@ void Inspector::Draw()
 				(*it)->Inspector();
 			}
 		}
+
+		if (ImGui::BeginMenu("New Component"))
+		{
+			if (ImGui::MenuItem("Mesh"))
+			{
+				
+			}
+			if (ImGui::MenuItem("Texture"))
+			{
+
+			}
+			if (ImGui::MenuItem("Camera"))
+			{
+				ComponentCamera* camera = new ComponentCamera(App->sceneIntro->current_object);
+				App->renderer3D->play_cam = camera;
+			}
+			ImGui::MenuItem("Cancel");
+			ImGui::EndMenu();
+		}
+		
 	}
 	ImGui::End();
 }
