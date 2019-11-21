@@ -15,6 +15,17 @@ void Hierarchy::Draw()
 {
 	if (ImGui::Begin("Hierarchy", &App->imgui->showHierarchy, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_HorizontalScrollbar | ImGuiWindowFlags_NoMove))
 	{
+		if (ImGui::BeginMenu("Options"))
+		{
+			if (ImGui::MenuItem("New Game Object"))
+			{
+				GameObject* newGO = new GameObject(App->game_object->root);
+			}
+			ImGui::MenuItem("Cancel");
+			ImGui::EndMenu();
+		}
+		
+
 		if (App->game_object->root)
 		{
 			DrawGameObjects(App->game_object->root);
