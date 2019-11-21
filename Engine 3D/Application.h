@@ -14,6 +14,7 @@
 #include "ModuleGameObject.h"
 #include "ModuleResources.h"
 #include "ModulePicking.h"
+#include "ModuleTime.h"
 
 #include <list>
 #include <vector>
@@ -33,6 +34,7 @@ public:
 	ModuleGameObject* game_object;
 	ModuleResources* resources;
 	ModulePicking* picking;
+	Time* module_time;
 
 private:
 

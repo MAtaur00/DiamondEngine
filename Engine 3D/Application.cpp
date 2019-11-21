@@ -17,6 +17,7 @@ Application::Application()
 	game_object = new ModuleGameObject(this);
 	resources = new ModuleResources(this);
 	picking = new ModulePicking(this);
+	module_time = new Time(this);
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -35,6 +36,8 @@ Application::Application()
 	AddModule(imgui);
 
 	AddModule(picking);
+
+	AddModule(module_time);
 
 	AddModule(geometry);
 
