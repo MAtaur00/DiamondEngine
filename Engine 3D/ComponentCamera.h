@@ -18,6 +18,8 @@ public:
 
 	void Load(JSON_Object* parent);
 
+	void UpdateFrustum();
+
 public:
 
 	Frustum frustum;
