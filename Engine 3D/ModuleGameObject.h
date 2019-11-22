@@ -17,10 +17,16 @@ public:
 
 	void SaveGameObjects(JSON_Array* &parent, GameObject* current);
 
+	update_status Update();
+
 	GameObject* GetGO(unsigned int uuid);
 
 public:
 	GameObject* root = nullptr;
 
 	std::list<GameObject*> gameObjects;
+
+	std::list<GameObject*> gameObjectsToDelete;
+
+	std::list<Component*> componentsToDelete;
 };
