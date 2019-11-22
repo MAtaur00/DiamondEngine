@@ -46,8 +46,6 @@ void ImGuiConfig::Draw()
 			sprintf_s(title, 25, "Memory Consumption %.1f", App->imgui->ram_log[App->imgui->ram_log.size() - 1]);
 			ImGui::PlotHistogram("##memory consumption", &App->imgui->ram_log[0], App->imgui->ram_log.size(), 0, title, 0.0f, 100.0f, ImVec2(310, 100));
 
-
-
 			ImGui::Text("Total Reported Mem: %i", 0);
 			ImGui::Text("Total Actual Mem: %i", 0);
 			ImGui::Text("Peak Reported Mem: %i", 0);
@@ -154,15 +152,6 @@ void ImGuiConfig::Draw()
 					glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 			}
 		}
-		/*if (ImGui::CollapsingHeader("File System"))
-		{
-			ImGui::Text("Base Path:");
-			ImGui::TextColored({ 1.f, 1.f, 0, 1.f }, "%s", );
-			ImGui::Text("Read Paths:");
-			ImGui::TextColored({ 1.f, 1.f, 0, 1.f }, "%s", );
-			ImGui::Text("Write Path:");
-			ImGui::TextColored({ 1.f, 1.f, 0, 1.f }, "%s", );
-		}*/
 		if (ImGui::CollapsingHeader("Input"))
 		{
 			ImGui::Text("Mouse Position:");
@@ -263,8 +252,6 @@ void ImGuiConfig::Draw()
 			ImGui::Text("VRAM Available:");
 			ImGui::SameLine();
 			ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "%.1f Mb", (vram_available * 0.001));
-
-
 
 			glGetIntegerv(GL_GPU_MEMORY_INFO_DEDICATED_VIDMEM_NVX, &vram_reserved);
 			ImGui::Text("VRAM Reserved:");
