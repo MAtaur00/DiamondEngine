@@ -48,6 +48,7 @@ void GameObject::RealDelete()
 
 	for (auto child : childs)
 	{
+		child->RealDelete();
 		delete child;
 		child = nullptr;
 	}
