@@ -292,6 +292,8 @@ void ModuleImport::LoadMeshImporter(ResourceMesh* m, const uint &uuid, char* buf
 	glGenBuffers(1, (GLuint*)&(m->uvs.id));
 	glBindBuffer(GL_ARRAY_BUFFER, m->uvs.id);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m->uvs.size, m->uvs.data, GL_STATIC_DRAW);
+
+	delete buff;
 }
 
 void ModuleImport::ImportTexture(const char* path)
