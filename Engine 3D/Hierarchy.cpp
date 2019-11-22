@@ -28,7 +28,8 @@ void Hierarchy::Draw()
 
 		if (App->game_object->root)
 		{
-			DrawGameObjects(App->game_object->root);
+			for (auto child : App->game_object->root->childs)
+				DrawGameObjects(child);
 		}
 	}
 	ImGui::End();
