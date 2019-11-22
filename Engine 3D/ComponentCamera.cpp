@@ -45,6 +45,12 @@ void ComponentCamera::Inspector()
 		{
 			ImGui::Text("Invalid camera type");
 		}
+
+		if (ImGui::Button("Delete Camera"))
+		{
+			App->game_object->componentsToDelete.push_back(this);
+			App->renderer3D->current_cam = nullptr;
+		}
 	}
 }
 
