@@ -135,6 +135,10 @@ bool ModuleRenderer3D::Init()
 // PreUpdate: clear buffer
 update_status ModuleRenderer3D::PreUpdate()
 {
+	if (Time::gameState != GameState::EDITOR)
+	{
+		current_cam->UpdateFrustum();	
+	}
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glMatrixMode(GL_PROJECTION);
@@ -158,7 +162,7 @@ update_status ModuleRenderer3D::PreUpdate()
 update_status ModuleRenderer3D::PostUpdate()
 {
 	//Geometry
-	for (std::vector<ComponentMesh*>::iterator it = mesh_list.begin(); it != mesh_list.end(); ++it)
+	for (std::list<ComponentMesh*>::iterator it = mesh_list.begin(); it != mesh_list.end(); ++it)
 	{
 		(*it)->Draw();
 	}
@@ -278,6 +282,7 @@ update_status ModuleRenderer3D::PostUpdate()
 			ComponentCamera* cam = (ComponentCamera*)App->sceneIntro->current_object->GetComponent(Object_Type::CompCamera);
 			if (cam)
 			{
+				cam->UpdateFrustum();
 				float3 corners[8];
 				cam->frustum.GetCornerPoints(corners);
 

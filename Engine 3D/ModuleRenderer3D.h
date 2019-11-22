@@ -32,7 +32,7 @@ public:
 	mat3x3 NormalMatrix;
 	mat4x4 ModelMatrix, ViewMatrix, ProjectionMatrix;
 
-	std::vector<ComponentMesh*> mesh_list;
+	std::list<ComponentMesh*> mesh_list;
 
 	bool vsync = true;
 
