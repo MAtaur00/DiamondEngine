@@ -19,7 +19,7 @@ bool ModuleCamera3D::Start()
 
 	compCamera = new ComponentCamera(cameraGO);
 
-	compCamera->frustum.pos = float3(5.f, 5.f, 5.f);
+	compCamera->frustum.pos = float3(40.f, 40.f, 40.f);
 
 	LookAt(float3::zero);
 
