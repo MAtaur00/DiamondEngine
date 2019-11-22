@@ -32,27 +32,31 @@ void Inspector::Draw()
 			{
 				(*it)->Inspector();
 			}
-		}
 
-		if (ImGui::BeginMenu("New Component"))
-		{
-			if (ImGui::MenuItem("Mesh"))
+			if (ImGui::BeginMenu("New Component"))
 			{
-				
+				/*if (ImGui::MenuItem("Mesh"))
+				{
+					ComponentMesh* mesh = new ComponentMesh(App->sceneIntro->current_object);
+				}
+				if (ImGui::MenuItem("Texture"))
+				{
+					ComponentTexture* mesh = new ComponentTexture(App->sceneIntro->current_object);
+				}*/
+				if (ImGui::MenuItem("Camera"))
+				{
+					ComponentCamera* camera = new ComponentCamera(App->sceneIntro->current_object);
+					App->renderer3D->play_cam = camera;
+				}
+				ImGui::MenuItem("Cancel");
+				ImGui::EndMenu();
 			}
-			if (ImGui::MenuItem("Texture"))
-			{
 
-			}
-			if (ImGui::MenuItem("Camera"))
+			if (ImGui::Button("Delete Object"))
 			{
-				ComponentCamera* camera = new ComponentCamera(App->sceneIntro->current_object);
-				App->renderer3D->play_cam = camera;
+				App->game_object->gameObjectsToDelete.push_back(App->sceneIntro->current_object);
 			}
-			ImGui::MenuItem("Cancel");
-			ImGui::EndMenu();
 		}
-		
 	}
 	ImGui::End();
 }
