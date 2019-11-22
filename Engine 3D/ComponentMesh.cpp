@@ -16,6 +16,7 @@ ComponentMesh::ComponentMesh(GameObject* parent) : Component(parent, CompMesh)
 
 ComponentMesh::~ComponentMesh()
 {
+	App->renderer3D->mesh_list.remove(this);
 	delete mesh;
 }
 
@@ -30,6 +31,11 @@ void ComponentMesh::Inspector()
 		ImGui::Checkbox("Vertex normals", &printVertexNormals);
 
 		ImGui::Text("Resource used %i times", mesh->usage);
+
+		if (ImGui::Button("Delete Mesh"))
+		{
+			App->game_object->componentsToDelete.push_back(this);
+		}
 	}
 }
 
