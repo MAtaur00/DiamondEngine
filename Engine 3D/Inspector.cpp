@@ -54,9 +54,22 @@ void Inspector::Draw()
 
 			if (ImGui::Button("Delete Object"))
 			{
-				App->game_object->gameObjectsToDelete.push_back(App->sceneIntro->current_object);
+				if (App->sceneIntro->current_object->parent)
+				{
+					App->sceneIntro->current_object->parent->childs.remove(App->sceneIntro->current_object);
+				}
+				NewObjectsToDelete(App->sceneIntro->current_object);
 			}
 		}
 	}
 	ImGui::End();
+}
+
+void Inspector::NewObjectsToDelete(GameObject* object)
+{
+	App->game_object->gameObjectsToDelete.push_back(object);
+	for (auto child : object->childs)
+	{
+		NewObjectsToDelete(child);
+	}
 }

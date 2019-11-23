@@ -2,6 +2,8 @@
 #include "ModuleIMGui.h"
 #include "imgui.h"
 
+class GameObject;
+
 class Inspector
 {
 public:
@@ -9,5 +11,6 @@ public:
 	~Inspector();
 
 	void Draw();
+	void NewObjectsToDelete(GameObject* object);
 };
 
