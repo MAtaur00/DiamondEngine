@@ -32,12 +32,7 @@ GameObject::~GameObject()
 
 void GameObject::RealDelete()
 {
-	if (parent)
-	{
-		parent->childs.remove(this);
-	}
-
-	App->game_object->gameObjects.remove(this);
+	
 
 	for (auto comp : components)
 	{
@@ -46,12 +41,6 @@ void GameObject::RealDelete()
 	}
 	components.clear();
 
-	for (auto child : childs)
-	{
-		child->RealDelete();
-		delete child;
-		child = nullptr;
-	}
 	childs.clear();
 
 	parent = nullptr;
