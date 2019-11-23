@@ -320,7 +320,6 @@ update_status ModuleRenderer3D::PostUpdate()
 
 	if (drawTree)
 	{
-		//haHA MI COMPAÑERO SOLO TENIA QUE HACER EL QUADTREE Y DICE QUE LO HA HECHO PERO NO ES VERDAD XDXDDD NO HA HECHO NADA DE LA ENTREGA OTRA VEZ XDXDXD
 	}
 
 	if (App->sceneIntro->current_object)

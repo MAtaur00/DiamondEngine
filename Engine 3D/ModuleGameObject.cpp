@@ -53,7 +53,6 @@ void ModuleGameObject::LoadScene(const char * name)
 
 		gameObjects.clear();
 		App->sceneIntro->current_object = nullptr;
-		//App->resources->resources.clear();
 		App->renderer3D->mesh_list.clear();
 
 		// Prepare new Quadtree
