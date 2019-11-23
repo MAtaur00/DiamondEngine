@@ -18,7 +18,7 @@ class Component
 {
 public:
 	Component(GameObject* parent, Object_Type type) : gameObject(parent), type(type) { uuid = pcg32_random(); }
-	~Component() {}
+	virtual ~Component() {}
 
 	virtual void Inspector() {}
 

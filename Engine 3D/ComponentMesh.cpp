@@ -17,7 +17,7 @@ ComponentMesh::ComponentMesh(GameObject* parent) : Component(parent, CompMesh)
 ComponentMesh::~ComponentMesh()
 {
 	App->renderer3D->mesh_list.remove(this);
-	delete mesh;
+	App->resources->ResourceUsageDecreased(mesh);
 }
 
 void ComponentMesh::Inspector()
@@ -119,4 +119,6 @@ void ComponentMesh::Load(JSON_Object * parent)
 	App->import->LoadMeshImporter(mesh, uuid, App->resources->LoadFile(nullptr, ResourceType::Mesh, uuid));
 
 	App->renderer3D->mesh_list.push_back(this);
+
+	App->resources->AddResource(mesh);
 }

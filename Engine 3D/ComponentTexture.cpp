@@ -10,7 +10,7 @@ ComponentTexture::ComponentTexture(GameObject* parent) : Component(parent, CompT
 
 ComponentTexture::~ComponentTexture()
 {
-	delete RTexture;
+	App->resources->ResourceUsageDecreased(RTexture);
 }
 
 void ComponentTexture::Inspector()
@@ -55,4 +55,6 @@ void ComponentTexture::Load(JSON_Object * parent)
 	RTexture = new ResourceTexture(path.c_str());
 
 	App->import->RealLoadTexture(path.c_str(), RTexture->id);
+
+	App->resources->AddResource(RTexture);
 }
