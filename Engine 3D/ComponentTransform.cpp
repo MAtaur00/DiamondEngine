@@ -1,6 +1,7 @@
 #include "ComponentTransform.h"
 #include "GameObject.h"
-
+#include "ImGuizmo/ImGuizmo.h"
+#include "Application.h"
 
 ComponentTransform::ComponentTransform(GameObject* parent) : Component(parent, CompTransform)
 {
@@ -19,17 +20,17 @@ void ComponentTransform::Inspector()
 		{
 			UpdateBoundingBox();
 		}
+		if (ImGui::DragFloat3("Scale", &scale[0], 0.1f, 0.0f, 0.0f, "%.2f"))
+		{
+			UpdateBoundingBox();
+		}
 		float3 degRotation = rotation.ToEulerXYZ();
 		degRotation = RadToDeg(degRotation);
 		if (ImGui::DragFloat3("Rotation", &degRotation[0], 0.1f, 0.0f, 0.0f, "%.2f"))
 		{
 			SetRotation(DegToRad(degRotation));
 			UpdateBoundingBox();
-		}
-		if (ImGui::DragFloat3("Scale", &scale[0], 0.1f, 0.0f, 0.0f, "%.2f"))
-		{
-			UpdateBoundingBox();
-		}
+		}		
 		if (ImGui::Button("Reset"))
 		{
 			position = float3::zero;
@@ -41,6 +42,10 @@ void ComponentTransform::Inspector()
 		ImGui::Separator();
 
 		ImGui::Checkbox("Static", &gameObject->isStatic);
+
+		ImGui::Separator();
+
+		GuizmoOptions();
 	}
 }
 
@@ -257,4 +262,27 @@ void ComponentTransform::Load(JSON_Object * parent)
 	rotation.z = json_object_get_number(rot, "Z");
 	rotation.w = json_object_get_number(rot, "W");
 	//------------------------------------------------------------------------
+}
+
+void ComponentTransform::GuizmoOptions()
+{
+	if (ImGui::RadioButton("None", App->sceneIntro->guiz_operation == ImGuizmo::BOUNDS))
+	{
+		App->sceneIntro->guiz_operation = ImGuizmo::BOUNDS;
+	}
+	ImGui::SameLine();
+	if (ImGui::RadioButton("Move", App->sceneIntro->guiz_operation == ImGuizmo::TRANSLATE))
+	{
+		App->sceneIntro->guiz_operation = ImGuizmo::TRANSLATE;
+	}
+	ImGui::SameLine();
+	if (ImGui::RadioButton("Scale", App->sceneIntro->guiz_operation == ImGuizmo::SCALE))
+	{
+		App->sceneIntro->guiz_operation = ImGuizmo::SCALE;
+	}
+	ImGui::SameLine();
+	if (ImGui::RadioButton("Rotate", App->sceneIntro->guiz_operation == ImGuizmo::ROTATE))
+	{
+		App->sceneIntro->guiz_operation = ImGuizmo::ROTATE;
+	}
 }

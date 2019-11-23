@@ -48,6 +48,8 @@ public:
 
 	void Load(JSON_Object* parent);
 
+	void GuizmoOptions();
+
 private:
 	float3 position = float3::zero;
 	Quat rotation = Quat::identity;
