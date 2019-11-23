@@ -41,6 +41,8 @@ update_status ModuleIMGui::PreUpdate()
 	ImGui_ImplSDL2_NewFrame(App->window->window);
 	NewFrame();
 
+	ImGuizmo::BeginFrame();
+
 	if (BeginMainMenuBar())
 	{
 		if (BeginMenu("File"))
@@ -94,6 +96,18 @@ update_status ModuleIMGui::PreUpdate()
 				showDemo = !showDemo;
 			if (MenuItem("Camera"))
 				showCamera = !showCamera;
+			ImGui::EndMenu();
+		}
+
+		if (BeginMenu("Debug"))
+		{
+			if (MenuItem("AABB", "F1"))
+				App->renderer3D->drawBoxes = !App->renderer3D->drawBoxes;
+			if (MenuItem("Textures", "F2"))
+				App->renderer3D->DebugTextures();
+			if (MenuItem("Culling", "F3"))
+				App->renderer3D->culling = !App->renderer3D->culling;
+
 			ImGui::EndMenu();
 		}
 		if (BeginMenu("Help"))
