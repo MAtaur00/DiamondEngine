@@ -45,15 +45,6 @@ void ImGuiConfig::Draw()
 
 			sprintf_s(title, 25, "Memory Consumption %.1f", App->imgui->ram_log[App->imgui->ram_log.size() - 1]);
 			ImGui::PlotHistogram("##memory consumption", &App->imgui->ram_log[0], App->imgui->ram_log.size(), 0, title, 0.0f, 100.0f, ImVec2(310, 100));
-
-			ImGui::Text("Total Reported Mem: %i", 0);
-			ImGui::Text("Total Actual Mem: %i", 0);
-			ImGui::Text("Peak Reported Mem: %i", 0);
-			ImGui::Text("Peak Actual Mem: %i", 0);
-			ImGui::Text("Accumulated Reported Mem: %i", 0);
-			ImGui::Text("Accumulated Actual Mem: %i", 0);
-			ImGui::Text("Accumulated Alloc Unit Count: %i", 0);
-			ImGui::Text("Total Alloc Unit Count: %i", 0);
 		}
 		if (ImGui::CollapsingHeader("Window"))
 		{
