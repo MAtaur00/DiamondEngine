@@ -133,8 +133,8 @@ void ModuleResources::ResourceUsageDecreased(Resource* resource)
 	resource->usage--;
 	if (resource->usage <= 0)
 	{
-		resource->Unload();
+		///resource->Unload();
 		resources.remove(resource);
-		/// delete resource;
+		delete resource;
 	}
 }
