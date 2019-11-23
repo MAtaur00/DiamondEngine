@@ -44,12 +44,16 @@ void ModuleGameObject::LoadScene(const char * name)
 	if (json_value_get_type(scene) == JSONArray)
 	{
 		// Delete previous scene
-		root->RealDelete();
-		delete root;
+
+		for (auto gameObj : gameObjects)
+		{
+			gameObj->RealDelete();
+			delete gameObj;
+		}
 
 		gameObjects.clear();
 		App->sceneIntro->current_object = nullptr;
-		App->resources->resources.clear();
+		//App->resources->resources.clear();
 		App->renderer3D->mesh_list.clear();
 
 		// Prepare new Quadtree
