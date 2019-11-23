@@ -5,6 +5,7 @@
 #include "ComponentTexture.h"
 #include "ComponentTransform.h"
 #include "ComponentMesh.h"
+#include "ModuleSceneIntro.h"
 
 
 
@@ -121,4 +122,7 @@ void ComponentMesh::Load(JSON_Object * parent)
 	App->renderer3D->mesh_list.push_back(this);
 
 	App->resources->AddResource(mesh);
+
+	App->sceneIntro->quadtree.QT_Insert(gameObject);
 }
+

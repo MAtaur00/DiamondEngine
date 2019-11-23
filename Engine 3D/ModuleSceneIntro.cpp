@@ -5,6 +5,7 @@
 #include "MathGeoLib/MathGeoLib.h"
 #include "Glew/include/glew.h"
 
+
 #pragma comment(lib, "Glew/libx86/glew32.lib")
 
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -21,7 +22,7 @@ bool ModuleSceneIntro::Start()
 	bool ret = true;
 
 	ImGuizmo::Enable(true);
-
+	quadtree.QT_Create(AABB(float3(-60, -5, -60), float3(60, 10, 60)));
 	return ret;
 }
 

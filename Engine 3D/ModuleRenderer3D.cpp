@@ -7,6 +7,7 @@
 #include "imgui_impl_opengl3.h"
 #include "Primitive.h"
 #include "ModuleCamera3D.h"
+#include "ModuleSceneIntro.h"
 
 #include <gl/GL.h>
 
@@ -268,6 +269,54 @@ update_status ModuleRenderer3D::PostUpdate()
 
 			glEnd();
 		}
+
+		std::vector<math::AABB> vecquad;
+		App->sceneIntro->quadtree.QT_GetBoxes(vecquad);
+		glLineWidth(2.0f);
+
+		glColor3f(0.0f, 1.0f, 0.0f);
+
+		glBegin(GL_QUADS);
+
+		for (int i = 0; i < vecquad.size(); ++i)
+		{
+		
+			float3 corners_quadtree[8];
+			vecquad[i].GetCornerPoints(corners_quadtree);
+
+			glVertex3fv((GLfloat*)&corners_quadtree[1]);
+			glVertex3fv((GLfloat*)&corners_quadtree[5]);
+			glVertex3fv((GLfloat*)&corners_quadtree[7]);
+			glVertex3fv((GLfloat*)&corners_quadtree[3]);
+
+			glVertex3fv((GLfloat*)&corners_quadtree[4]);
+			glVertex3fv((GLfloat*)&corners_quadtree[0]);
+			glVertex3fv((GLfloat*)&corners_quadtree[2]);
+			glVertex3fv((GLfloat*)&corners_quadtree[6]);
+
+			glVertex3fv((GLfloat*)&corners_quadtree[5]);
+			glVertex3fv((GLfloat*)&corners_quadtree[4]);
+			glVertex3fv((GLfloat*)&corners_quadtree[6]);
+			glVertex3fv((GLfloat*)&corners_quadtree[7]);
+
+			glVertex3fv((GLfloat*)&corners_quadtree[0]);
+			glVertex3fv((GLfloat*)&corners_quadtree[1]);
+			glVertex3fv((GLfloat*)&corners_quadtree[3]);
+			glVertex3fv((GLfloat*)&corners_quadtree[2]);
+
+			glVertex3fv((GLfloat*)&corners_quadtree[3]);
+			glVertex3fv((GLfloat*)&corners_quadtree[7]);
+			glVertex3fv((GLfloat*)&corners_quadtree[6]);
+			glVertex3fv((GLfloat*)&corners_quadtree[2]);
+
+			glVertex3fv((GLfloat*)&corners_quadtree[0]);
+			glVertex3fv((GLfloat*)&corners_quadtree[4]);
+			glVertex3fv((GLfloat*)&corners_quadtree[5]);
+			glVertex3fv((GLfloat*)&corners_quadtree[1]);
+
+			
+		}
+		glEnd();
 	}
 
 	else

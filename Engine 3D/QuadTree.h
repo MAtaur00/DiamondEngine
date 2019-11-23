@@ -20,6 +20,7 @@ public:
 	void InsertGameObject(GameObject* object);
 	void RedistributeChilds();
 	void DeleteGameObjet(GameObject* object);
+	void GetBoxes(std::vector<math::AABB>& node);
 
 
 public:
@@ -41,7 +42,7 @@ public:
 	Quad_Tree();
 	~Quad_Tree();
 	
-	void QT_Render(QuadTree_Node* node);
+	void QT_GetBoxes(std::vector<math::AABB>& node);
 
 	void QT_Create(math::AABB parameters);
 	void QT_Clear();

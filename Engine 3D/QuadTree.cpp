@@ -134,10 +134,27 @@ void QuadTree_Node::DeleteGameObjet(GameObject* object)
 	}
 }
 
+void QuadTree_Node::GetBoxes(std::vector<math::AABB>& node)
+{
+
+	node.push_back(bounding_Box);
+
+	if (HasChilds())
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			childs[i]->GetBoxes(node);
+
+		}
+
+	}
+
+
+}
 
 Quad_Tree::Quad_Tree()
 {
-	//debugCube = new DebugCube();
+	
 }
 
 Quad_Tree::~Quad_Tree()
@@ -145,18 +162,12 @@ Quad_Tree::~Quad_Tree()
 	QT_Clear();
 }
 
-void Quad_Tree::QT_Render(QuadTree_Node* node)
+void Quad_Tree::QT_GetBoxes(std::vector<math::AABB>& node)
 {
-	math::float3 cubeToDraw[8];
-	node->bounding_Box.GetCornerPoints(cubeToDraw);
-	//debugCube->DirectRender(cubeToDraw, White);
-	if (node->HasChilds())
-	{
-		for (int i = 0; i < 4; i++)
-		{
-			QT_Render(node->childs[i]);
-		}
-	}
+
+	if (root != nullptr)
+		root->GetBoxes(node);
+
 }
 
 void Quad_Tree::QT_Create(math::AABB parameters)
