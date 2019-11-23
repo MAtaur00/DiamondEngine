@@ -2,7 +2,7 @@
 
 QuadTree_Node::QuadTree_Node(math::AABB& boundingBox)
 {
-	this->bounding_Box = boundingBox;
+	this->bounding_box = boundingBox;
 }
 
 QuadTree_Node::~QuadTree_Node()
@@ -32,8 +32,8 @@ bool QuadTree_Node::HasChilds()
 void QuadTree_Node::Subdivide()
 {
 
-	const math::float3 size = bounding_Box.Size();
-	const math::float3 center = bounding_Box.CenterPoint();
+	const math::float3 size = bounding_box.Size();
+	const math::float3 center = bounding_box.CenterPoint();
 	const math::float3 divedeSize(size.x / 2.0f, size.y, size.z / 2.0f);
 	const math::float3 divedex4Size(size.x / 4.0f, size.y, size.z / 4.0f);
 
@@ -42,22 +42,23 @@ void QuadTree_Node::Subdivide()
 	math::float3 oneFourCenter;
 	math::AABB oneFour;
 
-	oneFourCenter = { center.x + divedex4Size.x, center.y, center.z - oneFourCenter.z };
+	oneFourCenter = { center.x + divedex4Size.x, center.y, center.z - divedex4Size.z };
 	oneFour.SetFromCenterAndSize(oneFourCenter, divedeSize);
 	childs[0] = new QuadTree_Node(oneFour);
 
-	oneFourCenter = { center.x - divedex4Size.x, center.y, center.z - oneFourCenter.z };
+	oneFourCenter = { center.x - divedex4Size.x, center.y, center.z - divedex4Size.z };
 	oneFour.SetFromCenterAndSize(oneFourCenter, divedeSize);
 	childs[1] = new QuadTree_Node(oneFour);
 
-	oneFourCenter = { center.x + divedex4Size.x, center.y, center.z + oneFourCenter.z };
+	oneFourCenter = { center.x + divedex4Size.x, center.y, center.z + divedex4Size.z };
 	oneFour.SetFromCenterAndSize(oneFourCenter, divedeSize);
 	childs[2] = new QuadTree_Node(oneFour);
 
-	oneFourCenter = { center.x - divedex4Size.x, center.y, center.z + oneFourCenter.z };
+	oneFourCenter = { center.x - divedex4Size.x, center.y, center.z + divedex4Size.z };
 	oneFour.SetFromCenterAndSize(oneFourCenter, divedeSize);
 	childs[3] = new QuadTree_Node(oneFour);
 
+	subdivision++;
 }
 
 void QuadTree_Node::InsertGameObject(GameObject* object)
@@ -67,7 +68,7 @@ void QuadTree_Node::InsertGameObject(GameObject* object)
 
 	else
 	{
-		if (!HasChilds())
+		if (!HasChilds() && subdivision < 5)
 			Subdivide();
 
 		objects.push_back(object);
@@ -85,7 +86,7 @@ void QuadTree_Node::RedistributeChilds()
 		uint lastIntersection = 0u;
 		for (int i = 0; i < 4; i++)
 		{
-			if ((*it)->boundingBox.Intersects(childs[i]->bounding_Box))
+			if ((*it)->boundingBox.Intersects(childs[i]->bounding_box))
 			{
 				totalIntersections++;
 				lastIntersection = i;
@@ -99,7 +100,7 @@ void QuadTree_Node::RedistributeChilds()
 		{
 			for (int i = 0; i < 4; i++)
 			{
-				if ((*it)->boundingBox.Intersects(childs[i]->bounding_Box))
+				if ((*it)->boundingBox.Intersects(childs[i]->bounding_box))
 				{
 					childs[i]->InsertGameObject((*it));
 				}
@@ -137,7 +138,7 @@ void QuadTree_Node::DeleteGameObjet(GameObject* object)
 void QuadTree_Node::GetBoxes(std::vector<math::AABB>& node)
 {
 
-	node.push_back(bounding_Box);
+	node.push_back(bounding_box);
 
 	if (HasChilds())
 	{
@@ -187,9 +188,13 @@ void Quad_Tree::QT_Clear()
 
 void Quad_Tree::QT_Insert(GameObject* object)
 {
-	if (object->boundingBox.Intersects(root->bounding_Box))
+	if (object->boundingBox.IsFinite() && root != nullptr)
 	{
-		root->InsertGameObject(object);
+
+		if (object->boundingBox.Intersects(root->bounding_box))
+		{
+			root->InsertGameObject(object);
+		}
 	}
 }
 

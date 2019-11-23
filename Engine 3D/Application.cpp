@@ -28,8 +28,9 @@ Application::Application()
 	AddModule(camera);
 	AddModule(input);
 
-	AddModule(import);
+	
 	AddModule(sceneIntro);
+	AddModule(import);
 
 	AddModule(game_object);
 	AddModule(resources);

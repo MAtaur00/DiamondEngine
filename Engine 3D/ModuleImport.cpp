@@ -186,6 +186,9 @@ GameObject* ModuleImport::LoadMeshNode(const aiScene * scene, aiNode * node, Gam
 		SaveMeshImporter(m, newMesh->uuid);
 
 		App->renderer3D->mesh_list.push_back(newMesh);
+
+		App->sceneIntro->quadtree.QT_Insert(go);
+
 		LOG("Mesh loaded");
 	}
 

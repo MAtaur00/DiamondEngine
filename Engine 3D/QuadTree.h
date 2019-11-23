@@ -5,7 +5,7 @@
 #include "Primitive.h"
 
 
-#define MAX_NODE_ELEMENTS 10
+#define MAX_NODE_ELEMENTS 5
 
 
 class QuadTree_Node
@@ -22,10 +22,11 @@ public:
 	void DeleteGameObjet(GameObject* object);
 	void GetBoxes(std::vector<math::AABB>& node);
 
+	
 
 public:
 
-	math::AABB bounding_Box;
+	math::AABB bounding_box;
 
 	QuadTree_Node* parent = nullptr;
 	QuadTree_Node* childs[4] = { nullptr, nullptr, nullptr, nullptr };
@@ -54,5 +55,6 @@ public:
 public:
 
 	QuadTree_Node* root = nullptr;
+	
 
 };
