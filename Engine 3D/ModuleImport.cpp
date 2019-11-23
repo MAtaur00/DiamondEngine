@@ -351,6 +351,7 @@ void ModuleImport::RealLoadTexture(const char* path, uint &texture_id)
 			data = new ILubyte[size];
 			if (ilSaveL(IL_DDS, data, size) > 0)
 				App->resources->SaveFile(size, (char*)data, ResourceType::Texture, 0u, path);
+			delete[] data;
 		}
 
 		uint id = 0;
