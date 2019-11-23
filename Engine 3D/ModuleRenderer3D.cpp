@@ -161,17 +161,60 @@ update_status ModuleRenderer3D::PreUpdate()
 // PostUpdate present buffer to screen
 update_status ModuleRenderer3D::PostUpdate()
 {
-	//Geometry
-	for (std::list<ComponentMesh*>::iterator it = mesh_list.begin(); it != mesh_list.end(); ++it)
+	if (culling && play_cam)
 	{
-		(*it)->Draw();
+		std::list<ComponentMesh*> toDraw;
+
+		for (std::list<ComponentMesh*>::iterator it = mesh_list.begin(); it != mesh_list.end(); ++it)
+		{
+			if (play_cam->frustum.Intersects((*it)->gameObject->boundingBox))
+			{
+				toDraw.push_back(*it);
+			}
+		}
+
+		for (std::list<ComponentMesh*>::iterator it = toDraw.begin(); it != toDraw.end(); ++it)
+		{
+			(*it)->Draw();
+		}
+		toDraw.clear();
 	}
+	else
+	{
+		//Geometry
+		for (std::list<ComponentMesh*>::iterator it = mesh_list.begin(); it != mesh_list.end(); ++it)
+		{
+			(*it)->Draw();
+		}
+	}
+
+	
+	
 	
 	//Debug Draw
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 	{
 		drawBoxes = !drawBoxes;
 	}
+
+	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+	{
+		DebugTextures();
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
+	{
+		culling = !culling;
+	}
+
+	bool wireframeMode = false;
+	GLint polygonMode[2];
+	glGetIntegerv(GL_POLYGON_MODE, polygonMode);
+
+	if (polygonMode[0] == GL_LINE && polygonMode[1] == GL_LINE)
+		wireframeMode = true;
+
+	bool cullFace = glIsEnabled(GL_CULL_FACE);
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	glDisable(GL_CULL_FACE);
@@ -275,6 +318,11 @@ update_status ModuleRenderer3D::PostUpdate()
 		}
 	}
 
+	if (drawTree)
+	{
+		//haHA MI COMPAÑERO SOLO TENIA QUE HACER EL QUADTREE Y DICE QUE LO HA HECHO PERO NO ES VERDAD XDXDDD NO HA HECHO NADA DE LA ENTREGA OTRA VEZ XDXDXD
+	}
+
 	if (App->sceneIntro->current_object)
 	{
 		if (App->sceneIntro->current_object->active)
@@ -325,28 +373,15 @@ update_status ModuleRenderer3D::PostUpdate()
 		}
 	}
 
-	glPolygonMode(GL_FRONT, GL_FILL);
-	glEnable(GL_CULL_FACE);
-
-	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+	if (wireframeMode)
 	{
-		for (auto gameobject : App->game_object->gameObjects)
-		{
-			if (gameobject->HasComponent(Object_Type::CompTexture))
-			{
-				ComponentTexture* tex = (ComponentTexture*)gameobject->GetComponent(Object_Type::CompTexture);
-				if (paintTextures)
-				{
-					tex->print = false;
-				}
-				else if (!paintTextures)
-				{
-					tex->print = true;
-				}
-			}
-		}
-		paintTextures = !paintTextures;
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	}
+	else
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+	if (cullFace)
+		glEnable(GL_CULL_FACE);
 
 	//UI
 	App->imgui->Draw();
@@ -355,6 +390,26 @@ update_status ModuleRenderer3D::PostUpdate()
 
 	SDL_GL_SwapWindow(App->window->window);
 	return UPDATE_CONTINUE;
+}
+
+void ModuleRenderer3D::DebugTextures()
+{
+	for (auto gameobject : App->game_object->gameObjects)
+	{
+		if (gameobject->HasComponent(Object_Type::CompTexture))
+		{
+			ComponentTexture* tex = (ComponentTexture*)gameobject->GetComponent(Object_Type::CompTexture);
+			if (paintTextures)
+			{
+				tex->print = false;
+			}
+			else if (!paintTextures)
+			{
+				tex->print = true;
+			}
+		}
+	}
+	paintTextures = !paintTextures;
 }
 
 // Called before quitting

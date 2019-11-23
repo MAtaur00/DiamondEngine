@@ -21,6 +21,7 @@ public:
 	bool Init();
 	update_status PreUpdate();
 	update_status PostUpdate();
+	void DebugTextures();
 	bool CleanUp();
 
 	void OnResize(int width, int height);
@@ -37,6 +38,10 @@ public:
 	bool vsync = true;
 
 	bool drawBoxes = false;
+
+	bool drawTree = false;
+
+	bool culling = false;
 
 	bool paintTextures = true;
 
