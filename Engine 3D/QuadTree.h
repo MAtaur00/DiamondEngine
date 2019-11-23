@@ -53,4 +53,5 @@ public:
 public:
 
 	QuadTree_Node* root = nullptr;
+
 };

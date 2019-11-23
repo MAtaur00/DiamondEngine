@@ -9,7 +9,7 @@ QuadTree_Node::~QuadTree_Node()
 {
 	if (HasChilds())
 	{
-		for (size_t i = 0; i < 4; i++)
+		for (int i = 0; i < 4; i++)
 		{
 			if (childs[i] != nullptr)
 			{
@@ -137,7 +137,7 @@ void QuadTree_Node::DeleteGameObjet(GameObject* object)
 
 Quad_Tree::Quad_Tree()
 {
-
+	//debugCube = new DebugCube();
 }
 
 Quad_Tree::~Quad_Tree()
@@ -147,7 +147,16 @@ Quad_Tree::~Quad_Tree()
 
 void Quad_Tree::QT_Render(QuadTree_Node* node)
 {
-
+	math::float3 cubeToDraw[8];
+	node->bounding_Box.GetCornerPoints(cubeToDraw);
+	//debugCube->DirectRender(cubeToDraw, White);
+	if (node->HasChilds())
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			QT_Render(node->childs[i]);
+		}
+	}
 }
 
 void Quad_Tree::QT_Create(math::AABB parameters)
