@@ -15,6 +15,8 @@ void Hierarchy::Draw()
 {
 	if (ImGui::Begin("Hierarchy", &App->imgui->showHierarchy, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_HorizontalScrollbar | ImGuiWindowFlags_NoMove))
 	{
+		ImGui::SetWindowPos(ImVec2(0, 18), ImGuiCond_Always);
+		ImGui::SetWindowSize(ImVec2((App->window->width / 10.0f) * 2.0f, (App->window->height) / 6.0f * 4.5f), ImGuiCond_Always);
 		if (ImGui::BeginMenu("Options"))
 		{
 			if (ImGui::MenuItem("New Game Object"))
