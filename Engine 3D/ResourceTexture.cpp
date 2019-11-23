@@ -6,7 +6,6 @@ ResourceTexture::ResourceTexture(const char * path) : Resource(ResourceType::Tex
 {
 }
 
-
 ResourceTexture::~ResourceTexture()
 {
 	glDeleteTextures(1, (GLuint*)&(id));

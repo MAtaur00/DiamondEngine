@@ -13,8 +13,8 @@ enum class ResourceType
 class Resource
 {
 public:
-	Resource(ResourceType type, const char* path) : type(type), name(path) {};
-	~Resource();
+	Resource(ResourceType type, const char* path);
+	virtual ~Resource();
 
 	virtual void Unload() {};
 
@@ -23,6 +23,5 @@ public:
 public:
 	std::string name;
 	ResourceType type = ResourceType::None;
-	uint usage = 0u;
+	int usage = 0;
 };
-

@@ -5,7 +5,6 @@ ResourceMesh::ResourceMesh(const char * path) : Resource(ResourceType::Mesh, pat
 {
 }
 
-
 ResourceMesh::~ResourceMesh()
 {
 	glDeleteBuffers(1, (GLuint*)&(index.id));

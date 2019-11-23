@@ -1,5 +1,10 @@
 #include "Resource.h"
+#include "Application.h"
 
+
+Resource::Resource(ResourceType type, const char * path) : type(type), name(path) 
+{ 
+}
 
 Resource::~Resource()
 {
