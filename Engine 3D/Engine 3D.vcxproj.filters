@@ -55,6 +55,12 @@
     <Filter Include="Sources\Containers\Parson">
       <UniqueIdentifier>{e049306f-f60b-4775-859f-18cf681e9bef}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\Quadtree">
+      <UniqueIdentifier>{552664aa-9da4-476b-8d91-d3654f54b02a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Containers\ImGui\Guizmo">
+      <UniqueIdentifier>{a2bc7594-bf90-4873-b241-acbd570ccdac}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -372,11 +378,14 @@
     <ClInclude Include="JSON\parson.h">
       <Filter>Sources\Containers\Parson</Filter>
     </ClInclude>
-    <ClInclude Include="QuadTree.h">
-      <Filter>Sources\Containers</Filter>
-    </ClInclude>
     <ClInclude Include="ModuleTime.h">
       <Filter>Sources\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="QuadTree.h">
+      <Filter>Sources\Quadtree</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGuizmo\ImGuizmo.h">
+      <Filter>Sources\Containers\ImGui\Guizmo</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -605,11 +614,14 @@
     <ClCompile Include="JSON\parson.c">
       <Filter>Sources\Containers\Parson</Filter>
     </ClCompile>
-    <ClCompile Include="QuadTree.cpp">
-      <Filter>Sources\Containers</Filter>
-    </ClCompile>
     <ClCompile Include="ModuleTime.cpp">
       <Filter>Sources\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="QuadTree.cpp">
+      <Filter>Sources\Quadtree</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGuizmo\ImGuizmo.cpp">
+      <Filter>Sources\Containers\ImGui\Guizmo</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

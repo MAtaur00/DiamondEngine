@@ -30,14 +30,15 @@ void ImGuiConsole::Draw()
 	ImGui::SetWindowPos(ImVec2(0.0f, (App->window->height) / 6.0f * 4.75f), ImGuiCond_Always);
 	ImGui::SetWindowSize(ImVec2(App->window->width , (App->window->height) / 6.0f * 1.25f), ImGuiCond_Always);
 
-	if (ImGui::Button("Clear", ImVec2(400, 20)))
-		textBuff.clear();
-
 	ImGui::Separator();
 
 	ImGui::TextWrapped(textBuff.begin());
-	/*if (canScroll)
-		ImGui::SetScrollY(1.0f);*/
+
+	if (ImGui::Button("Clear", ImVec2(400, 20)))
+		textBuff.clear();
+
+	if (canScroll)
+		ImGui::SetScrollY(1.0f);
 
 	canScroll = false;
 

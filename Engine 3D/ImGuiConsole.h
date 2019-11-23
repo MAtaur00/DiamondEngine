@@ -23,5 +23,3 @@ public:
 	ImGuiTextBuffer textBuff;
 	bool canScroll = false;
 };
-
-
