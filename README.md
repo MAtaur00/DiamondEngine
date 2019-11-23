@@ -26,6 +26,8 @@ Diamond Engine is a 3D game engine created by Marc Tarrés and Aleix Castillo, t
 ### Engine controls
 
 - F1 key: Paint AABBs of all Objects
+- F2 key: Debug textures for all Objects
+- F3 key: Activate/Deactivate culling for the game camera
 - Mouse wheel click: Select Object
 
 ## External Libreries
