@@ -94,9 +94,23 @@ update_status ModuleSceneIntro::Update()
 		}
 	}
 
+
+
 	PrimitivePlane p(0, 1, 0, 0);
 	p.axis = true;
 	p.Render();
 	
 	return UPDATE_CONTINUE;
+}
+
+void ModuleSceneIntro::ReDoQuadtree()
+{
+
+	quadtree.QT_Create(AABB(float3(-60, -5, -60), float3(60, 10, 60)));
+
+	for (std::list<GameObject*>::const_iterator iterator = App->game_object->gameObjects.begin(); iterator != App->game_object->gameObjects.end(); ++iterator)
+	{
+		if ((*iterator)->HasComponent(CompMesh))
+			quadtree.QT_Insert((*iterator));
+	}
 }

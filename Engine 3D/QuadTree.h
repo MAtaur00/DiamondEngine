@@ -21,6 +21,23 @@ public:
 	void RedistributeChilds();
 	void DeleteGameObjet(GameObject* object);
 	void GetBoxes(std::vector<math::AABB>& node);
+	template<typename TYPE>
+	inline void Intersects(std::vector<GameObject*>& objects, const TYPE& primitive) const
+	{
+		if (primitive.Intersects(bounding_box))
+		{
+			for (std::list<GameObject*>::const_iterator iterator = objects_quad.begin(); iterator != objects_quad.end(); ++iterator)
+			{
+				if(primitive.Intersects((*iterator)->boundingBox))
+					objects.push_back((*iterator));
+			}
+			for (int i = 0; i < 4; ++i)
+			{
+				if (childs[i] != nullptr)
+					childs[i]->Intersects(objects, primitive);
+			}
+		}
+	}
 
 	
 
@@ -31,7 +48,7 @@ public:
 	QuadTree_Node* parent = nullptr;
 	QuadTree_Node* childs[4] = { nullptr, nullptr, nullptr, nullptr };
 	
-	std::list<GameObject*> objects;
+	std::list<GameObject*> objects_quad;
 	int subdivision = 0;
 };
 
@@ -49,8 +66,16 @@ public:
 	void QT_Clear();
 
 	void QT_Insert(GameObject* object);
-	void QT_Remove(GameObject* object);
-	//void QT_Intersect(std::vector<GameObject*>& , PRIMITIVE);
+	template<typename TYPE>
+	inline void QT_Intersect(std::vector<GameObject*>& objects, const TYPE& primitive)
+	{
+		if (root != nullptr)
+		{
+			root->Intersects(objects, primitive);
+			UniqueObjects(objects);
+		}
+	}
+	void UniqueObjects(std::vector<GameObject*>& objects) const;
 
 public:
 

@@ -164,19 +164,18 @@ update_status ModuleRenderer3D::PostUpdate()
 {
 	if (culling && play_cam)
 	{
-		std::list<ComponentMesh*> toDraw;
+		std::vector<GameObject*> toDraw;
 
-		for (std::list<ComponentMesh*>::iterator it = mesh_list.begin(); it != mesh_list.end(); ++it)
-		{
-			if (play_cam->frustum.Intersects((*it)->gameObject->boundingBox))
-			{
-				toDraw.push_back(*it);
-			}
-		}
+		App->sceneIntro->quadtree.QT_Intersect(toDraw, play_cam->frustum);
 
-		for (std::list<ComponentMesh*>::iterator it = toDraw.begin(); it != toDraw.end(); ++it)
+
+		for (std::vector<GameObject*>::iterator it = toDraw.begin(); it != toDraw.end(); ++it)
 		{
-			(*it)->Draw();
+			(*it)->GetComponent(CompMesh);
+			ComponentMesh* mesh = (ComponentMesh*) (*it)->GetComponent(CompMesh);
+
+			if (mesh != nullptr)
+				mesh->Draw();
 		}
 		toDraw.clear();
 	}
@@ -187,6 +186,7 @@ update_status ModuleRenderer3D::PostUpdate()
 		{
 			(*it)->Draw();
 		}
+
 	}
 
 	

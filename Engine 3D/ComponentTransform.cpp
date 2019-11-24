@@ -189,6 +189,8 @@ void ComponentTransform::UpdateBoundingBox()
 	{
 		(*it)->transform->UpdateBoundingBox();
 	}
+
+	App->sceneIntro->ReDoQuadtree();
 }
 
 void ComponentTransform::Save(JSON_Object * parent)

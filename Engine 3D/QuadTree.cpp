@@ -1,4 +1,5 @@
 #include "QuadTree.h"
+#include <algorithm>
 
 QuadTree_Node::QuadTree_Node(math::AABB& boundingBox)
 {
@@ -63,24 +64,24 @@ void QuadTree_Node::Subdivide()
 
 void QuadTree_Node::InsertGameObject(GameObject* object)
 {
-	if (objects.size() < MAX_NODE_ELEMENTS && !HasChilds())
-		objects.push_back(object);
+	if (objects_quad.size() < MAX_NODE_ELEMENTS && !HasChilds())
+		objects_quad.push_back(object);
 
 	else
 	{
 		if (!HasChilds() && subdivision < 5)
 			Subdivide();
 
-		objects.push_back(object);
+		objects_quad.push_back(object);
 		RedistributeChilds();
 	}
 }
 
 void QuadTree_Node::RedistributeChilds()
 {
-	std::list<GameObject*>::iterator it = objects.begin();
+	std::list<GameObject*>::iterator it = objects_quad.begin();
 
-	while (it != objects.end())
+	while (it != objects_quad.end())
 	{
 		uint totalIntersections = 0u;
 		uint lastIntersection = 0u;
@@ -105,19 +106,19 @@ void QuadTree_Node::RedistributeChilds()
 					childs[i]->InsertGameObject((*it));
 				}
 			}
-			it = objects.erase(it);
+			it = objects_quad.erase(it);
 		}
 	}
 }
 
 void QuadTree_Node::DeleteGameObjet(GameObject* object)
 {
-	std::list<GameObject*>::iterator it = objects.begin();
-	while (it != objects.end())
+	std::list<GameObject*>::iterator it = objects_quad.begin();
+	while (it != objects_quad.end())
 	{
 		if ((*it) == object)
 		{
-			it = objects.erase(it);
+			it = objects_quad.erase(it);
 			RedistributeChilds();
 		}
 		else
@@ -198,6 +199,15 @@ void Quad_Tree::QT_Insert(GameObject* object)
 	}
 }
 
+void Quad_Tree::UniqueObjects(std::vector<GameObject*>& objects) const
+{
+	if (!objects.empty())
+	{
+		std::sort(objects.begin(), objects.end()); 
+		objects.erase(std::unique(objects.begin(), objects.end()), objects.end());
+		
+	}
+}
 
 
 //If it is within the limits of Quadtree

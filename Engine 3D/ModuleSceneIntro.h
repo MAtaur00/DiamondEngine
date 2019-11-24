@@ -15,6 +15,7 @@ public:
 
 	bool Start();
 	update_status Update();
+	void ReDoQuadtree();
 	bool CleanUp();
 
 public:
