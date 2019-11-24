@@ -15,7 +15,7 @@ Diamond Engine is a 3D game engine created by Marc Tarrés and Aleix Castillo, t
 - All debugging options can be selected from Debug menu and also with the controls listed below.
 - You can create shapes from the View menu, and check the configuration of the engine.
 - Frustum culling can be activated in the camera to ignore out of view models.
-- A "Play" button is available in the engine to switch to game mode (in case there's a camera component to use as the game camera).
+- A "Play" button is available in the engine to switch to game mode (only if there's a camera component to use as the game camera). The camera used as the game camera will always be the last one created.
 
 ## Inputs & Shortcuts
 

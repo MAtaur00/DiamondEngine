@@ -19,6 +19,8 @@ ComponentMesh::~ComponentMesh()
 {
 	App->renderer3D->mesh_list.remove(this);
 	App->resources->ResourceUsageDecreased(mesh);
+	gameObject->boundingBox.SetNegativeInfinity();
+	gameObject->originalBoundingBox.SetNegativeInfinity();
 }
 
 void ComponentMesh::Inspector()
@@ -76,7 +78,7 @@ void ComponentMesh::Draw()
 				int size = 2;
 				glColor3f(0.0f, 1.0f, 0.0f);
 
-				for (uint i = 0; i < mesh->vertex.size * 3; i += 3)
+				for (uint i = 0; i < mesh->vertex.size; i += 3)
 				{
 					glBegin(GL_LINES);
 					glVertex3f(mesh->vertex.data[i], mesh->vertex.data[i + 1], mesh->vertex.data[i + 2]);
