@@ -11,6 +11,11 @@ Diamond Engine is a 3D game engine created by Marc Tarrés and Aleix Castillo, t
 - The engine accepts drag & drop for both 3D models and textures.
 - As long as the textures are kept with their original name and as long as no files are corrupted, if the original textures for a 3D model are in the Textures folder in the engine, you can drag the original 3D model from anywhere in the computer and it will automatically load the textures and paint it.
 - You can change the position, rotation and scale of the GameObjects from the Inspector window.
+- You can Save and Load the scene from the File menu.
+- All debugging options can be selected from Debug menu and also with the controls listed below.
+- You can create shapes from the View menu, and check the configuration of the engine.
+- Frustum culling can be activated in the camera to ignore out of view models.
+- A "Play" button is available in the engine to switch to game mode (in case there's a camera component to use as the game camera).
 
 ## Inputs & Shortcuts
 
@@ -25,20 +30,22 @@ Diamond Engine is a 3D game engine created by Marc Tarrés and Aleix Castillo, t
 
 ### Engine controls
 
-- F1 key: Paint AABBs of all Objects
+- F1 key: Paint AABBs of all Objects and Quadtree
 - F2 key: Debug textures for all Objects
 - F3 key: Activate/Deactivate culling for the game camera
-- Mouse wheel click: Select Object
+- Mouse wheel click: Select Object. Objects can also be selected from inspector
 
-## External Libreries
+## External Libraries
 
 - ImGui
+- ImGuizmo
 - SDL
 - OPENGL
 - MathGeoLib
 - PCG
 - Assimp
 - DevIL
+- Parson
 
 ## MIT License
 
