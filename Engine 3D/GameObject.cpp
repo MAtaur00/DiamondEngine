@@ -160,6 +160,7 @@ void GameObject::Load(JSON_Object * info)
 		{
 			ComponentCamera* cam = new ComponentCamera(this);
 			cam->Load(comp);
+			App->renderer3D->play_cam = cam;
 		}
 			break;
 		case CompLight:
