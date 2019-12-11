@@ -1,6 +1,7 @@
 #include "Inspector.h"
 #include "Application.h"
 #include "ModuleSceneIntro.h"
+#include "ComponentBillboard.h"
 
 Inspector::Inspector()
 {
@@ -48,8 +49,16 @@ void Inspector::Draw()
 					ComponentCamera* camera = new ComponentCamera(App->sceneIntro->current_object);
 					App->renderer3D->play_cam = camera;
 				}
-				ImGui::MenuItem("Cancel");
+				if (ImGui::MenuItem("Billboard"))
+				{
+					ComponentBillboard* billboard = new ComponentBillboard(App->sceneIntro->current_object);
+					
+
+				}
+				ImGui::MenuItem("Cancel");				
 				ImGui::EndMenu();
+
+
 			}
 
 			if (ImGui::Button("Delete Object"))

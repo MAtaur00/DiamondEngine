@@ -11,7 +11,9 @@ enum Object_Type
 	CompMesh,
 	CompTexture,
 	CompCamera,
-	CompLight
+	CompLight,
+	CompBillboard
+
 };
 
 class Component
