@@ -61,6 +61,9 @@
     <Filter Include="Sources\Containers\ImGui\Guizmo">
       <UniqueIdentifier>{a2bc7594-bf90-4873-b241-acbd570ccdac}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\Particle">
+      <UniqueIdentifier>{ed340938-755f-419a-a100-fedcc0318488}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -342,9 +345,6 @@
     <ClInclude Include="ComponentCamera.h">
       <Filter>Sources\GameObject\Components</Filter>
     </ClInclude>
-    <ClInclude Include="ComponentLight.h">
-      <Filter>Sources\GameObject\Components</Filter>
-    </ClInclude>
     <ClInclude Include="ComponentMesh.h">
       <Filter>Sources\GameObject\Components</Filter>
     </ClInclude>
@@ -389,6 +389,15 @@
     </ClInclude>
     <ClInclude Include="ComponentBillboard.h">
       <Filter>Sources\GameObject\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentEmitter.h">
+      <Filter>Sources\GameObject\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle.h">
+      <Filter>Sources\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleParticleManager.h">
+      <Filter>Sources\Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -575,9 +584,6 @@
     <ClCompile Include="ComponentCamera.cpp">
       <Filter>Sources\GameObject\Components</Filter>
     </ClCompile>
-    <ClCompile Include="ComponentLight.cpp">
-      <Filter>Sources\GameObject\Components</Filter>
-    </ClCompile>
     <ClCompile Include="ComponentMesh.cpp">
       <Filter>Sources\GameObject\Components</Filter>
     </ClCompile>
@@ -628,6 +634,15 @@
     </ClCompile>
     <ClCompile Include="ComponentBillboard.cpp">
       <Filter>Sources\GameObject\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentEmitter.cpp">
+      <Filter>Sources\GameObject\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Particle.cpp">
+      <Filter>Sources\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleParticleManager.cpp">
+      <Filter>Sources\Modules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
