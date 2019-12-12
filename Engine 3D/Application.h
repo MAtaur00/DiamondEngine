@@ -15,6 +15,7 @@
 #include "ModuleResources.h"
 #include "ModulePicking.h"
 #include "ModuleTime.h"
+#include "ModuleParticleManager.h"
 
 #include <list>
 #include <vector>
@@ -35,6 +36,7 @@ public:
 	ModuleResources* resources;
 	ModulePicking* picking;
 	Time* module_time;
+	ModuleParticleManager* particle_manager;
 
 private:
 

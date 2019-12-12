@@ -18,6 +18,7 @@ Application::Application()
 	resources = new ModuleResources(this);
 	picking = new ModulePicking(this);
 	module_time = new Time(this);
+	particle_manager = new ModuleParticleManager(this);
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -28,6 +29,7 @@ Application::Application()
 	AddModule(camera);
 	AddModule(input);
 
+	AddModule(particle_manager);
 	
 	AddModule(sceneIntro);
 	AddModule(import);
