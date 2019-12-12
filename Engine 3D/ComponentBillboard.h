@@ -11,7 +11,6 @@ enum Billboard_TYPE
 	BillboardScreen,
 	BillboardWorld,
 	BillboardAxially
-
 };
 
 enum Billboard_AXIS {
@@ -19,7 +18,6 @@ enum Billboard_AXIS {
 	BillboardX,
 	BillboardY,
 	BillboardZ
-
 };
 class ComponentBillboard :
 	public Component
@@ -31,7 +29,6 @@ public:
 	void Inspector();
 
 	void Update();
-
 
 public:
 

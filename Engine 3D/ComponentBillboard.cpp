@@ -13,10 +13,8 @@ ComponentBillboard::~ComponentBillboard()
 
 void ComponentBillboard::Inspector()
 {
-
 	if (ImGui::CollapsingHeader("Billboard"))
 	{
-		
 		if (ImGui::BeginMenu("Select billboard"))
 		{
 			if(ImGui::MenuItem("Screen")) {
@@ -29,9 +27,7 @@ void ComponentBillboard::Inspector()
 			}
 			if(ImGui::MenuItem("Axially")) {
 				billboardtype = BillboardAxially;
-
 			}
-
 			ImGui::EndMenu();
 		}
 
@@ -39,27 +35,19 @@ void ComponentBillboard::Inspector()
 		{
 			if (ImGui::BeginMenu("Choose Axis"))
 			{
-
 				if (ImGui::MenuItem("X")) {
 					billboardaxis = BillboardX;
-
 				}
 				if (ImGui::MenuItem("Y")) {
 					billboardaxis = BillboardY;
-
 				}
 				if (ImGui::MenuItem("Z")) {
 					billboardaxis = BillboardZ;
-
 				}
 				ImGui::EndMenu();
 			}
-
 		}
-
 	}
-
-
 }
 
 void ComponentBillboard::Update()
@@ -112,8 +100,6 @@ void ComponentBillboard::Update()
 
 				z = x.Cross(y);
 
-
-
 				break;
 			case BillboardX:
 
@@ -122,15 +108,8 @@ void ComponentBillboard::Update()
 
 				z = x.Cross(y);
 
-
 				break;
 			}
-
 		}
 	}
-
-	
-
-
-
 }

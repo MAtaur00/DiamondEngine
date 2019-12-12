@@ -52,13 +52,9 @@ void Inspector::Draw()
 				if (ImGui::MenuItem("Billboard"))
 				{
 					ComponentBillboard* billboard = new ComponentBillboard(App->sceneIntro->current_object);
-					
-
 				}
 				ImGui::MenuItem("Cancel");				
 				ImGui::EndMenu();
-
-
 			}
 
 			if (ImGui::Button("Delete Object"))

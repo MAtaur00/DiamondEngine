@@ -189,9 +189,6 @@ update_status ModuleRenderer3D::PostUpdate()
 
 	}
 
-	
-	
-	
 	//Debug Draw
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 	{
