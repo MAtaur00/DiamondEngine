@@ -102,4 +102,43 @@ void ComponentEmitter::Save(JSON_Object * parent)
 
 void ComponentEmitter::Load(JSON_Object * parent)
 {
+	uuid = json_object_get_number(parent, "UUID");
+
+	// Position
+	//------------------------------------------------------------------------
+	JSON_Object* pos = json_object_get_object(parent, "Position");
+	position.x = json_object_get_number(pos, "X");
+	position.y = json_object_get_number(pos, "Y");
+	position.z = json_object_get_number(pos, "Z");
+
+	// Speed
+	//------------------------------------------------------------------------
+	JSON_Object* sp = json_object_get_object(parent, "Speed");
+	speed.x = json_object_get_number(sp, "X");
+	speed.y = json_object_get_number(sp, "Y");
+	speed.z = json_object_get_number(sp, "Z");
+
+	// Rotation
+	//------------------------------------------------------------------------
+	JSON_Object* rot = json_object_get_object(parent, "Rotation");
+	rotation.x = json_object_get_number(rot, "X");
+	rotation.y = json_object_get_number(rot, "Y");
+
+	// Size
+	//------------------------------------------------------------------------
+	JSON_Object* siz = json_object_get_object(parent, "Size");
+	size = json_object_get_number(siz, "Value");
+
+	// Texture
+	//------------------------------------------------------------------------
+	texPath = json_object_get_string(parent, "Path");
+	texture = new ResourceTexture(texPath.c_str());
+
+	// Color
+	//------------------------------------------------------------------------
+	JSON_Object* clr = json_object_get_object(parent, "Color");
+	color.x = json_object_get_number(clr, "X");
+	color.y = json_object_get_number(clr, "Y");
+	color.z = json_object_get_number(clr, "Z");
+	color.w = json_object_get_number(clr, "W");
 }
