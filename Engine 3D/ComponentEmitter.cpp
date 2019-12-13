@@ -17,6 +17,54 @@ ComponentEmitter::~ComponentEmitter()
 
 void ComponentEmitter::Inspector()
 {
+	if (ImGui::CollapsingHeader("Particle Emitter", ImGuiTreeNodeFlags_DefaultOpen))
+	{
+		if (ImGui::DragFloat3("Position", &position[0], 0.1f, 0.0f, 0.0f, "%.2f"))
+		{
+		}
+
+		ImGui::Separator();
+
+		if (ImGui::DragFloat3("Speed", &speed[0], 0.1f, 0.0f, 0.0f, "%.2f"))
+		{
+		}
+
+		ImGui::Separator();
+
+		if (ImGui::DragFloat2("Rotation", &rotation[0], 0.1f, 0.0f, 0.0f, "%.2f"))
+		{
+		}
+
+		ImGui::Separator();
+
+		if (ImGui::DragFloat("Position", &size, 0.1f, 0.0f, 0.0f, "%.2f"))
+		{
+		}
+
+		ImGui::Separator();
+
+		ImGui::Text("%s", texPath.c_str());
+		ImGui::Image((void*)(intptr_t)texture->id, ImVec2(225, 225), ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f));
+
+		ImGui::Separator();
+
+		// color
+
+		ImGui::Separator();
+
+		if (ImGui::Button("Reset"))
+		{
+			position = float3::zero;
+			speed = float3::zero;
+			rotation = float2::zero;
+			size = 1.0f;
+		}
+
+		if (ImGui::Button("Delete Emitter"))
+		{
+			App->game_object->componentsToDelete.push_back(this);
+		}
+	}
 }
 
 void ComponentEmitter::Update()
