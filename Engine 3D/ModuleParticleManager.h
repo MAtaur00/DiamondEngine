@@ -14,9 +14,15 @@ public:
 
 	int GetLastParticle();
 
+	update_status Update();
+
+	void Draw();
+
 public:
 	std::list<ComponentEmitter*> emitters;
 	Particle particles[MAX_PARTICLES];
 
 	int lastUsedParticle = 0;
+	int activeParticles = 0;
+	
 };

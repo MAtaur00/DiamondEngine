@@ -29,3 +29,27 @@ int ModuleParticleManager::GetLastParticle()
 
 	return 0;
 }
+
+update_status ModuleParticleManager::Update()
+{
+
+
+	for (std::list<ComponentEmitter*>::iterator iterator = emitters.begin(); iterator != emitters.end(); ++iterator)
+	{
+
+		(*iterator)->Update();
+
+	}
+
+	return update_status();
+}
+
+void ModuleParticleManager::Draw()
+{
+
+
+
+
+}
+
+

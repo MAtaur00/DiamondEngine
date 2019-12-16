@@ -80,6 +80,8 @@ void ComponentEmitter::Update()
 				int pos = App->particle_manager->GetLastParticle();
 				App->particle_manager->particles[pos].SetActive(position, speed, rotation, size, life, &texture, color);
 				particlesList.push_back(&App->particle_manager->particles[pos]);
+				App->particle_manager->particles[pos].emitterpart = this;
+				App->particle_manager->activeParticles++;
 			}
 		}
 	}
