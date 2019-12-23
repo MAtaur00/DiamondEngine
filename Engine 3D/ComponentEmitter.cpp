@@ -4,6 +4,7 @@
 #include "ModuleParticleManager.h"
 #include "Particle.h"
 #include "ModuleTime.h"
+#include "ResourceTexture.h"
 
 ComponentEmitter::ComponentEmitter(GameObject* parent) : Component(parent, CompEmitter)
 {
@@ -19,45 +20,48 @@ void ComponentEmitter::Inspector()
 {
 	if (ImGui::CollapsingHeader("Particle Emitter", ImGuiTreeNodeFlags_DefaultOpen))
 	{
-		if (ImGui::DragFloat3("Position", &position[0], 0.1f, 0.0f, 0.0f, "%.2f"))
+		if (ImGui::DragFloat("Speed", &speed, 0.1f, 0.0f, 0.0f, "%.2f"))
 		{
 		}
 
 		ImGui::Separator();
 
-		if (ImGui::DragFloat3("Speed", &speed[0], 0.1f, 0.0f, 0.0f, "%.2f"))
+		if (ImGui::DragFloat("Rotation##Particles", &rotation, 0.1f, 0.0f, 0.0f, "%.2f"))
 		{
 		}
 
 		ImGui::Separator();
 
-		if (ImGui::DragFloat2("Rotation", &rotation[0], 0.1f, 0.0f, 0.0f, "%.2f"))
+		if (ImGui::DragFloat("Size", &size, 0.1f, 0.0f, 0.0f, "%.2f"))
 		{
 		}
 
 		ImGui::Separator();
 
-		if (ImGui::DragFloat("Position", &size, 0.1f, 0.0f, 0.0f, "%.2f"))
+		if (ImGui::DragFloat("Ratio", &ratio, 0.1f, 0.0f, 0.0f, "%.2f"))
 		{
 		}
 
 		ImGui::Separator();
 
-		ImGui::Text("%s", texPath.c_str());
-		ImGui::Image((void*)(intptr_t)texture->id, ImVec2(225, 225), ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f));
-
-		ImGui::Separator();
-
-		// color
-
-		ImGui::Separator();
-
-		if (ImGui::Button("Reset"))
+		if (texture)
 		{
-			position = float3::zero;
-			speed = float3::zero;
-			rotation = float2::zero;
+			ImGui::Text("%s", texPath.c_str());
+			ImGui::Image((void*)(intptr_t)texture->id, ImVec2(225, 225), ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f));
+		}
+
+		ImGui::Separator();
+
+		ImGui::ColorPicker4("Color", &color.x);
+
+		ImGui::Separator();
+
+		if (ImGui::Button("Reset##Particles"))
+		{
+			speed = 1.0f;
+			rotation = 0.0f;
 			size = 1.0f;
+			ratio = 0.0f;
 		}
 
 		if (ImGui::Button("Delete Emitter"))
@@ -77,8 +81,10 @@ void ComponentEmitter::Update()
 		{
 			if (App->module_time->gameState == GameState::PLAYING)
 			{
+				float3 up = float3::unitY;
+
 				int pos = App->particle_manager->GetLastParticle();
-				App->particle_manager->particles[pos].SetActive(position, speed, rotation, size, life, &texture, color);
+				App->particle_manager->particles[pos].SetActive(position, speed, (float3::unitY * gameObject->transform->GetRotation().ToFloat3x3()).Normalized(), rotation, size, life, &texture, color);
 				particlesList.push_back(&App->particle_manager->particles[pos]);
 				App->particle_manager->particles[pos].emitterpart = this;
 				App->particle_manager->activeParticles++;
@@ -106,28 +112,36 @@ void ComponentEmitter::Save(JSON_Object * parent)
 	// Speed
 	//------------------------------------------------------------------------
 	JSON_Value* sp = json_value_init_object();
-	JSON_Object* positionObj = json_value_get_object(sp);
+	JSON_Object* speedObj = json_value_get_object(sp);
 
 	json_object_set_value(parent, "Speed", sp);
 
-	json_object_set_number(positionObj, "X", speed.x);
-	json_object_set_number(positionObj, "Y", speed.y);
-	json_object_set_number(positionObj, "Z", speed.z);
+	json_object_set_number(positionObj, "Value", speed);
+
+	// Direction
+	//------------------------------------------------------------------------
+	JSON_Value* dir = json_value_init_object();
+	JSON_Object* directionObj = json_value_get_object(dir);
+
+	json_object_set_value(parent, "Direction", dir);
+
+	json_object_set_number(positionObj, "X", direction.x);
+	json_object_set_number(positionObj, "Y", direction.y);
+	json_object_set_number(positionObj, "Z", direction.z);
 
 	// Rotation
 	//------------------------------------------------------------------------
 	JSON_Value* rot = json_value_init_object();
-	JSON_Object* positionObj = json_value_get_object(rot);
+	JSON_Object* roationObj = json_value_get_object(rot);
 
 	json_object_set_value(parent, "Rotation", rot);
 
-	json_object_set_number(positionObj, "X", rotation.x);
-	json_object_set_number(positionObj, "Y", rotation.y);
+	json_object_set_number(positionObj, "Value", rotation);
 
 	// Size
 	//------------------------------------------------------------------------
 	JSON_Value* siz = json_value_init_object();
-	JSON_Object* positionObj = json_value_get_object(siz);
+	JSON_Object* sizeObj = json_value_get_object(siz);
 
 	json_object_set_value(parent, "Size", siz);
 
@@ -140,7 +154,7 @@ void ComponentEmitter::Save(JSON_Object * parent)
 	// Color
 	//------------------------------------------------------------------------
 	JSON_Value* clr = json_value_init_object();
-	JSON_Object* positionObj = json_value_get_object(clr);
+	JSON_Object* colorObj = json_value_get_object(clr);
 
 	json_object_set_value(parent, "Color", clr);
 
@@ -164,15 +178,19 @@ void ComponentEmitter::Load(JSON_Object * parent)
 	// Speed
 	//------------------------------------------------------------------------
 	JSON_Object* sp = json_object_get_object(parent, "Speed");
-	speed.x = json_object_get_number(sp, "X");
-	speed.y = json_object_get_number(sp, "Y");
-	speed.z = json_object_get_number(sp, "Z");
+	speed = json_object_get_number(sp, "ValueX");
+
+	// Direction
+	//------------------------------------------------------------------------
+	JSON_Object* dir = json_object_get_object(parent, "Direction");
+	direction.x = json_object_get_number(dir, "X");
+	direction.y = json_object_get_number(dir, "Y");
+	direction.z = json_object_get_number(dir, "Z");
 
 	// Rotation
 	//------------------------------------------------------------------------
 	JSON_Object* rot = json_object_get_object(parent, "Rotation");
-	rotation.x = json_object_get_number(rot, "X");
-	rotation.y = json_object_get_number(rot, "Y");
+	rotation = json_object_get_number(rot, "Value");
 
 	// Size
 	//------------------------------------------------------------------------
