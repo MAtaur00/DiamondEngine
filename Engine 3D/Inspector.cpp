@@ -53,6 +53,10 @@ void Inspector::Draw()
 				{
 					ComponentBillboard* billboard = new ComponentBillboard(App->sceneIntro->current_object);
 				}
+				if (ImGui::MenuItem("Particle Emitter"))
+				{
+					ComponentEmitter* emitter = new ComponentEmitter(App->sceneIntro->current_object);
+				}
 				ImGui::MenuItem("Cancel");				
 				ImGui::EndMenu();
 			}
