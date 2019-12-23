@@ -61,7 +61,7 @@
     <Filter Include="Sources\Containers\ImGui\Guizmo">
       <UniqueIdentifier>{a2bc7594-bf90-4873-b241-acbd570ccdac}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sources\Particle">
+    <Filter Include="Sources\Particles">
       <UniqueIdentifier>{ed340938-755f-419a-a100-fedcc0318488}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -394,10 +394,13 @@
       <Filter>Sources\GameObject\Components</Filter>
     </ClInclude>
     <ClInclude Include="Particle.h">
-      <Filter>Sources\Particle</Filter>
+      <Filter>Sources\Particles</Filter>
     </ClInclude>
     <ClInclude Include="ModuleParticleManager.h">
       <Filter>Sources\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticlePlane.h">
+      <Filter>Sources\Particles</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -639,10 +642,13 @@
       <Filter>Sources\GameObject\Components</Filter>
     </ClCompile>
     <ClCompile Include="Particle.cpp">
-      <Filter>Sources\Particle</Filter>
+      <Filter>Sources\Particles</Filter>
     </ClCompile>
     <ClCompile Include="ModuleParticleManager.cpp">
       <Filter>Sources\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticlePlane.cpp">
+      <Filter>Sources\Particles</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
