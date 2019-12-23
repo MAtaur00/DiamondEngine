@@ -163,8 +163,6 @@ void GameObject::Load(JSON_Object * info)
 			App->renderer3D->play_cam = cam;
 		}
 			break;
-		case CompLight:
-			break;
 		default:
 			break;
 		}
