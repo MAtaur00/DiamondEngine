@@ -27,14 +27,13 @@ public:
 	float ratio = 0.f;
 
 	float life = 0.0f;
-	float3 position = float3::zero;
 	float speed = 1.0f;
 	float rotation = 0.0f;
 	float size = 1.0f;
 	ResourceTexture* texture = nullptr;
 	float4 color = float4::one;
 	std::string texPath;
-	float3 direction;
+	float3 direction = float3::unitY;
 
 	std::list<Particle*> particlesList;
 };

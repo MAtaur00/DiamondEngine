@@ -32,6 +32,12 @@ void ComponentEmitter::Inspector()
 
 		ImGui::Separator();
 
+		if (ImGui::DragFloat3("Direction", &direction.x, 0.1f, 0.0f, 0.0f, "%.2f"))
+		{
+		}
+
+		ImGui::Separator();
+
 		if (ImGui::DragFloat("Rotation##Particles", &rotation, 0.1f, 0.0f, 0.0f, "%.2f"))
 		{
 		}
@@ -92,7 +98,7 @@ void ComponentEmitter::Update()
 				float3 up = float3::unitY;
 
 				int pos = App->particle_manager->GetLastParticle();
-				App->particle_manager->particles[pos].SetActive(position, speed, (float3::unitY * gameObject->transform->GetRotation().ToFloat3x3()).Normalized(), rotation, size, life, &texture, color);
+				App->particle_manager->particles[pos].SetActive(gameObject->transform->GetGlobalPos(), speed, (float3::unitY * gameObject->transform->GetRotation().ToFloat3x3()).Normalized(), rotation, size, life, &texture, color);
 				particlesList.push_back(&App->particle_manager->particles[pos]);
 				App->particle_manager->particles[pos].emitterpart = this;
 				App->particle_manager->activeParticles++;
@@ -111,11 +117,11 @@ void ComponentEmitter::Save(JSON_Object * parent)
 	JSON_Value* pos = json_value_init_object();
 	JSON_Object* positionObj = json_value_get_object(pos);
 
-	json_object_set_value(parent, "Position", pos);
+	/*json_object_set_value(parent, "Position", pos);
 
 	json_object_set_number(positionObj, "X", position.x);
 	json_object_set_number(positionObj, "Y", position.y);
-	json_object_set_number(positionObj, "Z", position.z);
+	json_object_set_number(positionObj, "Z", position.z);*/
 
 	// Speed
 	//------------------------------------------------------------------------
@@ -178,10 +184,10 @@ void ComponentEmitter::Load(JSON_Object * parent)
 
 	// Position
 	//------------------------------------------------------------------------
-	JSON_Object* pos = json_object_get_object(parent, "Position");
+	/*JSON_Object* pos = json_object_get_object(parent, "Position");
 	position.x = json_object_get_number(pos, "X");
 	position.y = json_object_get_number(pos, "Y");
-	position.z = json_object_get_number(pos, "Z");
+	position.z = json_object_get_number(pos, "Z");*/
 
 	// Speed
 	//------------------------------------------------------------------------

@@ -42,7 +42,7 @@ void Particle::Update(float dt)
 		App->particle_manager->activeParticles--;
 		active = false;
 	}
-	ownRotation.Mul(Quat::RotateZ(rotation));
+	//ownRotation = ownRotation.Mul(Quat::RotateZ(rotation));
 }
 
 void Particle::CameraOrientation()
