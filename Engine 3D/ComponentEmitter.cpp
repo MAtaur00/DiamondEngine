@@ -26,6 +26,12 @@ void ComponentEmitter::Inspector()
 
 		ImGui::Separator();
 
+		if (ImGui::DragFloat("Life", &life, 0.1f, 0.0f, 0.0f, "%.2f"))
+		{
+		}
+
+		ImGui::Separator();
+
 		if (ImGui::DragFloat("Rotation##Particles", &rotation, 0.1f, 0.0f, 0.0f, "%.2f"))
 		{
 		}
@@ -68,6 +74,8 @@ void ComponentEmitter::Inspector()
 		{
 			App->game_object->componentsToDelete.push_back(this);
 		}
+
+	
 	}
 }
 

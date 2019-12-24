@@ -47,8 +47,8 @@ void Particle::Update(float dt)
 
 void Particle::CameraOrientation()
 {
-	float3 z = -App->camera->compCamera->frustum.front;
-	float3 y = App->camera->compCamera->frustum.up;
+	float3 z = -App->renderer3D->current_cam->frustum.front;
+	float3 y = App->renderer3D->current_cam->frustum.up;
 	float3 x = y.Cross(z);
 
 	ownRotation.Set(float3x3(x, y, z));

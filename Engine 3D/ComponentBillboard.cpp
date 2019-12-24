@@ -62,8 +62,8 @@ void ComponentBillboard::Update()
 
 		case BillboardScreen:
 
-			z = -App->camera->compCamera->frustum.front;
-			y = App->camera->compCamera->frustum.up;
+			z = -App->renderer3D->current_cam->frustum.front;
+			y = App->renderer3D->current_cam->frustum.up;
 
 			x = y.Cross(z);
 
@@ -71,8 +71,8 @@ void ComponentBillboard::Update()
 
 		case BillboardWorld:
 
-			z = (App->camera->cameraGO->transform->GetGlobalPos() - gameObject->transform->GetGlobalPos()).Normalized();
-			y = App->camera->compCamera->frustum.up;
+			z = (App->renderer3D->current_cam->gameObject->transform->GetGlobalPos() - gameObject->transform->GetGlobalPos()).Normalized();
+			y = App->renderer3D->current_cam->frustum.up;
 
 			x = y.Cross(z);
 
@@ -82,7 +82,7 @@ void ComponentBillboard::Update()
 
 		case BillboardAxially:
 
-			float3 dist = (App->camera->cameraGO->transform->GetGlobalPos() - gameObject->transform->GetGlobalPos()).Normalized();
+			float3 dist = (App->renderer3D->current_cam->gameObject->transform->GetGlobalPos() - gameObject->transform->GetGlobalPos()).Normalized();
 			switch (billboardaxis) {
 
 			case BillboardZ:

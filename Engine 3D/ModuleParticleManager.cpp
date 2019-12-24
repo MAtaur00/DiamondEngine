@@ -1,4 +1,6 @@
 #include "ModuleParticleManager.h"
+#include "Application.h"
+#include "ModuleTime.h"
 
 
 
@@ -43,6 +45,13 @@ update_status ModuleParticleManager::Update()
 		(*iterator)->Update();
 	}
 
+	for (int i = 0; i < MAX_PARTICLES; ++i)
+	{
+		if (particles[i].active)
+		{
+			particles[i].Update(App->module_time->dt);
+		}
+	}
 	Draw();
 
 	return UPDATE_CONTINUE;
