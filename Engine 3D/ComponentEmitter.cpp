@@ -153,6 +153,9 @@ void ComponentEmitter::Inspector()
 			rotation = 0.0f;
 			size = 1.0f;
 			ratio = 0.0f;
+			life = 0.0f;
+			burstRatio = 0.0f;
+			particlesBurst = 0;
 		}
 
 		if (ImGui::Button("Delete Emitter"))
@@ -167,26 +170,11 @@ void ComponentEmitter::Update()
 	float time = timer.Read();
 	float burstTime = timerBurst.Read();
 
-	/*if (!subEmitter && subEmitterExists && gameObject->childs.size() > 0 )
+	if (gameObject->HasComponent(CompTexture))
 	{
-		for (auto object : gameObject->childs)
-		{
-			
-				if (object->HasComponent(CompEmitter))
-				{
-					gameObject->childs.remove(object);
-
-					App->game_object->gameObjectsToDelete.push_back(object);
-					for (auto child : object->childs)
-					{
-						App->imgui->inspector->NewObjectsToDelete(child);
-					}
-				}
-			
-		}
-
-		subEmitterExists = false;
-	}*/
+		ComponentTexture* tex = (ComponentTexture*)gameObject->GetComponent(CompTexture);
+		texture = tex->RTexture;
+	}
 
 	if (subEmitter && !subEmitterExists)
 	{
@@ -202,7 +190,7 @@ void ComponentEmitter::Update()
 			if (App->module_time->gameState == GameState::PLAYING)
 			{
 				int pos = App->particle_manager->GetLastParticle();
-				ActiveParticle(pos);				
+				ActiveParticle(pos);
 				particlesList.push_back(&App->particle_manager->particles[pos]);
 				App->particle_manager->particles[pos].emitterpart = this;
 				App->particle_manager->activeParticles++;
@@ -410,8 +398,5 @@ void ComponentEmitter::Load(JSON_Object * parent)
 	circle.r = json_object_get_number(shp, "Circle R");
 	circle.pos.y = json_object_get_number(shp, "Circle Heigh");
 
-
-
-	shapeType = (Shape_TYPE)json_object_get_number(shp, "ShapeTYPE");
-
+	shapeType = (Shape_TYPE)(int)json_object_get_number(shp, "ShapeTYPE");
 }

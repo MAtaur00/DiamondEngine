@@ -63,6 +63,7 @@ void ParticlePlane::Draw(float4x4 matrix, ResourceTexture* texture, float4 color
 
 	if (texture != nullptr)
 	{
+		glEnable(GL_TEXTURE_2D);
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
@@ -74,6 +75,7 @@ void ParticlePlane::Draw(float4x4 matrix, ResourceTexture* texture, float4 color
 
 		glBindTexture(GL_TEXTURE_2D, texture->id);
 	}
+
 	glColor4f(color.x, color.y, color.z, color.w);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, NULL);
 
