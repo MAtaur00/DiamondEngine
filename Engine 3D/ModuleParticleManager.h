@@ -21,6 +21,8 @@ public:
 
 	void Draw();
 
+	void StartEmitters();
+
 public:
 	std::list<ComponentEmitter*> emitters;
 	Particle particles[MAX_PARTICLES];

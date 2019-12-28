@@ -67,3 +67,11 @@ void ModuleParticleManager::Draw()
 		}
 	}
 }
+
+void ModuleParticleManager::StartEmitters()
+{
+	for (std::list<ComponentEmitter*>::iterator iterator = emitters.begin(); iterator != emitters.end(); ++iterator)
+	{
+		(*iterator)->Start();
+	}
+}

@@ -558,6 +558,9 @@ update_status ModuleIMGui::PreUpdate()
 
 				App->renderer3D->current_cam = Time::gameState == GameState::PLAYING ? App->renderer3D->play_cam : App->camera->compCamera;
 			}
+
+			if (Time::gameState == GameState::PLAYING)
+				App->particle_manager->StartEmitters();
 		}
 
 		ImGui::SameLine();
