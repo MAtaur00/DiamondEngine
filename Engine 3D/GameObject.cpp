@@ -32,8 +32,6 @@ GameObject::~GameObject()
 
 void GameObject::RealDelete()
 {
-	
-
 	for (auto comp : components)
 	{
 		delete comp;
