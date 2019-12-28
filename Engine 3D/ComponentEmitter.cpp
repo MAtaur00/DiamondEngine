@@ -77,6 +77,60 @@ void ComponentEmitter::Inspector()
 
 		ImGui::Separator();
 
+		if (ImGui::RadioButton("Cone shape", shapeType == Cone_TYPE) )
+		{
+			shapeType = Cone_TYPE;
+		}
+
+		if (ImGui::RadioButton("Sphere shape", shapeType == Sphere_TYPE))
+		{
+			shapeType = Sphere_TYPE;
+		}
+
+		if (ImGui::RadioButton("Box shape", shapeType == Box_TYPE))
+		{
+			shapeType = Box_TYPE;
+		}
+
+		ImGui::Separator();
+
+		switch (shapeType)
+		{
+		case Cone_TYPE:
+
+			if (ImGui::DragFloat("Cone heigh", &heigh, 0.1f, 0.0f, 0.0f, "%.2f"))
+			{
+				circle.pos.y = heigh;
+
+			}
+
+			if (ImGui::DragFloat("Cone radius", &rad, 0.1f, 0.0f, 0.0f, "%.2f"))
+			{
+				circle.r = rad;
+
+			}
+			break;
+		case Sphere_TYPE:
+			if (ImGui::DragFloat("Sphere radius", &rad, 0.1f, 0.0f, 0.0f, "%.2f"))
+			{
+				sphere.r = rad;
+
+			}
+			break;
+		case Box_TYPE:
+			if (ImGui::DragFloat3("Box size", &boxSize.x, 0.1f, 0.0f, 0.0f, "%.2f"))
+			{
+				cube.SetFromCenterAndSize(gameObject->transform->GetGlobalPos(), boxSize);
+
+			}
+			break;
+		default:
+			break;
+		}
+
+	
+		ImGui::Separator();
+
 		if (texture)
 		{
 			ImGui::Text("%s", texPath.c_str());
