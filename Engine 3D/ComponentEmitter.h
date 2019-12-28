@@ -13,6 +13,8 @@ public:
 	ComponentEmitter(GameObject* parent);
 	~ComponentEmitter();
 
+	bool Start();
+
 	void Inspector();
 
 	void Update();
@@ -23,8 +25,17 @@ public:
 
 public:
 	Timer timer;
+	Timer timerBurst;
+
+	bool subEmitter = false;
+	bool subEmitterExists = false;
+
+	ComponentEmitter* subEmitterComp = nullptr;
 
 	float ratio = 0.f;
+	float burstRatio = 0.f;
+
+	int particlesBurst = 0;
 
 	float life = 0.0f;
 	float speed = 1.0f;

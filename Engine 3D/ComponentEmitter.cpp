@@ -5,6 +5,7 @@
 #include "Particle.h"
 #include "ModuleTime.h"
 #include "ResourceTexture.h"
+#include "Inspector.h"
 
 ComponentEmitter::ComponentEmitter(GameObject* parent) : Component(parent, CompEmitter)
 {
@@ -14,6 +15,14 @@ ComponentEmitter::ComponentEmitter(GameObject* parent) : Component(parent, CompE
 
 ComponentEmitter::~ComponentEmitter()
 {
+}
+
+bool ComponentEmitter::Start()
+{
+	timer.Start();
+	timerBurst.Start();
+
+	return true;
 }
 
 void ComponentEmitter::Inspector()
@@ -56,6 +65,18 @@ void ComponentEmitter::Inspector()
 
 		ImGui::Separator();
 
+		if (ImGui::DragFloat("Burst Ratio", &burstRatio, 0.1f, 0.0f, 0.0f, "%.2f"))
+		{
+		}
+
+		ImGui::Separator();
+
+		if (ImGui::DragInt("Particles in burst", &particlesBurst, 1, 0, 100))
+		{
+		}
+
+		ImGui::Separator();
+
 		if (texture)
 		{
 			ImGui::Text("%s", texPath.c_str());
@@ -65,6 +86,10 @@ void ComponentEmitter::Inspector()
 		ImGui::Separator();
 
 		ImGui::ColorPicker4("Color", &color.x);
+
+		ImGui::Separator();
+
+		ImGui::Checkbox("Subemitter", &subEmitter);
 
 		ImGui::Separator();
 
@@ -80,14 +105,39 @@ void ComponentEmitter::Inspector()
 		{
 			App->game_object->componentsToDelete.push_back(this);
 		}
-
-	
 	}
 }
 
 void ComponentEmitter::Update()
 {
 	float time = timer.Read();
+	float burstTime = timerBurst.Read();
+
+	if (!subEmitter && subEmitterExists)
+	{
+		for (auto object : gameObject->childs)
+		{
+			if (object->HasComponent(CompEmitter))
+			{
+				gameObject->childs.remove(object);
+
+				App->game_object->gameObjectsToDelete.push_back(object);
+				for (auto child : object->childs)
+				{
+					App->imgui->inspector->NewObjectsToDelete(child);
+				}
+			}
+		}
+
+		subEmitterExists = false;
+	}
+
+	if (subEmitter && !subEmitterExists)
+	{
+		GameObject* newEmitterGO = new GameObject(this->gameObject);
+		subEmitterComp = new ComponentEmitter(newEmitterGO);
+		subEmitterExists = true;
+	}
 
 	if (ratio > 0.0f)
 	{
@@ -95,13 +145,29 @@ void ComponentEmitter::Update()
 		{
 			if (App->module_time->gameState == GameState::PLAYING)
 			{
-				float3 up = float3::unitY;
-
 				int pos = App->particle_manager->GetLastParticle();
 				App->particle_manager->particles[pos].SetActive(gameObject->transform->GetGlobalPos(), speed, (float3::unitY * gameObject->transform->GetRotation().ToFloat3x3()).Normalized(), rotation, size, life, &texture, color);
 				particlesList.push_back(&App->particle_manager->particles[pos]);
 				App->particle_manager->particles[pos].emitterpart = this;
 				App->particle_manager->activeParticles++;
+			}
+		}
+	}
+
+	if (burstRatio > 0.0f)
+	{
+		if (burstTime >= burstRatio)
+		{
+			if (App->module_time->gameState == GameState::PLAYING)
+			{
+				for (int i = 0; i < particlesBurst; ++i)
+				{
+					int pos = App->particle_manager->GetLastParticle();
+					App->particle_manager->particles[pos].SetActive(gameObject->transform->GetGlobalPos(), speed, (float3::unitY * gameObject->transform->GetRotation().ToFloat3x3()).Normalized(), rotation, size, life, &texture, color);
+					particlesList.push_back(&App->particle_manager->particles[pos]);
+					App->particle_manager->particles[pos].emitterpart = this;
+					App->particle_manager->activeParticles++;
+				}
 			}
 		}
 	}
