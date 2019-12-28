@@ -200,7 +200,7 @@ void ComponentEmitter::Update()
 			if (App->module_time->gameState == GameState::PLAYING)
 			{
 				int pos = App->particle_manager->GetLastParticle();
-				App->particle_manager->particles[pos].SetActive(gameObject->transform->GetGlobalPos(), speed, (float3::unitY * gameObject->transform->GetRotation().ToFloat3x3()).Normalized(), rotation, size, life, &texture, color);
+				ActiveParticle(pos);				
 				particlesList.push_back(&App->particle_manager->particles[pos]);
 				App->particle_manager->particles[pos].emitterpart = this;
 				App->particle_manager->activeParticles++;
@@ -224,6 +224,34 @@ void ComponentEmitter::Update()
 				}
 			}
 		}
+	}
+}
+
+void ComponentEmitter::ActiveParticle(int pos)
+{
+	float3 randompoint = float3::zero;
+	float3 initialpos = float3::zero;
+	float3 directionvec = float3::zero;
+	switch (shapeType)
+	{
+	case Cone_TYPE:
+		randompoint = circle.RandomPointInside(App->random);
+		initialpos = gameObject->transform->GetGlobalPos();
+		directionvec = (randompoint - initialpos).Normalized();
+		App->particle_manager->particles[pos].SetActive(gameObject->transform->GetGlobalPos(), speed, directionvec, rotation, size, life, &texture, color);
+		break;
+	case Sphere_TYPE:
+		randompoint = sphere.RandomPointInside(App->random);
+		initialpos = gameObject->transform->GetGlobalPos();
+		directionvec = (randompoint - initialpos).Normalized();
+		App->particle_manager->particles[pos].SetActive(randompoint, speed, directionvec, rotation, size, life, &texture, color);
+		break;
+	case Box_TYPE:
+		randompoint = cube.RandomPointInside(App->random);
+		App->particle_manager->particles[pos].SetActive(randompoint, speed, (float3::unitY * gameObject->transform->GetRotation().ToFloat3x3()).Normalized(), rotation, size, life, &texture, color);
+		break;
+	default:
+		break;
 	}
 }
 
