@@ -167,24 +167,26 @@ void ComponentEmitter::Update()
 	float time = timer.Read();
 	float burstTime = timerBurst.Read();
 
-	if (!subEmitter && subEmitterExists)
+	/*if (!subEmitter && subEmitterExists && gameObject->childs.size() > 0 )
 	{
 		for (auto object : gameObject->childs)
 		{
-			if (object->HasComponent(CompEmitter))
-			{
-				gameObject->childs.remove(object);
-
-				App->game_object->gameObjectsToDelete.push_back(object);
-				for (auto child : object->childs)
+			
+				if (object->HasComponent(CompEmitter))
 				{
-					App->imgui->inspector->NewObjectsToDelete(child);
+					gameObject->childs.remove(object);
+
+					App->game_object->gameObjectsToDelete.push_back(object);
+					for (auto child : object->childs)
+					{
+						App->imgui->inspector->NewObjectsToDelete(child);
+					}
 				}
-			}
+			
 		}
 
 		subEmitterExists = false;
-	}
+	}*/
 
 	if (subEmitter && !subEmitterExists)
 	{
@@ -324,6 +326,27 @@ void ComponentEmitter::Save(JSON_Object * parent)
 	json_object_set_number(positionObj, "Y", color.y);
 	json_object_set_number(positionObj, "Z", color.z);
 	json_object_set_number(positionObj, "W", color.w);
+
+	// Shape
+	//------------------------------------------------------------------------
+
+	JSON_Value* shp = json_value_init_object();
+	JSON_Object* shapeObj = json_value_get_object(shp);
+
+	json_object_set_value(parent, "Shape", shp);
+
+	json_object_set_number(shapeObj, "cube X", cube.Size().x);
+	json_object_set_number(shapeObj, "cube Y", cube.Size().y);
+	json_object_set_number(shapeObj, "cube Z", cube.Size().z);
+
+
+	json_object_set_number(shapeObj, "Sphere R", sphere.r);
+
+	json_object_set_number(shapeObj, "Circle R", circle.r);
+	json_object_set_number(shapeObj, "Circle Heigh", heigh);
+
+	json_object_set_number(shapeObj, "ShapeTYPE", shapeType);
+
 }
 
 void ComponentEmitter::Load(JSON_Object * parent)
@@ -371,4 +394,24 @@ void ComponentEmitter::Load(JSON_Object * parent)
 	color.y = json_object_get_number(clr, "Y");
 	color.z = json_object_get_number(clr, "Z");
 	color.w = json_object_get_number(clr, "W");
+
+	// Shape
+	//------------------------------------------------------------------------
+	JSON_Object* shp = json_object_get_object(parent, "Shape");
+	float3 cubesize;
+	cubesize.x = json_object_get_number(shp, "cube X");
+	cubesize.y = json_object_get_number(shp, "cube Y");
+	cubesize.z = json_object_get_number(shp, "cube Z");
+
+	cube.SetFromCenterAndSize(gameObject->transform->GetGlobalPos(), cubesize);
+
+	sphere.r = json_object_get_number(shp, "Sphere R");
+
+	circle.r = json_object_get_number(shp, "Circle R");
+	circle.pos.y = json_object_get_number(shp, "Circle Heigh");
+
+
+
+	shapeType = (Shape_TYPE)json_object_get_number(shp, "ShapeTYPE");
+
 }

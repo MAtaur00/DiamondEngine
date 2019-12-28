@@ -28,6 +28,8 @@ public:
 
 	void Update();
 
+	void ActiveParticle(int pos);
+
 	void Save(JSON_Object* parent);
 
 	void Load(JSON_Object* parent);
