@@ -38,28 +38,26 @@ void Particle::Update(float dt)
 	}
 	else
 	{
-		emitterpart->particlesList.remove(this);
-		App->particle_manager->activeParticles--;
-		active = false;
+		
 
-		if (emitterpart->subEmitter)
+		if (emitterpart->subEmitter && emitterpart->subEmitterComp)
 		{
 			if (App->module_time->gameState == GameState::PLAYING)
 			{
 				for (int i = 0; i < emitterpart->particlesBurst; ++i)
 				{
 					int pos = App->particle_manager->GetLastParticle();
-					App->particle_manager->particles[pos].SetActive(position, speed, direction, rotation, size, life, &emitterpart->texture, color);
-					emitterpart->particlesList.push_back(&App->particle_manager->particles[pos]);
-					
-					if (emitterpart->subEmitterComp)
-					{
-						App->particle_manager->particles[pos].emitterpart = emitterpart->subEmitterComp;
-					}
+					emitterpart->subEmitterComp->ActiveParticle(pos);			
+					emitterpart->particlesList.push_back(&App->particle_manager->particles[pos]);					
+					App->particle_manager->particles[pos].emitterpart = emitterpart->subEmitterComp;				
 					App->particle_manager->activeParticles++;
 				}
 			}
 		}
+
+		emitterpart->particlesList.remove(this);
+		App->particle_manager->activeParticles--;
+		active = false;
 	}
 	//ownRotation = ownRotation.Mul(Quat::RotateZ(rotation));
 }
