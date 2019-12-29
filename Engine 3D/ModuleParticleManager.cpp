@@ -40,9 +40,16 @@ int ModuleParticleManager::GetLastParticle()
 
 update_status ModuleParticleManager::Update()
 {
-	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+	if (!ImGui::IsAnyWindowFocused)
 	{
-		firework->Start();
+		if (Time::gameState == GameState::PLAYING)
+		{
+			if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+			{
+				if (firework)
+					firework->Start();
+			}
+		}
 	}
 
 	for (std::list<ComponentEmitter*>::iterator iterator = emitters.begin(); iterator != emitters.end(); ++iterator)

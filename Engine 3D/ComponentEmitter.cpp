@@ -101,7 +101,7 @@ void ComponentEmitter::Inspector()
 		{
 		case Cone_TYPE:
 
-			if (ImGui::DragFloat("Cone heigh", &heigh, 0.1f, 0.0f, 0.0f, "%.2f"))
+			if (ImGui::DragFloat("Cone height", &heigh, 0.1f, 0.0f, 0.0f, "%.2f"))
 			{
 				circle.pos.y = heigh;
 
@@ -236,7 +236,6 @@ void ComponentEmitter::ActiveParticle(int pos)
 		initialpos = gameObject->transform->GetGlobalPos();
 		randompoint += initialpos;
 		directionvec = (randompoint - initialpos).Normalized();
-		sphere.pos;
 		App->particle_manager->particles[pos].SetActive(randompoint, speed, directionvec, rotation, size, life, &texture, color);
 		break;
 	case Box_TYPE:
