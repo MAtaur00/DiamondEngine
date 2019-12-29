@@ -62,13 +62,13 @@ void ComponentEmitter::Inspector()
 
 		ImGui::Separator();
 
-		if (ImGui::DragFloat("Ratio", &ratio, 0.1f, 0.0f, 0.0f, "%.2f"))
+		if (ImGui::DragFloat("Time between particles", &ratio, 0.1f, 0.0f, 0.0f, "%.2f"))
 		{
 		}
 
 		ImGui::Separator();
 
-		if (ImGui::DragFloat("Burst Ratio", &burstRatio, 0.1f, 0.0f, 0.0f, "%.2f"))
+		if (ImGui::DragFloat("Time between bursts", &burstRatio, 0.1f, 0.0f, 0.0f, "%.2f"))
 		{
 		}
 
@@ -161,8 +161,8 @@ void ComponentEmitter::Inspector()
 
 void ComponentEmitter::Update()
 {
-	float time = timer.Read();
-	float burstTime = timerBurst.Read();
+	
+	
 
 	if (gameObject->HasComponent(CompTexture))
 	{
@@ -179,6 +179,7 @@ void ComponentEmitter::Update()
 
 	if (ratio > 0.0f)
 	{
+		float time = timer.Read();
 		if (time >= ratio)
 		{
 			if (App->module_time->gameState == GameState::PLAYING)
@@ -188,12 +189,15 @@ void ComponentEmitter::Update()
 				particlesList.push_back(&App->particle_manager->particles[pos]);
 				App->particle_manager->particles[pos].emitterpart = this;
 				App->particle_manager->activeParticles++;
+
+				timer.Start();
 			}
 		}
 	}
 
 	if (burstRatio > 0.0f)
 	{
+		float burstTime = timerBurst.Read();
 		if (burstTime >= burstRatio)
 		{
 			if (App->module_time->gameState == GameState::PLAYING)
@@ -205,6 +209,8 @@ void ComponentEmitter::Update()
 					particlesList.push_back(&App->particle_manager->particles[pos]);
 					App->particle_manager->particles[pos].emitterpart = this;
 					App->particle_manager->activeParticles++;
+
+					timerBurst.Start();
 				}
 			}
 		}
