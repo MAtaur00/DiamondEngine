@@ -40,6 +40,11 @@ int ModuleParticleManager::GetLastParticle()
 
 update_status ModuleParticleManager::Update()
 {
+	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+	{
+		firework->Start();
+	}
+
 	for (std::list<ComponentEmitter*>::iterator iterator = emitters.begin(); iterator != emitters.end(); ++iterator)
 	{
 		(*iterator)->Update();
@@ -72,7 +77,8 @@ void ModuleParticleManager::StartEmitters()
 {
 	for (std::list<ComponentEmitter*>::iterator iterator = emitters.begin(); iterator != emitters.end(); ++iterator)
 	{
-		(*iterator)->Start();
+		if ((*iterator) != firework)
+			(*iterator)->Start();
 	}
 }
 

@@ -59,7 +59,7 @@ public:
 	std::string texPath;
 	float3 direction = float3::unitY;
 
-
+	bool isSubemitter = false;
 
 	std::list<Particle*> particlesList;
 

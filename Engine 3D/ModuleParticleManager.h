@@ -33,4 +33,6 @@ public:
 	int activeParticles = 0;
 	
 	ParticlePlane* plane = nullptr;
+
+	ComponentEmitter* firework = nullptr;
 };

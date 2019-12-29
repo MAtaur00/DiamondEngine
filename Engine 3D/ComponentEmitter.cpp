@@ -175,6 +175,7 @@ void ComponentEmitter::Update()
 		GameObject* newEmitterGO = new GameObject(this->gameObject);
 		subEmitterComp = new ComponentEmitter(newEmitterGO);
 		subEmitterExists = true;
+		subEmitterComp->isSubemitter = true;
 	}
 
 	if (ratio > 0.0f)
