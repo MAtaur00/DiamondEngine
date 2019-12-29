@@ -23,6 +23,8 @@ public:
 
 	void StartEmitters();
 
+	void ClearEmitters();
+
 public:
 	std::list<ComponentEmitter*> emitters;
 	Particle particles[MAX_PARTICLES];
