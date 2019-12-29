@@ -232,12 +232,16 @@ void ComponentEmitter::ActiveParticle(int pos)
 		break;
 	case Sphere_TYPE:
 		randompoint = sphere.RandomPointInside(App->random);
+		
 		initialpos = gameObject->transform->GetGlobalPos();
+		randompoint += initialpos;
 		directionvec = (randompoint - initialpos).Normalized();
+		sphere.pos;
 		App->particle_manager->particles[pos].SetActive(randompoint, speed, directionvec, rotation, size, life, &texture, color);
 		break;
 	case Box_TYPE:
 		randompoint = cube.RandomPointInside(App->random);
+		randompoint += gameObject->transform->GetGlobalPos();
 		App->particle_manager->particles[pos].SetActive(randompoint, speed, (float3::unitY * gameObject->transform->GetRotation().ToFloat3x3()).Normalized(), rotation, size, life, &texture, color);
 		break;
 	default:
