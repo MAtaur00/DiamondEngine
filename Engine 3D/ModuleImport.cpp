@@ -321,9 +321,12 @@ void ModuleImport::ImportTexture(const char* path)
 	if (App->sceneIntro->current_object->HasComponent(CompTexture))
 	{
 		ComponentTexture* texture = (ComponentTexture*)App->sceneIntro->current_object->GetComponent(CompTexture);
-		App->resources->ResourceUsageDecreased(texture->RTexture);	
+		App->resources->ResourceUsageDecreased(texture->RTexture);
 		std::string tex_path(path);
-		texture->path = tex_path;
+		
+		texture->path = tex_path.substr(tex_path.find_last_of("\\") + 1);
+		texture->path = texture->path.substr(0, texture->path.find_last_of("."));
+		texture->path = "Library\\Textures\\" + texture->path + ".dds";
 		texture->RTexture = m;
 		LOG("Texture loaded");
 	}
@@ -331,7 +334,9 @@ void ModuleImport::ImportTexture(const char* path)
 	{
 		ComponentTexture* texture = new ComponentTexture(App->sceneIntro->current_object);
 		std::string tex_path(path);
-		texture->path = tex_path;
+		texture->path = tex_path.substr(tex_path.find_last_of("\\") + 1);
+		texture->path = texture->path.substr(0, texture->path.find_last_of("."));
+		texture->path = "Library\\Textures\\" + texture->path + ".dds";
 		texture->RTexture = m;
 		LOG("Texture loaded");
 	}

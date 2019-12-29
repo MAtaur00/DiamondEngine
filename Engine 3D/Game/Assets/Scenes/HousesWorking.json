@@ -1908,7 +1908,7 @@
         ]
     },
     {
-        "Name": "gameObject",
+        "Name": "camera",
         "UUID": 1514887623,
         "Parent UUID": 41705475,
         "Active": true,
@@ -1950,7 +1950,7 @@
         ]
     },
     {
-        "Name": "gameObject",
+        "Name": "chimneySmoke1",
         "UUID": 3490285122,
         "Parent UUID": 41705475,
         "Active": true,
@@ -2029,7 +2029,7 @@
         ]
     },
     {
-        "Name": "gameObject",
+        "Name": "chimneySmoke2",
         "UUID": 3258600978,
         "Parent UUID": 41705475,
         "Active": true,
@@ -2085,7 +2085,7 @@
                     "Value": 300
                 },
                 "BurstRatio": {
-                    "Value": 1
+                    "Value": 0
                 },
                 "ParticlesBurst": {
                     "Value": 0
@@ -2108,7 +2108,7 @@
         ]
     },
     {
-        "Name": "gameObject",
+        "Name": "chimneySmoke3",
         "UUID": 109707494,
         "Parent UUID": 41705475,
         "Active": true,
@@ -2187,7 +2187,7 @@
         ]
     },
     {
-        "Name": "gameObject",
+        "Name": "chimneySmoke4",
         "UUID": 2266210955,
         "Parent UUID": 41705475,
         "Active": true,
