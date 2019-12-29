@@ -60,6 +60,7 @@ public:
 	float3 direction = float3::unitY;
 
 	bool isSubemitter = false;
+	bool startUpdate = true;
 
 	std::list<Particle*> particlesList;
 

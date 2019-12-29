@@ -35,6 +35,7 @@ public:
 
 	ParticlePlane* plane = nullptr;
 
+
 private:
 	math::Quat ownRotation = Quat::identity;
 	float lifeTime = 0.0f;

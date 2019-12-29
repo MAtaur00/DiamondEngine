@@ -176,7 +176,13 @@ void ComponentEmitter::Update()
 		subEmitterComp = new ComponentEmitter(newEmitterGO);
 		subEmitterExists = true;
 		subEmitterComp->isSubemitter = true;
+		subEmitterComp->startUpdate = false;
+
 	}
+	if (isSubemitter)
+		startUpdate = false;
+	if (startUpdate != true)
+		return;
 
 	if (ratio > 0.0f)
 	{
@@ -231,8 +237,7 @@ void ComponentEmitter::ActiveParticle(int pos)
 		App->particle_manager->particles[pos].SetActive(gameObject->transform->GetGlobalPos(), speed, directionvec, rotation, size, life, &texture, color);
 		break;
 	case Sphere_TYPE:
-		randompoint = sphere.RandomPointInside(App->random);
-		
+		randompoint = sphere.RandomPointInside(App->random);		
 		initialpos = gameObject->transform->GetGlobalPos();
 		randompoint += initialpos;
 		directionvec = (randompoint - initialpos).Normalized();
