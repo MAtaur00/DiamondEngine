@@ -208,10 +208,9 @@ void ComponentEmitter::Update()
 					ActiveParticle(pos);
 					particlesList.push_back(&App->particle_manager->particles[pos]);
 					App->particle_manager->particles[pos].emitterpart = this;
-					App->particle_manager->activeParticles++;
-
-					timerBurst.Start();
+					App->particle_manager->activeParticles++;	
 				}
+				timerBurst.Start();
 			}
 		}
 	}
