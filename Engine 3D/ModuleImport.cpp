@@ -62,7 +62,7 @@ bool ModuleImport::Start()
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 500, 500, 0, GL_RGBA, GL_UNSIGNED_BYTE, checkImage);
 
 	//ImportFBX("Assets\\Models\\Street environment_V01.FBX");
-	App->game_object->LoadScene("Assets\\Scenes\\PlayingScene.json");
+	App->game_object->LoadScene("Assets\\Scenes\\HousesWorking.json");
 	/*ImportTexture("Assets\\Textures\\Baker_house.png");*/
 
 

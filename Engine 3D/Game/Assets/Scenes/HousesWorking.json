@@ -2003,13 +2003,13 @@
                     "W": 1
                 },
                 "Ratio": {
-                    "Value": 0
+                    "Value": 300
                 },
                 "BurstRatio": {
-                    "Value": 800
+                    "Value": 0
                 },
                 "ParticlesBurst": {
-                    "Value": 2
+                    "Value": 0
                 },
                 "Shape": {
                     "cubeX": 2,
@@ -2082,17 +2082,17 @@
                     "W": 1
                 },
                 "Ratio": {
-                    "Value": 0
+                    "Value": 300
                 },
                 "BurstRatio": {
-                    "Value": 800
+                    "Value": 1
                 },
                 "ParticlesBurst": {
-                    "Value": 2
+                    "Value": 0
                 },
                 "Shape": {
                     "cubeX": 2,
-                    "cubeY": 2,
+                    "cubeY": 1.9999990463256836,
                     "cubeZ": 2,
                     "SphereR": 1,
                     "CircleR": 0.60000002384185791,
@@ -2161,17 +2161,17 @@
                     "W": 1
                 },
                 "Ratio": {
-                    "Value": 0
+                    "Value": 300
                 },
                 "BurstRatio": {
-                    "Value": 800
+                    "Value": 0
                 },
                 "ParticlesBurst": {
-                    "Value": 2
+                    "Value": 0
                 },
                 "Shape": {
                     "cubeX": 2,
-                    "cubeY": 2,
+                    "cubeY": 1.9999990463256836,
                     "cubeZ": 2,
                     "SphereR": 1,
                     "CircleR": 0.60000002384185791,
@@ -2240,17 +2240,17 @@
                     "W": 1
                 },
                 "Ratio": {
-                    "Value": 0
+                    "Value": 300
                 },
                 "BurstRatio": {
-                    "Value": 800
+                    "Value": 0
                 },
                 "ParticlesBurst": {
-                    "Value": 2
+                    "Value": 0
                 },
                 "Shape": {
                     "cubeX": 2,
-                    "cubeY": 2,
+                    "cubeY": 2.0000009536743164,
                     "cubeZ": 2,
                     "SphereR": 1,
                     "CircleR": 0.60000002384185791,
