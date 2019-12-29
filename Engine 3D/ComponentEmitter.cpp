@@ -322,10 +322,6 @@ void ComponentEmitter::Save(JSON_Object * parent)
 
 	json_object_set_number(sizeObj, "Value", size);
 
-	// Texture Path
-	//------------------------------------------------------------------------
-	json_object_set_string(parent, "Path", texPath.c_str());
-
 	// Color
 	//------------------------------------------------------------------------
 	JSON_Value* clr = json_value_init_object();
@@ -424,11 +420,6 @@ void ComponentEmitter::Load(JSON_Object * parent)
 	//------------------------------------------------------------------------
 	JSON_Object* siz = json_object_get_object(parent, "Size");
 	size = json_object_get_number(siz, "Value");
-
-	// Texture
-	//------------------------------------------------------------------------
-	texPath = json_object_get_string(parent, "Path");
-	texture = new ResourceTexture(texPath.c_str());
 
 	// Color
 	//------------------------------------------------------------------------
