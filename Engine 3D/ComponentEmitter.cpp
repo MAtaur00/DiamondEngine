@@ -131,15 +131,6 @@ void ComponentEmitter::Inspector()
 			break;
 		}
 
-	
-		ImGui::Separator();
-
-		if (texture)
-		{
-			ImGui::Text("%s", texPath.c_str());
-			ImGui::Image((void*)(intptr_t)texture->id, ImVec2(225, 225), ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f));
-		}
-
 		ImGui::Separator();
 
 		ImGui::ColorPicker4("Color", &color.x);
@@ -255,10 +246,10 @@ void ComponentEmitter::Save(JSON_Object * parent)
 
 	// Position
 	//------------------------------------------------------------------------
-	JSON_Value* pos = json_value_init_object();
+	/*JSON_Value* pos = json_value_init_object();
 	JSON_Object* positionObj = json_value_get_object(pos);
 
-	/*json_object_set_value(parent, "Position", pos);
+	json_object_set_value(parent, "Position", pos);
 
 	json_object_set_number(positionObj, "X", position.x);
 	json_object_set_number(positionObj, "Y", position.y);
@@ -271,7 +262,16 @@ void ComponentEmitter::Save(JSON_Object * parent)
 
 	json_object_set_value(parent, "Speed", sp);
 
-	json_object_set_number(positionObj, "Value", speed);
+	json_object_set_number(speedObj, "Value", speed);
+
+	// Life
+	//------------------------------------------------------------------------
+	JSON_Value* lif = json_value_init_object();
+	JSON_Object* lifeObj = json_value_get_object(lif);
+
+	json_object_set_value(parent, "Life", lif);
+
+	json_object_set_number(lifeObj, "Value", life);
 
 	// Direction
 	//------------------------------------------------------------------------
@@ -280,9 +280,9 @@ void ComponentEmitter::Save(JSON_Object * parent)
 
 	json_object_set_value(parent, "Direction", dir);
 
-	json_object_set_number(positionObj, "X", direction.x);
-	json_object_set_number(positionObj, "Y", direction.y);
-	json_object_set_number(positionObj, "Z", direction.z);
+	json_object_set_number(directionObj, "X", direction.x);
+	json_object_set_number(directionObj, "Y", direction.y);
+	json_object_set_number(directionObj, "Z", direction.z);
 
 	// Rotation
 	//------------------------------------------------------------------------
@@ -291,7 +291,7 @@ void ComponentEmitter::Save(JSON_Object * parent)
 
 	json_object_set_value(parent, "Rotation", rot);
 
-	json_object_set_number(positionObj, "Value", rotation);
+	json_object_set_number(roationObj, "Value", rotation);
 
 	// Size
 	//------------------------------------------------------------------------
@@ -300,7 +300,7 @@ void ComponentEmitter::Save(JSON_Object * parent)
 
 	json_object_set_value(parent, "Size", siz);
 
-	json_object_set_number(positionObj, "Value", size);
+	json_object_set_number(sizeObj, "Value", size);
 
 	// Texture Path
 	//------------------------------------------------------------------------
@@ -313,10 +313,37 @@ void ComponentEmitter::Save(JSON_Object * parent)
 
 	json_object_set_value(parent, "Color", clr);
 
-	json_object_set_number(positionObj, "X", color.x);
-	json_object_set_number(positionObj, "Y", color.y);
-	json_object_set_number(positionObj, "Z", color.z);
-	json_object_set_number(positionObj, "W", color.w);
+	json_object_set_number(colorObj, "X", color.x);
+	json_object_set_number(colorObj, "Y", color.y);
+	json_object_set_number(colorObj, "Z", color.z);
+	json_object_set_number(colorObj, "W", color.w);
+
+	// Ratio
+	//------------------------------------------------------------------------
+	JSON_Value* rat = json_value_init_object();
+	JSON_Object* ratioObj = json_value_get_object(rat);
+
+	json_object_set_value(parent, "Ratio", rat);
+
+	json_object_set_number(ratioObj, "Value", ratio);
+
+	// Burst Ratio
+	//------------------------------------------------------------------------
+	JSON_Value* burstRat = json_value_init_object();
+	JSON_Object* burstRatioObj = json_value_get_object(burstRat);
+
+	json_object_set_value(parent, "BurstRatio", burstRat);
+
+	json_object_set_number(burstRatioObj, "Value", burstRatio);
+
+	// Particles per burst
+	//------------------------------------------------------------------------
+	JSON_Value* partBurst = json_value_init_object();
+	JSON_Object* particlesBurstObj = json_value_get_object(partBurst);
+
+	json_object_set_value(parent, "ParticlesBurst", partBurst);
+
+	json_object_set_number(particlesBurstObj, "Value", particlesBurst);
 
 	// Shape
 	//------------------------------------------------------------------------
@@ -326,15 +353,15 @@ void ComponentEmitter::Save(JSON_Object * parent)
 
 	json_object_set_value(parent, "Shape", shp);
 
-	json_object_set_number(shapeObj, "cube X", cube.Size().x);
-	json_object_set_number(shapeObj, "cube Y", cube.Size().y);
-	json_object_set_number(shapeObj, "cube Z", cube.Size().z);
+	json_object_set_number(shapeObj, "cubeX", cube.Size().x);
+	json_object_set_number(shapeObj, "cubeY", cube.Size().y);
+	json_object_set_number(shapeObj, "cubeZ", cube.Size().z);
 
 
-	json_object_set_number(shapeObj, "Sphere R", sphere.r);
+	json_object_set_number(shapeObj, "SphereR", sphere.r);
 
-	json_object_set_number(shapeObj, "Circle R", circle.r);
-	json_object_set_number(shapeObj, "Circle Heigh", heigh);
+	json_object_set_number(shapeObj, "CircleR", circle.r);
+	json_object_set_number(shapeObj, "CircleHeight", heigh);
 
 	json_object_set_number(shapeObj, "ShapeTYPE", shapeType);
 
@@ -354,7 +381,12 @@ void ComponentEmitter::Load(JSON_Object * parent)
 	// Speed
 	//------------------------------------------------------------------------
 	JSON_Object* sp = json_object_get_object(parent, "Speed");
-	speed = json_object_get_number(sp, "ValueX");
+	speed = json_object_get_number(sp, "Value");
+
+	// Life
+	//------------------------------------------------------------------------
+	JSON_Object* lif = json_object_get_object(parent, "Life");
+	life = json_object_get_number(lif, "Value");
 
 	// Direction
 	//------------------------------------------------------------------------
@@ -386,20 +418,35 @@ void ComponentEmitter::Load(JSON_Object * parent)
 	color.z = json_object_get_number(clr, "Z");
 	color.w = json_object_get_number(clr, "W");
 
+	// Ratio
+	//------------------------------------------------------------------------
+	JSON_Object* ratioObj = json_object_get_object(parent, "Ratio");
+	ratio = json_object_get_number(ratioObj, "Value");
+
+	// Burst Ratio
+	//------------------------------------------------------------------------
+	JSON_Object* burstRatioObj = json_object_get_object(parent, "BurstRatio");
+	burstRatio = json_object_get_number(burstRatioObj, "Value");
+
+	// Particles per burst
+	//------------------------------------------------------------------------
+	JSON_Object* particlesBurstObj = json_object_get_object(parent, "ParticlesBurst");
+	burstRatio = json_object_get_number(particlesBurstObj, "Value");
+
 	// Shape
 	//------------------------------------------------------------------------
 	JSON_Object* shp = json_object_get_object(parent, "Shape");
 	float3 cubesize;
-	cubesize.x = json_object_get_number(shp, "cube X");
-	cubesize.y = json_object_get_number(shp, "cube Y");
-	cubesize.z = json_object_get_number(shp, "cube Z");
+	cubesize.x = json_object_get_number(shp, "cubeX");
+	cubesize.y = json_object_get_number(shp, "cubeY");
+	cubesize.z = json_object_get_number(shp, "cubeZ");
 
 	cube.SetFromCenterAndSize(gameObject->transform->GetGlobalPos(), cubesize);
 
-	sphere.r = json_object_get_number(shp, "Sphere R");
+	sphere.r = json_object_get_number(shp, "SphereR");
 
-	circle.r = json_object_get_number(shp, "Circle R");
-	circle.pos.y = json_object_get_number(shp, "Circle Heigh");
+	circle.r = json_object_get_number(shp, "CircleR");
+	circle.pos.y = json_object_get_number(shp, "Circle Height");
 
 	shapeType = (Shape_TYPE)(int)json_object_get_number(shp, "ShapeTYPE");
 }

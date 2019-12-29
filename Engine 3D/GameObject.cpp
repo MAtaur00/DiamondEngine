@@ -161,6 +161,11 @@ void GameObject::Load(JSON_Object * info)
 			App->renderer3D->play_cam = cam;
 		}
 			break;
+		case CompEmitter:
+		{
+			ComponentEmitter* emit = new ComponentEmitter(this);
+			emit->Load(comp);
+		}
 		default:
 			break;
 		}
