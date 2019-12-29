@@ -201,7 +201,7 @@ void ComponentEmitter::Update()
 				for (int i = 0; i < particlesBurst; ++i)
 				{
 					int pos = App->particle_manager->GetLastParticle();
-					App->particle_manager->particles[pos].SetActive(gameObject->transform->GetGlobalPos(), speed, (float3::unitY * gameObject->transform->GetRotation().ToFloat3x3()).Normalized(), rotation, size, life, &texture, color);
+					ActiveParticle(pos);
 					particlesList.push_back(&App->particle_manager->particles[pos]);
 					App->particle_manager->particles[pos].emitterpart = this;
 					App->particle_manager->activeParticles++;
