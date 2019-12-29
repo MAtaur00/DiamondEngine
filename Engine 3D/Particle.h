@@ -34,7 +34,7 @@ public:
 	float3 direction = float3::zero;
 
 	ParticlePlane* plane = nullptr;
-
+	float3 deathpos = float3::zero;
 
 private:
 	math::Quat ownRotation = Quat::identity;

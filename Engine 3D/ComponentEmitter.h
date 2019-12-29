@@ -28,7 +28,7 @@ public:
 
 	void Update();
 
-	void ActiveParticle(int pos);
+	void ActiveParticle(int pos, bool isactive = false, float3 startposition = float3::zero);
 
 	void Save(JSON_Object* parent);
 
@@ -61,6 +61,7 @@ public:
 
 	bool isSubemitter = false;
 	bool startUpdate = true;
+
 
 	std::list<Particle*> particlesList;
 

@@ -38,6 +38,7 @@ void Particle::Update(float dt)
 	}
 	else
 	{
+		deathpos = position;
 		if (emitterpart->subEmitter && emitterpart->subEmitterComp)
 		{
 			if (App->module_time->gameState == GameState::PLAYING)
@@ -45,7 +46,7 @@ void Particle::Update(float dt)
 				for (int i = 0; i < emitterpart->particlesBurst; ++i)
 				{
 					int pos = App->particle_manager->GetLastParticle();
-					emitterpart->subEmitterComp->ActiveParticle(pos);
+					emitterpart->subEmitterComp->ActiveParticle(pos, true, position);
 					emitterpart->subEmitterComp->startUpdate = true;
 					emitterpart->particlesList.push_back(&App->particle_manager->particles[pos]);					
 					App->particle_manager->particles[pos].emitterpart = emitterpart->subEmitterComp;				
