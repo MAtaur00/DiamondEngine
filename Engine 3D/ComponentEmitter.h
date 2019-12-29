@@ -34,6 +34,8 @@ public:
 
 	void Load(JSON_Object* parent);
 
+	void Clear();
+
 public:
 	Timer timer;
 	Timer timerBurst;

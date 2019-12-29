@@ -15,12 +15,15 @@ ComponentEmitter::ComponentEmitter(GameObject* parent) : Component(parent, CompE
 
 ComponentEmitter::~ComponentEmitter()
 {
+	App->particle_manager->emitters.remove(this);
 }
 
 bool ComponentEmitter::Start()
 {
 	timer.Start();
 	timerBurst.Start();
+
+	Clear();
 
 	return true;
 }
@@ -399,4 +402,13 @@ void ComponentEmitter::Load(JSON_Object * parent)
 	circle.pos.y = json_object_get_number(shp, "Circle Heigh");
 
 	shapeType = (Shape_TYPE)(int)json_object_get_number(shp, "ShapeTYPE");
+}
+
+void ComponentEmitter::Clear()
+{
+	for (auto particle : particlesList)
+	{
+		particle->active = false;
+	}
+	particlesList.clear();
 }

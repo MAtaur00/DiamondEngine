@@ -561,6 +561,9 @@ update_status ModuleIMGui::PreUpdate()
 
 			if (Time::gameState == GameState::PLAYING)
 				App->particle_manager->StartEmitters();
+
+			if (Time::gameState == GameState::EDITOR)
+				App->particle_manager->ClearEmitters();
 		}
 
 		ImGui::SameLine();
