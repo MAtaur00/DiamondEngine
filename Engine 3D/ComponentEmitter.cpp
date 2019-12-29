@@ -458,7 +458,7 @@ void ComponentEmitter::Load(JSON_Object * parent)
 
 	circle.r = json_object_get_number(shp, "CircleR");
 	rad = circle.r;
-	circle.pos.y = json_object_get_number(shp, "Circle Height");
+	circle.pos.y = json_object_get_number(shp, "CircleHeight");
 	heigh = circle.pos.y;
 
 	shapeType = (Shape_TYPE)(int)json_object_get_number(shp, "ShapeTYPE");
