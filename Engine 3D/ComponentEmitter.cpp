@@ -250,8 +250,8 @@ void ComponentEmitter::ActiveParticle(int pos, bool isactive, float3 startpositi
 	case Box_TYPE:
 		randompoint = cube.RandomPointInside(App->random);
 		//randompoint += gameObject->transform->GetGlobalPos();
-		if (isactive == true) randompoint += startposition;
-		else randompoint += gameObject->transform->GetGlobalPos();
+		/*if (isactive == true) randompoint += startposition;
+		else randompoint += gameObject->transform->GetGlobalPos();*/
 		App->particle_manager->particles[pos].SetActive(randompoint, speed, (float3::unitY * gameObject->transform->GetRotation().ToFloat3x3()).Normalized(), rotation, size, life, &texture, color);
 		break;
 	default:
