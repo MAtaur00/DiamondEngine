@@ -124,7 +124,6 @@ void ComponentEmitter::Inspector()
 			if (ImGui::DragFloat3("Box size", &boxSize.x, 0.1f, 0.0f, 0.0f, "%.2f"))
 			{
 				cube.SetFromCenterAndSize(gameObject->transform->GetGlobalPos(), boxSize);
-
 			}
 			break;
 		default:
@@ -245,7 +244,7 @@ void ComponentEmitter::ActiveParticle(int pos)
 		break;
 	case Box_TYPE:
 		randompoint = cube.RandomPointInside(App->random);
-		randompoint += gameObject->transform->GetGlobalPos();
+		//randompoint += gameObject->transform->GetGlobalPos();
 		App->particle_manager->particles[pos].SetActive(randompoint, speed, (float3::unitY * gameObject->transform->GetRotation().ToFloat3x3()).Normalized(), rotation, size, life, &texture, color);
 		break;
 	default:

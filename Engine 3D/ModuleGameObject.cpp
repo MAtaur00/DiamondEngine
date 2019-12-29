@@ -80,6 +80,13 @@ void ModuleGameObject::LoadScene(const char * name)
 			{
 				root = obj;
 			}
+			if (obj->uuid == 234534)
+			{
+				if (obj->HasComponent(CompEmitter))
+				{
+					App->particle_manager->firework = (ComponentEmitter*)obj->GetComponent(CompEmitter);
+				}				
+			}
 		}
 		root->transform->UpdateBoundingBox();
 	}

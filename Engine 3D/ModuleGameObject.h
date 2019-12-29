@@ -29,4 +29,6 @@ public:
 	std::list<GameObject*> gameObjectsToDelete;
 
 	std::list<Component*> componentsToDelete;
+
+	unsigned int fireworkID = 0u;
 };
